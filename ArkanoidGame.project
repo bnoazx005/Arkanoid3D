@@ -1,0 +1,23 @@
+audio_settings:
+  audio_plugin: ./FmodAudioContext
+common_settings:
+  additional_mounted_dirs:
+    - alias: ProjectResources/
+      path: ../../ArkanoidGame/Resources/
+    - alias: ProjectShaders/
+      path: ../../ArkanoidGame/Resources/Shaders/
+  application_id: ArkanoidGame
+  base_resources_path: ../Resources/
+  flags: 20
+  max_worker_threads_count: 4
+  total_preallocated_memory_size: 134217728
+  user_plugins_list:
+    - id: ./TDE2LevelStreamingUtils
+graphics_settings:
+  renderer_plugin: ./D3D11GraphicsContext
+  renderer_settings:
+    shadow_maps_enabled: true
+    shadow_maps_size: 1024
+meta:
+  resource-type: project-settings
+  version-tag: 1
