@@ -1,0 +1,76 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 1
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 114296622
+        - component: 
+            type_id: 4238380769
+      id: 1
+      name: SunLight
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 2
+            parent_id: 4294967295
+            position: 
+              y: 5.000000
+              z: "-2.000000"
+            rotation: 
+              w: 0.781030
+              x: "-0.624493"
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 4238380769
+        - component: 
+            aspect: 1.333333
+            fov: 1.570796
+            type_id: 3622064475
+        - component: 
+            type_id: 2508644627
+      id: 2
+      name: PlayerCamera
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 4238380769
+        - component: 
+            type_id: 1576149979
+        - component: 
+            material: DefaultResources/Materials/DefaultSkybox.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+      id: 3
+      name: Skybox
+name: MainScene.scene
+scene_properties: 
+  is_main: 1
+version: 0

@@ -18,6 +18,8 @@ graphics_settings:
   renderer_settings:
     shadow_maps_enabled: true
     shadow_maps_size: 1024
+scenes_settings:
+  main_scene_path: Resources/Scenes/MainScene.scene
 meta:
   resource-type: project-settings
   version-tag: 1

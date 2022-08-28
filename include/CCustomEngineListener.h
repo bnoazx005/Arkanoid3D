@@ -55,4 +55,6 @@ class CCustomEngineListener: public TDEngine2::IEngineListener
 		TDEngine2::TPtr<TDEngine2::IWorld>                  mpWorld;
 		
 		TDEngine2::TPtr<TDEngine2::IDesktopInputContext>    mpInputContext;
+		
+		TDEngine2::TPtr<TDEngine2::ISceneManager>           mpSceneManager;
 };
