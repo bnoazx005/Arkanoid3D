@@ -14,7 +14,7 @@ entities:
               z: 1.000000
             type_id: 3864726948
         - component: 
-            material: DefaultResources/Materials/DefaultMaterial.material
+            material: ProjectResources/Materials/DefaultMaterial.material
             mesh: Plane
             sub_mesh_id: 
             type_id: 780504096
