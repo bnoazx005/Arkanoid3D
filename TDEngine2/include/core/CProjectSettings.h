@@ -82,6 +82,8 @@ namespace TDEngine2
 
 				std::string mPathToResourcesRuntimeManifest = "ProjectResources/ResourcesRuntimeMeta.manifest";
 				std::string mBaseResourcesPath = "../../Resources/";
+
+				std::string mPathToDefaultPrefabsManifest = "ProjectResources/PrefabsCollection.manifest";
 			} mCommonSettings;
 
 
@@ -103,5 +105,18 @@ namespace TDEngine2
 			{
 				F32 mEntitiesBoundsUpdateInterval = 0.5f;
 			} mWorldSettings;
+
+
+			struct TSceneManagerSettings
+			{
+				std::string mMainLevelScenePath = "MainScene.scene";
+			} mScenesSettings;
+
+
+			struct TSplashScreenSettings
+			{
+				bool mIsEnabled = false;
+				F32  mShowDuration = 4.0f;
+			} mSplashScreenSettings;
 	};
 }
