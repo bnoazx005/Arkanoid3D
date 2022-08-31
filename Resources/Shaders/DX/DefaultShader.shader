@@ -58,12 +58,17 @@ VertexOut mainVS(in VertexIn input)
 
 #include <TDEngine2ShadowMappingUtils.inc>
 
+/* \todo doesn't work for now 
+CBUFFER_SECTION_EX(ShaderParameters, 4)
+	float4 mBaseColor;
+CBUFFER_ENDSECTION
+*/
 
 DECLARE_TEX2D_EX(AlbedoMap, 1);
 
 float4 mainPS(VertexOut input): SV_TARGET0
 {
-	return input.mColor;
+	return GammaToLinear(TEX2D(AlbedoMap, input.mUV));
 }
 
 #endprogram

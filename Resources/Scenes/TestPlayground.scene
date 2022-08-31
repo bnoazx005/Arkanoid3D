@@ -18,10 +18,34 @@ entities:
             mesh: Plane
             sub_mesh_id: 
             type_id: 780504096
-        - component: 
-            type_id: 4238380769
       id: 7
       name: Floor
+  - entity: 
+      components: 
+        - component: 
+            type_id: 3941469362
+        - component: 
+            owner_id: 8
+            parent_id: 4294967295
+            position: 
+              y: 0.265626
+              z: "-4.338742"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            type_id: 3864726948
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            type_id: 4238380769
+      id: 8
+      name: Paddle
 name: TestPlayground.scene
 scene_properties: 
   is_main: 0

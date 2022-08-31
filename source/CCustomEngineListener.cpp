@@ -1,4 +1,6 @@
 #include "../include/CCustomEngineListener.h"
+#include "../include/Components.h"
+#include "../include/systems/CPaddleControlSystem.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -6,9 +8,25 @@
 using namespace TDEngine2;
 
 
+namespace Game
+{
+	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext)
+	{
+		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
+
+		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
+
+		return result;
+	}
+}
+
+
 E_RESULT_CODE CCustomEngineListener::OnStart()
 {
 	mpWorld = mpSceneManager->GetWorld();
+
+	Game::RegisterGameComponents(mpWorld);
+	Game::RegisterGameSystems(mpWorld, mpInputContext);
 
 	/// \todo Replace this later with scene's configurable solution
 	if (auto pMainScene = mpSceneManager->GetScene(MainScene).Get())
