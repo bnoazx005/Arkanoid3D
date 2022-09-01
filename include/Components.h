@@ -12,7 +12,11 @@
 
 namespace Game
 {
-	TDEngine2::E_RESULT_CODE RegisterGameComponents(TDEngine2::TPtr<TDEngine2::IWorld> pWorld);
+	TDEngine2::E_RESULT_CODE RegisterGameComponents(TDEngine2::TPtr<TDEngine2::IWorld> pWorld
+#if TDE2_EDITORS_ENABLED
+		, TDEngine2::TPtr<TDEngine2::IEditorsManager> pEditorsManager
+#endif 
+	);
 
 	//TDE2_DECLARE_FLAG_COMPONENT(Paddle);
 	//TDE2_REGISTER_UNIQUE_COMPONENT(CPaddle);

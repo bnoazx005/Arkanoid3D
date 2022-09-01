@@ -25,7 +25,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 {
 	mpWorld = mpSceneManager->GetWorld();
 
-	Game::RegisterGameComponents(mpWorld);
+	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(mpWorld, mpInputContext);
 
 	/// \todo Replace this later with scene's configurable solution

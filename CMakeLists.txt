@@ -27,6 +27,8 @@ configure_file(
 set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/Components.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CPaddle.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CBrick.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CBall.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPaddleControlSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CCustomEngineListener.h")
 
@@ -34,6 +36,8 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/CCustomEngineListener.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/Components.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CPaddle.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CBrick.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CBall.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddleControlSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
