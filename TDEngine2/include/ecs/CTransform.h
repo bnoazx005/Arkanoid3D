@@ -127,7 +127,7 @@ namespace TDEngine2
 				\param[in] transform matrix 4x4 that specifies local to world transformation
 			*/
 
-			TDE2_API void SetTransform(const TMatrix4& transform) override;
+			TDE2_API void SetTransform(const TMatrix4& local2World, const TMatrix4& child2Parent) override;
 
 			TDE2_API E_RESULT_CODE AttachChild(TEntityId childEntityId) override;
 
@@ -143,6 +143,12 @@ namespace TDEngine2
 
 			TDE2_API E_RESULT_CODE SetParent(TEntityId parentEntityId) override;
 
+			/*!
+				\brief The method used to control whether the parent's changed or not. Don't use it directly
+			*/
+
+			TDE2_API void SetHierarchyChangedFlag(TEntityId parentEntityId) override;
+
 			TDE2_API void SetDirtyFlag(bool value) override;
 
 			TDE2_API E_RESULT_CODE SetOwnerId(TEntityId id) override;
@@ -154,6 +160,8 @@ namespace TDEngine2
 			*/
 
 			TDE2_API TEntityId GetParent() const override;
+
+			TDE2_API TEntityId GetPrevParent() const override;
 
 			TDE2_API const std::vector<TEntityId>& GetChildren() const override;
 
@@ -197,6 +205,8 @@ namespace TDEngine2
 
 			TDE2_API const TMatrix4& GetWorldToLocalTransform() const override;
 
+			TDE2_API const TMatrix4& GetChildToParentTransform() const override;
+
 			/*!
 				\brief The method returns a basis vector which corresponds to Z axis in local space of the object
 
@@ -228,6 +238,8 @@ namespace TDEngine2
 
 			TDE2_API bool HasChanged() const override;
 
+			TDE2_API bool HasHierarchyChanged() const;
+
 			/*!
 				\return The method returns type name (lowercase is preffered)
 			*/
@@ -255,10 +267,13 @@ namespace TDEngine2
 			TVector3    mScale;
 
 			TEntityId   mParentEntityId = TEntityId::Invalid;
+			TEntityId   mPrevParentEntityId = TEntityId::Invalid;
+
 			TEntityId   mOwnerId = TEntityId::Invalid; /// mOwnerId contains id of the entity itself
 
 			TMatrix4    mLocalToWorldMatrix;
 			TMatrix4    mWorldToLocalMatrix;
+			TMatrix4    mChild2ParentMatrix;
 
 			bool        mHasChanged;
 

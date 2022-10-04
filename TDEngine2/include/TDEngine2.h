@@ -191,6 +191,15 @@
 /// audio
 #include "audio/IAudioSource.h"
 
+/// autotests
+#include "autotests/CTestContext.h"
+#include "autotests/ITestFixture.h"
+#include "autotests/ITestCase.h"
+#include "autotests/CBaseTestCase.h"
+#include "autotests/CBaseTestFixture.h"
+#include "autotests/ITestResultsReporter.h"
+#include "autotests/CTestResultsTextReporter.h"
+
 ///editor
 #include "editor/IProfiler.h"
 #include "editor/CPerfProfiler.h"
@@ -271,6 +280,7 @@
 #include "platform/win32/CWin32DLLManager.h"
 #include "platform/win32/CWin32FileSystem.h"
 #include "platform/CTextFileReader.h"
+#include "platform/CTextFileWriter.h"
 #include "platform/CCsvFileReader.h"
 #include "platform/unix/CUnixWindowSystem.h"
 #include "platform/unix/CUnixDLLManager.h"

@@ -125,8 +125,6 @@ namespace TDEngine2
 		interface ITextFileReader
 
 		\brief The interface describes a functionality of a text file's reader
-
-		\todo UTF-8 and UTF-16 support is needed
 	*/
 
 	class ITextFileReader : public virtual IFileReader
@@ -176,8 +174,6 @@ namespace TDEngine2
 		interface IConfigFileReader
 
 		\brief The interface describes a functionality of a config file's reader.
-
-		\todo UTF-8 and UTF-16 support is needed
 	*/
 
 	class IConfigFileReader : public virtual IFileReader
@@ -361,6 +357,30 @@ namespace TDEngine2
 			typedef USIZE TSizeType;
 		protected:
 			DECLARE_INTERFACE_PROTECTED_MEMBERS(IFileWriter)
+	};
+
+
+	/*!
+		interface ITextFileWriter
+
+		\brief The interface describes a functionality of a text file's writer
+	*/
+
+	class ITextFileWriter : public virtual IFileWriter
+	{
+		public:
+			TDE2_REGISTER_TYPE(ITextFileWriter)
+
+			/*!
+				\brief The method writes a given line and moves the file cursor to a new line
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API virtual E_RESULT_CODE WriteLine(const std::string& value) = 0;
+
+		protected:
+			DECLARE_INTERFACE_PROTECTED_MEMBERS(ITextFileWriter)
 	};
 
 

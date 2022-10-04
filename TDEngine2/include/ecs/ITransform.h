@@ -70,7 +70,7 @@ namespace TDEngine2
 				\param[in] transform matrix 4x4 that specifies local to world transformation
 			*/
 
-			TDE2_API virtual void SetTransform(const TMatrix4& transform) = 0;
+			TDE2_API virtual void SetTransform(const TMatrix4& local2World, const TMatrix4& child2Parent) = 0;
 
 			TDE2_API virtual E_RESULT_CODE AttachChild(TEntityId childEntityId) = 0;
 
@@ -86,6 +86,12 @@ namespace TDEngine2
 
 			TDE2_API virtual E_RESULT_CODE SetParent(TEntityId parentEntityId) = 0;
 
+			/*!
+				\brief The method used to control whether the parent's changed or not. Don't use it directly
+			*/
+
+			TDE2_API virtual void SetHierarchyChangedFlag(TEntityId parentEntityId) = 0;
+
 			TDE2_API virtual void SetDirtyFlag(bool value) = 0;
 
 			TDE2_API virtual E_RESULT_CODE SetOwnerId(TEntityId id) = 0;
@@ -97,6 +103,8 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual TEntityId GetParent() const = 0;
+
+			TDE2_API virtual TEntityId GetPrevParent() const = 0;
 
 			TDE2_API virtual const std::vector<TEntityId>& GetChildren() const = 0;
 
@@ -140,6 +148,8 @@ namespace TDEngine2
 
 			TDE2_API virtual const TMatrix4& GetWorldToLocalTransform() const = 0;
 
+			TDE2_API virtual const TMatrix4& GetChildToParentTransform() const = 0;
+
 			/*!
 				\brief The method returns a basis vector which corresponds to Z axis in local space of the object
 
@@ -171,6 +181,8 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual bool HasChanged() const = 0;
+
+			TDE2_API virtual bool HasHierarchyChanged() const = 0;
 		protected:
 			DECLARE_INTERFACE_PROTECTED_MEMBERS(ITransform)
 	};
