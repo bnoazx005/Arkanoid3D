@@ -1,0 +1,106 @@
+#include "../../include/systems/CBallUpdateSystem.h"
+#include "../../include/Components.h"
+#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CBall.h"
+
+
+using namespace TDEngine2;
+
+
+namespace Game
+{
+	CBallUpdateSystem::CBallUpdateSystem() :
+		CBaseSystem()
+	{
+	}
+
+	E_RESULT_CODE CBallUpdateSystem::Init(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
+	{
+		if (mIsInitialized)
+		{
+			return RC_FAIL;
+		}
+
+		if (!pInputContext)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		mpInputContext = pInputContext;
+
+		mIsInitialized = true;
+
+		return RC_OK;
+	}
+
+	void CBallUpdateSystem::InjectBindings(IWorld* pWorld)
+	{
+		mSystemContext.mpBalls.clear();
+		mSystemContext.mpTransforms.clear();
+
+		for (TEntityId currEntityId : pWorld->FindEntitiesWithComponents<Game::CBall, TDEngine2::CTransform>())
+		{
+			CEntity* pCurrEntity = pWorld->FindEntity(currEntityId);
+
+			mSystemContext.mpTransforms.push_back(pCurrEntity->GetComponent<CTransform>());
+			mSystemContext.mpBalls.push_back(pCurrEntity->GetComponent<Game::CBall>());
+		}
+
+		mSystemContext.mComponentsCount = mSystemContext.mpBalls.size();
+
+		mLevelInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>();
+	}
+
+	void CBallUpdateSystem::Update(IWorld* pWorld, F32 dt)
+	{
+		auto& transforms = mSystemContext.mpTransforms;
+		auto& balls = mSystemContext.mpBalls;
+
+		for (USIZE i = 0; i < mSystemContext.mComponentsCount; ++i)
+		{
+			CTransform* pCurrTransform = transforms[i];
+			CBall* pCurrBall = balls[i];
+
+			if (!pCurrBall->mIsMoving && mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE))
+			{
+				TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
+
+				/// \todo Add RandVector2
+
+				pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
+				pCurrBall->mDirection.y = 0.0f;
+				pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+
+				pCurrBall->mIsMoving = true;
+			}
+
+			pCurrTransform->SetPosition(pCurrTransform->GetPosition() + (pCurrBall->mSpeed * dt) * pCurrBall->mDirection);
+
+			/// \note Process bounces
+			if (CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>())
+			{
+				auto currPosition = pCurrTransform->GetPosition();
+
+				if (currPosition.x < pLevelInfo->mHorizontalConstraints.mLeft || currPosition.x > pLevelInfo->mHorizontalConstraints.mRight)
+				{
+					pCurrBall->mDirection.x = -pCurrBall->mDirection.x;
+					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+				}
+
+				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft || currPosition.z > pLevelInfo->mVerticalConstraints.mRight)
+				{
+					pCurrBall->mDirection.z = -pCurrBall->mDirection.z;
+					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+				}
+
+				pCurrTransform->SetPosition(currPosition);
+			}
+		}
+	}
+
+
+	TDE2_API ISystem* CreateBallUpdateSystem(TPtr<IDesktopInputContext> pInputContext, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CBallUpdateSystem, result, pInputContext);
+	}
+}

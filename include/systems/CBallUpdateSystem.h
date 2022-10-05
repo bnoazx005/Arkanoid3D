@@ -1,6 +1,6 @@
 /*!
-	\file CPaddleControlSystem.h
-	\date 30.08.2022
+	\file CBallUpdateSystem.h
+	\date 04.10.2022
 	\author Ildar Kasimov
 */
 
@@ -8,20 +8,30 @@
 
 
 #include <TDEngine2.h>
-#include "../components/CPaddle.h"
 
 
 namespace Game
 {
-	TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
+	class CBall;
 
 
-	class CPaddleControlSystem : public TDEngine2::CBaseSystem
+	TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CBallUpdateSystem : public TDEngine2::CBaseSystem
 	{
 		public:
-			friend TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
+		private:
+			struct TSystemContext
+			{
+				std::vector<TDEngine2::CTransform*> mpTransforms;
+				std::vector<CBall*>                 mpBalls;
+
+				TDEngine2::USIZE                    mComponentsCount;
+			};
 		public:
-			TDE2_SYSTEM(CPaddleControlSystem);
+			TDE2_SYSTEM(CBallUpdateSystem);
 
 			/*!
 				\brief The method initializes an inner state of a system
@@ -50,13 +60,13 @@ namespace Game
 
 			TDE2_API void Update(TDEngine2::IWorld* pWorld, TDEngine2::F32 dt) override;
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CPaddleControlSystem)
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CBallUpdateSystem)
 
 		private:
 			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext = nullptr;
 			
-			TDEngine2::TComponentsQueryLocalSlice<CPaddle, TDEngine2::CTransform> mSystemContext;
-
+			TSystemContext mSystemContext;
+			
 			TDEngine2::TEntityId mLevelInfoEntityId = TDEngine2::TEntityId::Invalid;
 	};
 }

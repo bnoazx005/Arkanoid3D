@@ -1,6 +1,6 @@
 /*!
-	\file CBall.h
-	\date 01.09.2022
+	\file CLevelInfo.h
+	\date 04.10.2022
 	\authors Kasimov Ildar
 */
 
@@ -12,19 +12,19 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::IComponent* CreateBall(TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::IComponent* CreateLevelInfo(TDEngine2::E_RESULT_CODE& result);
 
 
 	/*!
-		class CBall
+		class CLevelInfo
 	*/
 
-	class CBall : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CBall, 1 << 20>
+	class CLevelInfo : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CLevelInfo, 1 << 20>
 	{
 		public:
-			friend TDE2_API TDEngine2::IComponent* CreateBall(TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::IComponent* CreateLevelInfo(TDEngine2::E_RESULT_CODE&);
 		public:
-			TDE2_REGISTER_COMPONENT_TYPE(CBall)
+			TDE2_REGISTER_COMPONENT_TYPE(CLevelInfo)
 
 			/*!
 				\brief The method deserializes object's state from given reader
@@ -50,27 +50,25 @@ namespace Game
 			TDE2_API static void DrawInspectorGUI(const TDEngine2::TEditorContext& context);
 	#endif
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CBall)
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelInfo)
 		public:
-			TDEngine2::F32 mSpeed = 5.0f;
-
-			TDEngine2::TVector3 mDirection = TDEngine2::ZeroVector3;
-
-			bool mIsMoving = false;
+			TDEngine2::TRangeF32 mHorizontalConstraints = TDEngine2::TRangeF32(-4.0f, 4.0f);
+			TDEngine2::TRangeF32 mVerticalConstraints = TDEngine2::TRangeF32(-5.0f, 4.0f);
 	};
 
 
 	/*!
-		struct TBallParameters
+		struct TLevelInfoParameters
 
-		\brief The structure contains parameters for creation of CBall
+		\brief The structure contains parameters for creation of CLevelInfo
 	*/
 
-	typedef struct TBallParameters : public TDEngine2::TBaseComponentParameters
+	typedef struct TLevelInfoParameters : public TDEngine2::TBaseComponentParameters
 	{
-		TDEngine2::F32 mSpeed;
-	} TBallParameters;
+		TDEngine2::TRangeF32 mHorizontalConstraints;
+		TDEngine2::TRangeF32 mVerticalConstraints;
+	} TLevelInfoParameters;
 
 
-	TDE2_DECLARE_COMPONENT_FACTORY(Ball, TBallParameters);
+	TDE2_DECLARE_COMPONENT_FACTORY(LevelInfo, TLevelInfoParameters);
 }

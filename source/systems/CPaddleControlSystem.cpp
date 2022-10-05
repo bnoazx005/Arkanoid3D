@@ -1,5 +1,6 @@
 #include "../../include/systems/CPaddleControlSystem.h"
 #include "../../include/Components.h"
+#include "../../include/components/CLevelInfo.h"
 
 
 using namespace TDEngine2;
@@ -34,6 +35,8 @@ namespace Game
 	void CPaddleControlSystem::InjectBindings(IWorld* pWorld)
 	{
 		mSystemContext = pWorld->CreateLocalComponentsSlice<CPaddle, CTransform>();
+
+		mLevelInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>();
 	}
 
 	void CPaddleControlSystem::Update(IWorld* pWorld, F32 dt)
@@ -60,7 +63,16 @@ namespace Game
 			{
 				const F32 direction = 2.0f * mpInputContext->GetMouseShiftVec().x / CMathUtils::Max(1e-3f, CMathUtils::Abs(mpInputContext->GetMouseShiftVec().x));
 
-				pCurrTransform->SetPosition(pCurrTransform->GetPosition() + delta * direction);
+				//pCurrTransform->SetPosition(pCurrTransform->GetPosition() + delta * direction);
+			}
+
+			/// \note Clamp the horizontal position
+			if (CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>())
+			{
+				auto currPosition = pCurrTransform->GetPosition();
+				currPosition.x = CMathUtils::Clamp(pLevelInfo->mHorizontalConstraints.mLeft, pLevelInfo->mHorizontalConstraints.mRight, currPosition.x);
+
+				pCurrTransform->SetPosition(currPosition);
 			}
 		}
 	}

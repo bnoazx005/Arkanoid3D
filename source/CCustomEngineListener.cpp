@@ -1,6 +1,7 @@
 #include "../include/CCustomEngineListener.h"
 #include "../include/Components.h"
 #include "../include/systems/CPaddleControlSystem.h"
+#include "../include/systems/CBallUpdateSystem.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -15,6 +16,7 @@ namespace Game
 		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
 
 		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
+		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
 
 		return result;
 	}

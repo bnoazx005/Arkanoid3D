@@ -23,8 +23,11 @@ entities:
   - entity: 
       components: 
         - component: 
+            speed: 5.000000
             type_id: 3941469362
         - component: 
+            Children: 
+              - child_id: 9
             owner_id: 8
             parent_id: 4294967295
             position: 
@@ -50,15 +53,16 @@ entities:
       components: 
         - component: 
             owner_id: 9
-            parent_id: 4294967295
+            parent_id: 8
             position: 
-              x: 0.000000
+              y: "0.243"
+              z: "-4.0"
             rotation: 
               w: 1.000000
             scale: 
-              x: 0.300000
-              y: 0.300000
-              z: 0.300000
+              x: 0.30000
+              y: 0.30000
+              z: 0.30000
             type_id: 3864726948
         - component: 
             type_id: 4238380769
