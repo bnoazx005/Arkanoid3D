@@ -8,9 +8,11 @@
 
 
 #include "../core/CBaseObject.h"
+#include "../math/TVector3.h"
 #include <unordered_map>
 #include <vector>
 #include <string>
+#include <functional>
 
 
 #if TDE2_EDITORS_ENABLED
@@ -22,11 +24,15 @@ namespace TDEngine2
 	class ITestFixture;
 	class IEngineCore;
 	class ITestResultsReporter;
+	class IDesktopInputContext;
+
+	enum class E_KEYCODES : U16;
 
 
 	TDE2_DECLARE_SCOPED_PTR(IFileSystem);
 	TDE2_DECLARE_SCOPED_PTR(ITestFixture);
 	TDE2_DECLARE_SCOPED_PTR(ITestResultsReporter);
+	TDE2_DECLARE_SCOPED_PTR(IDesktopInputContext);
 
 
 	typedef struct TTestContextConfig
@@ -35,43 +41,36 @@ namespace TDEngine2
 	} TTestContextConfig, *TTestContextConfigPtr;
 
 
-#if TDE2_DEBUG_MODE
+	struct TTestFixtureAutoRegister
+	{
+		TDE2_API TTestFixtureAutoRegister(std::function<void()> action);
+	};
+
+
 	#define TDE2_TEST_IS_TRUE(...) do { TDEngine2::CTestContext::Get()->Assert(TDE2_STRINGIFY(__VA_ARGS__), __VA_ARGS__, true, __FILE__, __LINE__); } while (false)
 	#define TDE2_TEST_IS_FALSE(...) do { TDEngine2::CTestContext::Get()->Assert(TDE2_STRINGIFY(__VA_ARGS__), __VA_ARGS__, false, __FILE__, __LINE__); } while (false)
 
-	#define TDE2_TEST_FIXTURE(Name)																										\
-		static void TestFixtureBody(TPtr<ITestFixture> pTestFixture);																	\
-		struct TTestFixtureEnvironment																									\
-		{																																\
-			TDE2_API TTestFixtureEnvironment()																							\
+	#define TDE2_TEST_FIXTURE_IMPL(Name, FixtureFunctorId, FixtureId)																	\
+		static void FixtureFunctorId(TPtr<ITestFixture> pTestFixture);																	\
+		static TTestFixtureAutoRegister FixtureId([=]																					\
 			{																															\
 				E_RESULT_CODE result = RC_OK;																							\
 				TPtr<ITestFixture> pTestFixtureInstance = TPtr<ITestFixture>(CreateBaseTestFixture(Name, result));						\
-				TestFixtureBody(pTestFixtureInstance);																					\
+				FixtureFunctorId(pTestFixtureInstance);																					\
 				CTestContext::Get()->AddTestFixture(pTestFixtureInstance);																\
-			}																															\
-																																		\
-		};																																\
-		static TTestFixtureEnvironment registerTestFixture;																				\
-		static void TestFixtureBody(TPtr<ITestFixture> pTestFixture)
+			});																															\
+		static void FixtureFunctorId(TPtr<ITestFixture> pTestFixture)
 
-	
+	#define TDE2_TEST_FIXTURE(Name) TDE2_TEST_FIXTURE_IMPL(Name, TDE2_CONCAT(TestFixtureBody, __COUNTER__), TDE2_CONCAT(registerTestFixture, __COUNTER__))
+
+
 	#define TDE2_TEST_CASE_IMPL(Name, TestCaseVariableName, ResultVariableName)								\
 		E_RESULT_CODE ResultVariableName = RC_OK;															\
 		TPtr<ITestCase> TestCaseVariableName = TPtr<ITestCase>(CreateBaseTestCase(ResultVariableName));		\
 		pTestFixture->AddTestCase(Name, TestCaseVariableName);												\
-		if (TPtr<ITestCase> pTestCase = TestCaseVariableName)
+		if (TPtr<ITestCase> pTestCase = TPtr<ITestCase>(TestCaseVariableName))
 
 	#define TDE2_TEST_CASE(Name) TDE2_TEST_CASE_IMPL(Name, TDE2_CONCAT(pTestCase, __COUNTER__), TDE2_CONCAT(result, __COUNTER__))
-
-
-#else
-	#define TDE2_TEST_IS_TRUE(...) (void)0
-	#define TDE2_TEST_IS_FALSE(...) (void)0
-
-	#define TDE2_TEST_FIXTURE(Name) static void TestFixtureBody(TPtr<ITestFixture> pTestFixture)
-	#define TDE2_TEST_CASE(Name) if (false)
-#endif
 
 
 	struct TTestResultEntity
@@ -109,6 +108,12 @@ namespace TDEngine2
 
 			TDE2_API void Update(F32 dt);
 
+			TDE2_API void SetMousePosition(const TVector3& position);
+			TDE2_API void NotifyOnKeyPressEvent(E_KEYCODES keyCode);
+			TDE2_API void NotifyOnMouseButtonPressEvent(U8 buttonId);
+
+			TDE2_API E_RESULT_CODE TakeScreenshot(const std::string& filename);
+
 			/*!
 				\brief The function is replacement of factory method for instances of this type.
 				The only instance will be created per program's lifetime.
@@ -136,7 +141,15 @@ namespace TDEngine2
 			U32                                                mTotalTestsCount = 0;
 			U32                                                mPassedTestsCount = 0;
 			U32                                                mFailedTestsCount = 0;
+
+			IDesktopInputContext*                              mpProxyInputContext;
 	};
 }
 
+#else
+	#define TDE2_TEST_IS_TRUE(...) (void)0
+	#define TDE2_TEST_IS_FALSE(...) (void)0
+
+	#define TDE2_TEST_FIXTURE(Name) static void TestFixtureBody(TPtr<ITestFixture> pTestFixture)
+	#define TDE2_TEST_CASE(Name) if (TPtr<ITestCase> pTestCase = nullptr)
 #endif
