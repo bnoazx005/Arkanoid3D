@@ -3,9 +3,9 @@ audio_settings:
 common_settings:
   additional_mounted_dirs:
     - alias: ProjectResources/
-      path: ../../ArkanoidGame/Resources/
+      path: ../Resources/
     - alias: ProjectShaders/
-      path: ../../ArkanoidGame/Resources/Shaders/
+      path: ../Resources/Shaders/
   application_id: ArkanoidGame
   base_resources_path: ../Resources/
   flags: 20

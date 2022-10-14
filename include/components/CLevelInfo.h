@@ -54,6 +54,8 @@ namespace Game
 		public:
 			TDEngine2::TRangeF32 mHorizontalConstraints = TDEngine2::TRangeF32(-4.0f, 4.0f);
 			TDEngine2::TRangeF32 mVerticalConstraints = TDEngine2::TRangeF32(-5.0f, 4.0f);
+
+			bool mHasPlayerMissedBall = false;
 	};
 
 

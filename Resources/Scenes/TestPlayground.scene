@@ -76,6 +76,98 @@ entities:
             type_id: 780504096
       id: 9
       name: Ball
+  - entity: 
+      components: 
+        - component: 
+            type_id: 2836612915
+        - component: 
+            owner_id: 11
+            parent_id: 4294967295
+            position: 
+              y: 0.265626
+              z: 0.584660
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            type_id: 3864726948
+        - component: 
+            type_id: 1930024581
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            type_id: 3273204379
+      id: 11
+      name: Brick
+    link: 
+      prefab_id: SimpleBrick
+  - entity: 
+      components: 
+        - component: 
+            type_id: 2836612915
+        - component: 
+            owner_id: 13
+            parent_id: 4294967295
+            position: 
+              x: 1.739770
+              y: 0.265626
+              z: 0.584660
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            type_id: 3864726948
+        - component: 
+            type_id: 1930024581
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            type_id: 3273204379
+      id: 13
+      name: Brick
+    link: 
+      prefab_id: SimpleBrick
+  - entity: 
+      components: 
+        - component: 
+            type_id: 2836612915
+        - component: 
+            owner_id: 14
+            parent_id: 4294967295
+            position: 
+              x: "-1.609408"
+              y: 0.265626
+              z: 0.584660
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            type_id: 3864726948
+        - component: 
+            type_id: 1930024581
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            type_id: 3273204379
+      id: 14
+      name: Brick
+    link: 
+      prefab_id: SimpleBrick
 name: TestPlayground.scene
 scene_properties: 
   is_main: 0

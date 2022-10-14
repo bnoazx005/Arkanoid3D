@@ -42,6 +42,20 @@ namespace Game
 		return RC_OK;
 	}
 
+	E_RESULT_CODE CBall::Clone(IComponent*& pDestObject) const
+	{
+		if (auto pComponent = dynamic_cast<CBall*>(pDestObject))
+		{
+			pComponent->mDirection = mDirection;
+			pComponent->mIsMoving = mIsMoving;
+			pComponent->mSpeed = mSpeed;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
 #if TDE2_EDITORS_ENABLED
 
 	void CBall::DrawInspectorGUI(const TEditorContext& context)

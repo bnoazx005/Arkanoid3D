@@ -2,6 +2,7 @@
 #include "../include/Components.h"
 #include "../include/systems/CPaddleControlSystem.h"
 #include "../include/systems/CBallUpdateSystem.h"
+#include "../include/systems/CDamageablesUpdateSystem.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -17,6 +18,7 @@ namespace Game
 
 		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
+		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(result));
 
 		return result;
 	}

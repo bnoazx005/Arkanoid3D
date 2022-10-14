@@ -2,6 +2,7 @@
 #include "../../include/Components.h"
 #include "../../include/components/CLevelInfo.h"
 #include "../../include/components/CBall.h"
+#include "../../include/components/CPaddle.h"
 
 
 using namespace TDEngine2;
@@ -66,12 +67,18 @@ namespace Game
 				TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
 
 				/// \todo Add RandVector2
-
+				
 				pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
 				pCurrBall->mDirection.y = 0.0f;
 				pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
 
 				pCurrBall->mIsMoving = true;
+			}
+
+			if (!pCurrBall->mIsMoving)
+			{
+				pCurrTransform->SetPosition(ZeroVector3);
+				continue;
 			}
 
 			pCurrTransform->SetPosition(pCurrTransform->GetPosition() + (pCurrBall->mSpeed * dt) * pCurrBall->mDirection);
@@ -87,7 +94,21 @@ namespace Game
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
 				}
 
-				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft || currPosition.z > pLevelInfo->mVerticalConstraints.mRight)
+				/// \note Reset the ball, update information about the defeat
+				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft)
+				{
+					pLevelInfo->mHasPlayerMissedBall = true;
+					pCurrBall->mIsMoving = false;
+
+					auto paddles = pWorld->FindEntitiesWithComponents<Game::CPaddle>();
+					if (!paddles.empty())
+					{
+						TDEngine2::GroupEntities(pWorld, paddles.front(), pCurrTransform->GetOwnerId());
+						continue;
+					}
+				}
+
+				if (currPosition.z > pLevelInfo->mVerticalConstraints.mRight)
 				{
 					pCurrBall->mDirection.z = -pCurrBall->mDirection.z;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
