@@ -1,0 +1,10 @@
+collection: 
+  - path: ProjectResources/Prefabs/Ball.prefab
+    prefab_id: Ball
+  - path: ProjectResources/Prefabs/Paddle.prefab
+    prefab_id: Paddle
+  - path: ProjectResources/Prefabs/SimpleBrick.prefab
+    prefab_id: SimpleBrick
+meta: 
+  resource_type: prefabs_manifest
+  version_tag: 1
