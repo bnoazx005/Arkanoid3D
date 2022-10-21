@@ -75,7 +75,11 @@ namespace TDEngine2
 
 				std::vector<btMotionState*>          mpMotionHandlers;
 
+				std::vector<bool>                    mInUseTable;
+
 				void Clear();
+
+				void EraseItem(USIZE index);
 			} TPhysicsObjectsData;
 
 			/// \fixme Replace this directive with alignas when corresponding functionality will be supported in tde2_introspector
@@ -246,4 +250,21 @@ namespace TDEngine2
 
 		TEntityId mEntities[2]; ///< Two bodies that were collided
 	} TOnTrigger3DEvent, *TOnTrigger3DEventPtr;
+
+
+	/*!
+		struct TOn3DCollisionRegistered
+
+		\brief The structure represents an event which occurs when two or more 3d physical objects are collided 
+	*/
+
+	typedef struct TOn3DCollisionRegisteredEvent : TBaseEvent
+	{
+		virtual ~TOn3DCollisionRegisteredEvent() = default;
+
+		TDE2_REGISTER_TYPE(TOn3DCollisionRegisteredEvent)
+		REGISTER_EVENT_TYPE(TOn3DCollisionRegisteredEvent)
+
+		TEntityId mEntities[2]; ///< Two bodies that were collided
+	} TOn3DCollisionRegisteredEvent, *TOn3DCollisionRegisteredEventPtr;
 }
