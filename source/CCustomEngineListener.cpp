@@ -12,13 +12,13 @@ using namespace TDEngine2;
 
 namespace Game
 {
-	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext)
+	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext, TPtr<IEventManager> pEventManager)
 	{
 		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
 
 		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
-		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(result));
+		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
 
 		return result;
 	}
@@ -30,7 +30,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	mpWorld = mpSceneManager->GetWorld();
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
-	Game::RegisterGameSystems(mpWorld, mpInputContext);
+	Game::RegisterGameSystems(mpWorld, mpInputContext, mpEngineCoreInstance->GetSubsystem<IEventManager>());
 
 	/// \todo Replace this later with scene's configurable solution
 	if (auto pMainScene = mpSceneManager->GetScene(MainScene).Get())

@@ -23,3 +23,5 @@ scenes_settings:
 meta:
   resource-type: project-settings
   version-tag: 1
+world_settings:
+  object_bounds_interval: 0.0
