@@ -8,6 +8,16 @@ namespace Game
 	using namespace TDEngine2;
 
 
+	struct TDamageableArchiveKeys
+	{
+		static const std::string mLifesKeyId;
+		static const std::string mConstantKeyId;
+	};
+
+	const std::string TDamageableArchiveKeys::mLifesKeyId = "lifes";
+	const std::string TDamageableArchiveKeys::mConstantKeyId = "is_constant";
+
+
 	CDamageable::CDamageable() :
 		CBaseComponent()
 	{
@@ -20,6 +30,8 @@ namespace Game
 			return RC_FAIL;
 		}
 
+		mLifes = pReader->GetUInt32(TDamageableArchiveKeys::mLifesKeyId, 1);
+		mIsConstant = pReader->GetBool(TDamageableArchiveKeys::mConstantKeyId);
 
 		return RC_OK;
 	}
@@ -34,6 +46,8 @@ namespace Game
 		pWriter->BeginGroup("component");
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CDamageable::GetTypeId()));
+			pWriter->SetUInt32(TDamageableArchiveKeys::mLifesKeyId, mLifes);
+			pWriter->SetBool(TDamageableArchiveKeys::mConstantKeyId, mIsConstant);
 
 		}
 		pWriter->EndGroup();

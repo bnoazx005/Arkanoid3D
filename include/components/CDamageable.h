@@ -53,6 +53,7 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CDamageable)
 		public:
 			TDEngine2::U32 mLifes = 1;
+			bool           mIsConstant = false; /// \note Determines whether or not the damageable could apply damage
 	};
 
 

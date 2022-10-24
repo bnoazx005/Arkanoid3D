@@ -25,5 +25,13 @@ entities:
             type_id: 780504096
         - component: 
             type_id: 3273204379
+        - component: 
+            extents: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 2272726859
       id: 11
       name: Brick

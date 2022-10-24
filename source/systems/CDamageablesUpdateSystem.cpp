@@ -52,26 +52,34 @@ namespace Game
 		CEntity* pEntity0 = mpWorld->FindEntity(pCollisionEvent->mEntities[0]);
 		CEntity* pEntity1 = mpWorld->FindEntity(pCollisionEvent->mEntities[1]);
 
-		if (!pEntity0 || !pEntity1)
-		{
-			return RC_FAIL;
-		}
-
-		if (TOn3DCollisionRegisteredEvent::E_COLLISION_EVENT_TYPE::ON_ENTER != pCollisionEvent->mType)
+		if (!pEntity0 || !pEntity1 || TOn3DCollisionRegisteredEvent::E_COLLISION_EVENT_TYPE::ON_ENTER != pCollisionEvent->mType)
 		{
 			return RC_OK;
 		}
 
-		CDamageable* pDamageable = GetValidPtrOrDefault(pEntity0->GetComponent<CDamageable>(), pEntity1->GetComponent<CDamageable>());
+		CEntity* pDamageableEntity = pEntity0;
+
+		CDamageable* pDamageable = pDamageableEntity->GetComponent<CDamageable>();
+		if (!pDamageable)
+		{
+			pDamageable = pEntity1->GetComponent<CDamageable>();
+			pDamageableEntity = pEntity1;
+		}
+
 		CBall* pBall = GetValidPtrOrDefault(pEntity0->GetComponent<CBall>(), pEntity1->GetComponent<CBall>());
 
 		if (pDamageable && pBall && pDamageable->mLifes > 0)
 		{
-			pDamageable->mLifes--;
+			pBall->mDirection = pCollisionEvent->mContactNormal;
+
+			if (!pDamageable->mIsConstant)
+			{
+				pDamageable->mLifes--;
+			}
 
 			if (!pDamageable->mLifes)
 			{
-				/// \note Destroy the entity
+				mpWorld->Destroy(pDamageableEntity);
 			}
 		}
 
