@@ -64,20 +64,25 @@ namespace Game
 
 			if (!pCurrBall->mIsMoving && mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE))
 			{
-				TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
+				AddDefferedCommand([pWorld, pCurrTransform, pCurrBall]
+				{
+					TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
 
-				/// \todo Add RandVector2
-				
-				pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
-				pCurrBall->mDirection.y = 0.0f;
-				pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+					/// \todo Add RandVector2
 
-				pCurrBall->mIsMoving = true;
+					pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
+					pCurrBall->mDirection.y = 0.0f;
+					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+
+					pCurrBall->mIsMoving = true;
+				});
+
+				continue;
 			}
 
 			if (!pCurrBall->mIsMoving)
 			{
-				pCurrTransform->SetPosition(ZeroVector3);
+				pCurrTransform->SetPosition(TVector3(0.0f, 0.0f, 1.2f)); /// \fixme Remove this later when linkage with specified position will be possible
 				continue;
 			}
 

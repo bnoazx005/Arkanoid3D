@@ -70,7 +70,7 @@ namespace Game
 
 		if (pDamageable && pBall && pDamageable->mLifes > 0)
 		{
-			pBall->mDirection = pCollisionEvent->mContactNormal;
+			pBall->mDirection = Reflect(-pBall->mDirection, pCollisionEvent->mContactNormal);
 
 			if (!pDamageable->mIsConstant)
 			{
@@ -79,7 +79,10 @@ namespace Game
 
 			if (!pDamageable->mLifes)
 			{
-				mpWorld->Destroy(pDamageableEntity);
+				AddDefferedCommand([this, pDamageableEntity]
+				{
+					mpWorld->Destroy(pDamageableEntity);
+				});
 			}
 		}
 
