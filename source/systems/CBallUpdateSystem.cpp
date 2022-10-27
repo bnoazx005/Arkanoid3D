@@ -73,16 +73,14 @@ namespace Game
 					pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
 					pCurrBall->mDirection.y = 0.0f;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
-
-					pCurrBall->mIsMoving = true;
 				});
 
-				continue;
+				pCurrBall->mIsMoving = true;
 			}
 
 			if (!pCurrBall->mIsMoving)
 			{
-				pCurrTransform->SetPosition(TVector3(0.0f, 0.0f, 1.2f)); /// \fixme Remove this later when linkage with specified position will be possible
+				pCurrTransform->SetPosition(TVector3(0.0f, 0.0f, 1.3f)); /// \fixme Remove this later when linkage with specified position will be possible
 				continue;
 			}
 

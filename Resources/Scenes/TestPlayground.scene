@@ -59,6 +59,8 @@ entities:
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 2272726859
+        - component: 
+            type_id: 1023355219
       id: 8
       name: Paddle
   - entity: 
@@ -121,7 +123,7 @@ entities:
             sub_mesh_id: 
             type_id: 780504096
         - component: 
-            type_id: 3273204379
+            type_id: 3273204379            
         - component: 
             extents: 
               x: 1.200000
