@@ -7,12 +7,13 @@
 #pragma once
 
 
-#include "CBaseSystem.h"
-#include "../physics/3D/ICollisionObjects3DVisitor.h"
-#include "../physics/IRaycastContext.h"
-#include "../math/TVector3.h"
-#include "../core/Event.h"
-#include "../../deps/bullet3/src/LinearMath/btMotionState.h"
+#include <ecs/CBaseSystem.h>
+#include <physics/IPhysics3DSystem.h>
+#include <physics/IRaycastContext.h>
+#include <math/TVector3.h>
+#include <core/Event.h>
+#include "ICollisionObjects3DVisitor.h"
+#include "../deps/bullet3/src/LinearMath/btMotionState.h"
 #include <vector>
 #include <functional>
 
@@ -56,7 +57,7 @@ namespace TDEngine2
 		\brief The system implements an update step of 3D physics engine
 	*/
 
-	class CPhysics3DSystem : public CBaseSystem, public ICollisionObjects3DVisitor
+	class CPhysics3DSystem : public CBaseSystem, public ICollisionObjects3DVisitor, public IPhysics3DSystem
 	{
 		public:
 			friend TDE2_API ISystem* CreatePhysics3DSystem(IEventManager* pEventManager, E_RESULT_CODE& result);
@@ -104,7 +105,6 @@ namespace TDEngine2
 
 #pragma pack(pop)
 
-			typedef std::function<void(const TRaycastResult&)> TOnRaycastHitCallback;
 		public:
 			TDE2_SYSTEM(CPhysics3DSystem);
 
@@ -179,6 +179,16 @@ namespace TDEngine2
 			TDE2_API btConvexHullShape* CreateConvexHullCollisionShape(const CConvexHullCollisionObject3D& hull) const override;
 
 			/*!
+				\brief The method returns a new created collision shape which is a capsule collider
+
+				\param[in] sphere A reference to a sphere collision object
+
+				\return The method returns a new created collision shape of a capsule collider
+			*/
+
+			TDE2_API btCapsuleShape* CreateCapsuleCollisionShape(const CCapsuleCollisionObject3D& capsule) const override;
+
+			/*!
 				\brief The method casts a ray into a scene and returns closest object which is intersected by that.
 				If there wasn't intersections nullptr is returned. The method isn't asynchronous, its callback will
 				be called before the method returns execution context to its caller
@@ -216,8 +226,6 @@ namespace TDEngine2
 
 			TDE2_API E_RESULT_CODE _onFreeInternal() override;
 		protected:
-			static const TVector3                mDefaultGravity;
-
 			static const F32                     mDefaultTimeStep;
 
 			static const U32                     mDefaultPositionIterations;

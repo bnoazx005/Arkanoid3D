@@ -1,39 +1,44 @@
 /*!
-	\file CFMODAudioPlugin.h
-	\date 05.01.2020
+	\file CBulletPhysicsPlugin.h
+	\date 29.10.2022
 	\authors Kasimov Ildar
 */
 
 #pragma once
-
-#include "CFmodAudioClip.h"
-#include "CFmodAudioListenerUpdateSystem.h"
-#include "CFmodAudioSourcesUpdateSystem.h"
 
 
 #include <core/CBaseObject.h>
 #include <core/IPlugin.h>
 
 
+#include "CBulletPhysicsPlugin.h"
+#include "ICollisionObject3D.h"
+#include "CBaseCollisionObject3D.h"
+#include "CBoxCollisionObject3D.h"
+#include "ICollisionObjects3DVisitor.h"
+#include "CSphereCollisionObject3D.h"
+#include "CConvexHullCollisionObject3D.h"
+#include "CCapsuleCollisionObject3D.h"
+#include "ITrigger3D.h"
+#include "CTrigger3D.h"
+#include "CPhysics3DSystem.h"
+
+
 namespace TDEngine2
 {
 	class IEngineCore;
-	class IAudioContext;
-
-
-	TDE2_DECLARE_SCOPED_PTR(IAudioContext)
 
 
 	/*!
-		class CFMODAudioCtxPlugin
+		class CBulletPhysicsPlugin
 
-		\brief The class implements a plugin, which provides a support of FMOD middle-ware as an audio context
+		\brief The class implements a plugin, which provides components, systems that integrates Bullet physics engine
 	*/
 
-	class CFMODAudioCtxPlugin : public CBaseObject, public IPlugin, public IECSPlugin
+	class CBulletPhysicsPlugin : public CBaseObject, public IPlugin, public IECSPlugin
 	{
 		public:
-			friend TDE2_API TDEngine2::IPlugin* TDE2_APIENTRY ::CreatePlugin(TDEngine2::IEngineCore* pEngineCore, TDEngine2::E_RESULT_CODE& result);
+			friend TDE2_API TDEngine2::IPlugin* TDE2_APIENTRY::CreatePlugin(TDEngine2::IEngineCore*, TDEngine2::E_RESULT_CODE&);
 		public:
 			/*!
 				\brief The method initializes an internal state of a plugin
@@ -76,13 +81,8 @@ namespace TDEngine2
 
 			TDE2_API const TPluginInfo& GetInfo() const override;
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CFMODAudioCtxPlugin)
-
-			TDE2_API E_RESULT_CODE _registerResourceFactories(IEngineCore* pEngineCore);
-			TDE2_API E_RESULT_CODE _registerResourceLoaders(IEngineCore* pEngineCore);
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CBulletPhysicsPlugin)
 		protected:
-			IEngineCore*   mpEngineCoreInstance;
-
-			TPtr<IAudioContext> mpAudioContext;
+			IEngineCore* mpEngineCoreInstance;
 	};
 }
