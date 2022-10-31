@@ -2,38 +2,35 @@ entities:
   - entity: 
       components: 
         - component: 
-            type_id: 2836612915
-        - component: 
-            owner_id: 11
+            owner_id: 14
             parent_id: 4294967295
             position: 
-              y: 0.265626
-              z: 0.584660
+              y: 0.260646
             rotation: 
               w: 1.000000
             scale: 
-              x: 1.200000
-              y: 0.500000
-              z: 0.250000
+              x: 0.500000
+              y: 0.300000
+              z: 0.300000
             type_id: 3864726948
+        - component: 
+            type_id: 1930024581
         - component: 
             material: ProjectResources/Materials/DefaultMaterial.material
             mesh: Cube
             sub_mesh_id: 
             type_id: 780504096
         - component: 
-            type_id: 1930024581
-        - component: 
-            is_constant: 0
-            lifes: 1
-            type_id: 3273204379
-        - component: 
             extents: 
-              x: 1.200000
-              y: 0.500000
-              z: 0.250000
+              x: 0.500000
+              y: 0.300000
+              z: 0.300000
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 2272726859
-      id: 11
-      name: Brick
+        - component: 
+            type_id: 1023355219
+        - component: 
+            type_id: 3467057449
+      id: 14
+      name: PowerUp

@@ -4,6 +4,8 @@
 #include "../include/components/CBall.h"
 #include "../include/components/CLevelInfo.h"
 #include "../include/components/CDamageable.h"
+#include "../include/components/CCollectable.h"
+#include "../include/components/CGravitable.h"
 
 namespace TDEngine2
 {
@@ -28,6 +30,8 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateBallFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLevelInfoFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateDamageableFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateCollectableFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGravitableFactory(result)));
 
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
@@ -35,6 +39,8 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CBall::GetTypeId(), CBall::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CLevelInfo::GetTypeId(), CLevelInfo::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CDamageable::GetTypeId(), CDamageable::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CCollectable::GetTypeId(), CCollectable::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CGravitable::GetTypeId(), CGravitable::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif

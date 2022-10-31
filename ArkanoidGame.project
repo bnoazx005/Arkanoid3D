@@ -13,6 +13,7 @@ common_settings:
   total_preallocated_memory_size: 134217728
   user_plugins_list:
     - id: ./TDE2LevelStreamingUtils
+    - id: ./TDE2BulletPhysics
 graphics_settings:
   renderer_plugin: ./D3D11GraphicsContext
   renderer_settings:
@@ -25,3 +26,8 @@ meta:
   version-tag: 1
 world_settings:
   object_bounds_interval: 0.0
+3d_physics_settings:
+  gravity:
+    x: 0.0
+    y: 0.0
+    z: -2.0

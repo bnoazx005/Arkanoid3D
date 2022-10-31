@@ -5,6 +5,8 @@ collection:
     prefab_id: Paddle
   - path: ProjectResources/Prefabs/SimpleBrick.prefab
     prefab_id: SimpleBrick
+  - path: ProjectResources/Prefabs/PowerUp.prefab
+    prefab_id: PowerUp
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1
