@@ -5,7 +5,7 @@ entities:
             owner_id: 10
             parent_id: 4294967295
             position: 
-              x: 0.000000
+              z: 1.300000
             rotation: 
               w: 1.000000
             scale: 
@@ -21,5 +21,13 @@ entities:
             mesh: Cube
             sub_mesh_id: 
             type_id: 780504096
+        - component: 
+            extents: 
+              x: 0.300000
+              y: 0.300000
+              z: 0.300000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 2272726859
       id: 10
       name: Ball
