@@ -6,6 +6,7 @@
 #include "../include/components/CDamageable.h"
 #include "../include/components/CCollectable.h"
 #include "../include/components/CGravitable.h"
+#include "../include/components/Bonuses.h"
 
 namespace TDEngine2
 {
@@ -33,6 +34,9 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateCollectableFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGravitableFactory(result)));
 
+		/// bonuses
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreBonusFactory(result)));
+
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CBrick::GetTypeId(), CBrick::DrawInspectorGUI);
@@ -41,6 +45,7 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CDamageable::GetTypeId(), CDamageable::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CCollectable::GetTypeId(), CCollectable::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CGravitable::GetTypeId(), CGravitable::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CScoreBonus::GetTypeId(), CScoreBonus::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif
