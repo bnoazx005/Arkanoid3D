@@ -31,7 +31,6 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CBall.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CLevelInfo.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CDamageable.h"
-	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CCollectable.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CGravitable.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/Bonuses.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPaddleControlSystem.h"
@@ -49,13 +48,12 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CBall.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CLevelInfo.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CDamageable.cpp"
-	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CCollectable.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CGravitable.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/Bonuses.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddleControlSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CBallUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CDamageablesUpdateSystem.cpp"
-	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CCollectingSystem.cpp"
+	
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CGravityUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
