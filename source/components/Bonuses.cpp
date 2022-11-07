@@ -24,6 +24,7 @@ namespace Game
 			return RC_FAIL;
 		}
 
+		mScoreToAdd = pReader->GetUInt32("score");
 
 		return RC_OK;
 	}
@@ -38,11 +39,23 @@ namespace Game
 		pWriter->BeginGroup("component");
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CScoreBonus::GetTypeId()));
-
+			pWriter->SetUInt32("score", mScoreToAdd);
 		}
 		pWriter->EndGroup();
 
 		return RC_OK;
+	}
+
+	E_RESULT_CODE CScoreBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CScoreBonus* pBonus = dynamic_cast<CScoreBonus*>(pDestObject))
+		{
+			pBonus->mScoreToAdd = mScoreToAdd;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
 	}
 
 #if TDE2_EDITORS_ENABLED
@@ -56,11 +69,11 @@ namespace Game
 
 			/// \note score
 			{
-				F32 score = component.mScoreToAdd;
+				I32 score = static_cast<I32>(component.mScoreToAdd);
 
 				imguiContext.BeginHorizontal();
 				imguiContext.Label("Score:");
-				imguiContext.FloatField("##Score", score, [&component, &score]() { component.mScoreToAdd = score; });
+				imguiContext.IntField("##Score", score, [&component, &score]() { component.mScoreToAdd = score; });
 				imguiContext.EndHorizontal();
 			}
 		});

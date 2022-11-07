@@ -1,11 +1,13 @@
-collection: 
+collection:
   - path: ProjectResources/Prefabs/Ball.prefab
     prefab_id: Ball
   - path: ProjectResources/Prefabs/Paddle.prefab
     prefab_id: Paddle
   - path: ProjectResources/Prefabs/SimpleBrick.prefab
     prefab_id: SimpleBrick
-  - path: ProjectResources/Prefabs/PowerUp.prefab
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp_AddScore.prefab
+    prefab_id: PowerUp_AddScore
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp.prefab
     prefab_id: PowerUp
 meta: 
   resource_type: prefabs_manifest

@@ -1,0 +1,40 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 14
+            parent_id: 4294967295
+            position: 
+              y: 0.260646
+              z: "0.0"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 0.500000
+              y: 0.300000
+              z: 0.300000
+            type_id: 3864726948
+        - component: 
+            type_id: 1930024581
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            extents: 
+              x: 0.500000
+              y: 0.300000
+              z: 0.300000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 2272726859
+        - component: 
+            type_id: 3467057449
+        - component: 
+            type_id: 1023355219
+        - component: 
+            score: 100
+            type_id: 3602280139
+      id: 14
+      name: PowerUp

@@ -5,6 +5,7 @@
 #include "../include/systems/CDamageablesUpdateSystem.h"
 #include "../include/systems/CCollectingSystem.h"
 #include "../include/systems/CGravityUpdateSystem.h"
+#include "../include/systems/BonusCollectSystems.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -21,8 +22,10 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
-		pWorld->RegisterSystem(Game::CreateCollectingSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGravityUpdateSystem(result));
+
+		// bonuses' systems
+		pWorld->RegisterSystem(Game::CreateAddScoreBonusCollectSystem(pEventManager, result));
 
 		return result;
 	}

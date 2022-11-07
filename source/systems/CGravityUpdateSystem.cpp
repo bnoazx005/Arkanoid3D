@@ -1,6 +1,6 @@
 #include "../../include/systems/CGravityUpdateSystem.h"
 #include "../../include/Components.h"
-#include "../../include/components/CCollectable.h"
+#include "../../include/components/CGravitable.h"
 
 
 using namespace TDEngine2;

@@ -13,14 +13,9 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::ISystem* CreateCollectingSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
-
-
 	template <typename T>
 	class CCollectingSystem : public TDEngine2::CBaseSystem, public TDEngine2::IEventHandler
 	{
-		public:
-			friend TDE2_API TDEngine2::ISystem* CreateCollectingSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE&);
 		public:
 			TDE2_SYSTEM(CCollectingSystem);
 
@@ -30,7 +25,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
+			TDE2_API virtual TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
 			{
 				if (mIsInitialized)
 				{
@@ -57,6 +52,7 @@ namespace Game
 
 			TDE2_API void InjectBindings(TDEngine2::IWorld* pWorld) override
 			{
+				mpWorld = pWorld;
 			}
 
 			/*!
@@ -82,7 +78,7 @@ namespace Game
 
 			TDE2_API TDEngine2::E_RESULT_CODE OnEvent(const TDEngine2::TBaseEvent* pEvent) override
 			{
-				const TOn3DCollisionRegisteredEvent* pCollisionEvent = dynamic_cast<const TOn3DCollisionRegisteredEvent*>(pEvent);
+				const TDEngine2::TOn3DCollisionRegisteredEvent* pCollisionEvent = dynamic_cast<const TDEngine2::TOn3DCollisionRegisteredEvent*>(pEvent);
 				if (!pCollisionEvent)
 				{
 					return TDEngine2::RC_FAIL;
@@ -106,13 +102,21 @@ namespace Game
 				T* pCollectable = pCollectableEntity->GetComponent<T>();
 				if (!pCollectable)
 				{
-					pCollectable = pEntity1->GetComponent<CDamageable>();
+					pCollectable = pEntity1->GetComponent<T>();
 					pCollectableEntity = pEntity1;
 				}
 
-				_onApplyCollectable(pCollectable);
+				if (pCollectable)
+				{
+					_onApplyCollectable(pCollectable);
+				}
 
-				return mpWorld->Destroy(pCollectableEntity);
+				AddDefferedCommand([this, pCollectableEntity]
+				{
+					mpWorld->Destroy(pCollectableEntity);
+				});
+
+				return TDEngine2::RC_OK;
 			}
 
 			/*!
@@ -129,11 +133,14 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCollectingSystem)
 
 			TDE2_API virtual void _onApplyCollectable(const T* pCollectable) const = 0;
+
+		protected:
+			TDEngine2::IWorld* mpWorld = nullptr;
 	};
 
 
 	template <typename T>
-	CCollectingSystem<T>::CCollectingSystem<T>() :
+	CCollectingSystem<T>::CCollectingSystem() :
 		CBaseSystem()
 	{
 	}
