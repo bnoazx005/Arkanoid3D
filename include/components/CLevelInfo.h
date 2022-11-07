@@ -58,6 +58,7 @@ namespace Game
 			bool mHasPlayerMissedBall = false;
 
 			TDEngine2::U32 mPlayerScore = 0;
+			TDEngine2::U32 mScoreMultiplier = 1;
 	};
 
 

@@ -33,4 +33,25 @@ namespace Game
 
 			TDE2_API void _onApplyCollectable(const CScoreBonus* pCollectable) const override;
 	};
+
+
+	/*!
+		\brief ScoreMultiplierBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateScoreMultiplierBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CScoreMultiplierBonusCollectSystem : public Game::CCollectingSystem<CScoreMultiplierBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateScoreMultiplierBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CScoreMultiplierBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CScoreMultiplierBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CScoreMultiplierBonus* pCollectable) const override;
+	};
 }

@@ -26,6 +26,7 @@ namespace Game
 
 		// bonuses' systems
 		pWorld->RegisterSystem(Game::CreateAddScoreBonusCollectSystem(pEventManager, result));
+		pWorld->RegisterSystem(Game::CreateScoreMultiplierBonusCollectSystem(pEventManager, result));
 
 		return result;
 	}
