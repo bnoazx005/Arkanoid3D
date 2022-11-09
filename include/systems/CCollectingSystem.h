@@ -66,6 +66,18 @@ namespace Game
 
 			TDE2_API void Update(TDEngine2::IWorld* pWorld, TDEngine2::F32 dt) override
 			{
+				if (!mIsEffectActive)
+				{
+					return;
+				}
+
+				if (mCurrTimer < 1e-3f)
+				{
+					_onCollectableEffectFinished();
+					return;
+				}
+
+				mCurrTimer -= dt;
 			}
 
 			/*!
@@ -132,10 +144,18 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCollectingSystem)
 
-			TDE2_API virtual void _onApplyCollectable(const T* pCollectable) const = 0;
+			TDE2_API virtual void _onApplyCollectable(const T* pCollectable) = 0;
+			
+			TDE2_API virtual void _onCollectableEffectFinished() 
+			{
+				mIsEffectActive = false;
+			}
 
 		protected:
 			TDEngine2::IWorld* mpWorld = nullptr;
+
+			TDEngine2::F32 mCurrTimer = 0.0f;
+			bool           mIsEffectActive = false;
 	};
 
 

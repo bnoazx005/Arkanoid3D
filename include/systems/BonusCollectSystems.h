@@ -31,7 +31,7 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CAddScoreBonusCollectSystem)
 
-			TDE2_API void _onApplyCollectable(const CScoreBonus* pCollectable) const override;
+			TDE2_API void _onApplyCollectable(const CScoreBonus* pCollectable) override;
 	};
 
 
@@ -52,6 +52,29 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CScoreMultiplierBonusCollectSystem)
 
-			TDE2_API void _onApplyCollectable(const CScoreMultiplierBonus* pCollectable) const override;
+			TDE2_API void _onApplyCollectable(const CScoreMultiplierBonus* pCollectable) override;
+			TDE2_API void _onCollectableEffectFinished() override;
+	};
+
+
+	/*!
+		\brief GodModeBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateGodModeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CGodModeBonusCollectSystem : public Game::CCollectingSystem<CGodModeBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateGodModeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CGodModeBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CGodModeBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CGodModeBonus* pCollectable) override;
+			TDE2_API void _onCollectableEffectFinished() override;
 	};
 }

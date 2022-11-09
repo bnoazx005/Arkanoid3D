@@ -35,6 +35,7 @@ namespace Game
 		/// bonuses
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreBonusFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreMultiplierBonusFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGodModeBonusFactory(result)));
 
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
@@ -45,6 +46,7 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CGravitable::GetTypeId(), CGravitable::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CScoreBonus::GetTypeId(), CScoreBonus::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CScoreMultiplierBonus::GetTypeId(), CScoreMultiplierBonus::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CGodModeBonus::GetTypeId(), CGodModeBonus::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif

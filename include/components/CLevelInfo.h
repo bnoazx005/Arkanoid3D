@@ -56,6 +56,7 @@ namespace Game
 			TDEngine2::TRangeF32 mVerticalConstraints = TDEngine2::TRangeF32(-5.0f, 4.0f);
 
 			bool mHasPlayerMissedBall = false;
+			bool mIsGodModeEnabled = false;
 
 			TDEngine2::U32 mPlayerScore = 0;
 			TDEngine2::U32 mScoreMultiplier = 1;

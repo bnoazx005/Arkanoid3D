@@ -137,6 +137,7 @@ namespace Game
 		}
 
 		mValue = pReader->GetUInt32("multiplier");
+		mEffectDuration = pReader->GetFloat("duration");
 
 		return RC_OK;
 	}
@@ -152,6 +153,7 @@ namespace Game
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CScoreMultiplierBonus::GetTypeId()));
 			pWriter->SetUInt32("multiplier", mValue);
+			pWriter->SetFloat("duration", mEffectDuration);
 		}
 		pWriter->EndGroup();
 
@@ -163,6 +165,7 @@ namespace Game
 		if (CScoreMultiplierBonus* pBonus = dynamic_cast<CScoreMultiplierBonus*>(pDestObject))
 		{
 			pBonus->mValue = mValue;
+			pBonus->mEffectDuration = mEffectDuration;
 
 			return RC_OK;
 		}
@@ -186,6 +189,16 @@ namespace Game
 				imguiContext.BeginHorizontal();
 				imguiContext.Label("Multiplier:");
 				imguiContext.IntField("##Multiplier", value, [&component, &value]() { component.mValue = value; });
+				imguiContext.EndHorizontal();
+			}
+
+			/// \note duration
+			{
+				F32 duration = component.mEffectDuration;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Duration:");
+				imguiContext.FloatField("##Duration", duration, [&component, &duration]() { component.mEffectDuration = duration; });
 				imguiContext.EndHorizontal();
 			}
 		});
@@ -229,5 +242,117 @@ namespace Game
 	IComponentFactory* CreateScoreMultiplierBonusFactory(E_RESULT_CODE& result)
 	{
 		return CREATE_IMPL(IComponentFactory, CScoreMultiplierBonusFactory, result);
+	}
+
+
+	/*!
+		class CGodModeBonus's definition
+	*/
+
+	CGodModeBonus::CGodModeBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CGodModeBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mEffectDuration = pReader->GetFloat("duration");
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CGodModeBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CGodModeBonus::GetTypeId()));
+			pWriter->SetFloat("duration", mEffectDuration);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CGodModeBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CGodModeBonus* pBonus = dynamic_cast<CGodModeBonus*>(pDestObject))
+		{
+			pBonus->mEffectDuration = mEffectDuration;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CGodModeBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("GodModeBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CGodModeBonus& component = dynamic_cast<CGodModeBonus&>(editorContext.mComponent);
+
+			/// \note duration
+			{
+				F32 duration = component.mEffectDuration;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Duration:");
+				imguiContext.FloatField("##Duration", duration, [&component, &duration]() { component.mEffectDuration = duration; });
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateGodModeBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CGodModeBonus, result);
+	}
+
+
+	/*!
+		\brief CGodModeBonusFactory's definition
+	*/
+
+	CGodModeBonusFactory::CGodModeBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CGodModeBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateGodModeBonus(result);
+	}
+
+	E_RESULT_CODE CGodModeBonusFactory::SetupComponent(CGodModeBonus* pComponent, const TGodModeBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateGodModeBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CGodModeBonusFactory, result);
 	}
 }
