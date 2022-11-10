@@ -480,4 +480,102 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CExpandPaddleBonusFactory, result);
 	}
+
+
+	/*!
+		class CStickyPaddleBonus's definition
+	*/
+
+	CStickyPaddleBonus::CStickyPaddleBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CStickyPaddleBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CStickyPaddleBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CStickyPaddleBonus::GetTypeId()));
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CStickyPaddleBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CStickyPaddleBonus* pBonus = dynamic_cast<CStickyPaddleBonus*>(pDestObject))
+		{
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CStickyPaddleBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("StickyPaddleBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CStickyPaddleBonus& component = dynamic_cast<CStickyPaddleBonus&>(editorContext.mComponent);
+
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateStickyPaddleBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CStickyPaddleBonus, result);
+	}
+
+
+	/*!
+		\brief CStickyPaddleBonusFactory's definition
+	*/
+
+	CStickyPaddleBonusFactory::CStickyPaddleBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CStickyPaddleBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateStickyPaddleBonus(result);
+	}
+
+	E_RESULT_CODE CStickyPaddleBonusFactory::SetupComponent(CStickyPaddleBonus* pComponent, const TStickyPaddleBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateStickyPaddleBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CStickyPaddleBonusFactory, result);
+	}
 }

@@ -172,4 +172,37 @@ namespace Game
 	{
 		return CREATE_IMPL(ISystem, CExpandPaddleBonusCollectSystem, result, pEventManager);
 	}
+
+
+	/*!
+		\brief StickyPaddleBonusCollectSystem
+	*/
+
+	CStickyPaddleBonusCollectSystem::CStickyPaddleBonusCollectSystem() :
+		CCollectingSystem()
+	{
+	}
+
+	void CStickyPaddleBonusCollectSystem::_onApplyCollectable(const CStickyPaddleBonus* pCollectable)
+	{
+		for (auto currEntityId : mpWorld->FindEntitiesWithComponents<CPaddle>())
+		{
+			CEntity* pEntity = mpWorld->FindEntity(currEntityId);
+			if (!pEntity)
+			{
+				continue;
+			}
+
+			if (CPaddle* pPaddle = pEntity->GetComponent<CPaddle>())
+			{
+				pPaddle->mIsSticky = true;
+			}
+		}
+	}
+
+
+	TDE2_API ISystem* CreateStickyPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CStickyPaddleBonusCollectSystem, result, pEventManager);
+	}
 }

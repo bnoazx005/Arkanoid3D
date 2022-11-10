@@ -53,6 +53,7 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CPaddle)
 		public:
 			TDEngine2::F32 mSpeed = 5.0f;
+			bool mIsSticky = false;
 	};
 
 

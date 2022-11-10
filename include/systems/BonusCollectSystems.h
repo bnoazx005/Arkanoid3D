@@ -102,4 +102,25 @@ namespace Game
 		private:
 			TDEngine2::F32 mPrevScale = 1.0f;
 	};
+
+
+	/*!
+		\brief StickyPaddleBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateStickyPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CStickyPaddleBonusCollectSystem : public Game::CCollectingSystem<CStickyPaddleBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateStickyPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CStickyPaddleBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CStickyPaddleBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CStickyPaddleBonus* pCollectable) override;
+	};
 }
