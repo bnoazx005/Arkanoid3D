@@ -28,6 +28,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateAddScoreBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateScoreMultiplierBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGodModeBonusCollectSystem(pEventManager, result));
+		pWorld->RegisterSystem(Game::CreateExpandPaddleBonusCollectSystem(pEventManager, result));
 
 		return result;
 	}

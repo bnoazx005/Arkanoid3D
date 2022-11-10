@@ -355,4 +355,129 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CGodModeBonusFactory, result);
 	}
+
+
+	/*!
+		class CExpandPaddleBonus's definition
+	*/
+
+	CExpandPaddleBonus::CExpandPaddleBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CExpandPaddleBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mEffectDuration = pReader->GetFloat("duration");
+		mExpandCoefficient = pReader->GetFloat("expand_coeff");
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CExpandPaddleBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CExpandPaddleBonus::GetTypeId()));
+			pWriter->SetFloat("duration", mEffectDuration);
+			pWriter->SetFloat("expand_coeff", mExpandCoefficient);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CExpandPaddleBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CExpandPaddleBonus* pBonus = dynamic_cast<CExpandPaddleBonus*>(pDestObject))
+		{
+			pBonus->mEffectDuration = mEffectDuration;
+			pBonus->mExpandCoefficient = mExpandCoefficient;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CExpandPaddleBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("ExpandPaddleBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CExpandPaddleBonus& component = dynamic_cast<CExpandPaddleBonus&>(editorContext.mComponent);
+
+			/// \note duration
+			{
+				F32 duration = component.mEffectDuration;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Duration:");
+				imguiContext.FloatField("##Duration", duration, [&component, &duration]() { component.mEffectDuration = duration; });
+				imguiContext.EndHorizontal();
+			}
+
+			/// \note expandCoeff
+			{
+				F32 expandCoeff = component.mExpandCoefficient;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Expand Coeff:");
+				imguiContext.FloatField("##expandCoeff", expandCoeff, [&component, &expandCoeff]() { component.mExpandCoefficient = expandCoeff; });
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateExpandPaddleBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CExpandPaddleBonus, result);
+	}
+
+
+	/*!
+		\brief CExpandPaddleBonusFactory's definition
+	*/
+
+	CExpandPaddleBonusFactory::CExpandPaddleBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CExpandPaddleBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateExpandPaddleBonus(result);
+	}
+
+	E_RESULT_CODE CExpandPaddleBonusFactory::SetupComponent(CExpandPaddleBonus* pComponent, const TExpandPaddleBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateExpandPaddleBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CExpandPaddleBonusFactory, result);
+	}
 }

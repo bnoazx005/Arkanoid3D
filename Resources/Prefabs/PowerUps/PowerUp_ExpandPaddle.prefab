@@ -35,6 +35,7 @@ entities:
             type_id: 1023355219
         - component: 
             duration: 1.000000
-            type_id: 2850562158
+            expand_coeff: 1.200000
+            type_id: 2180186681
       id: 14
       name: PowerUp

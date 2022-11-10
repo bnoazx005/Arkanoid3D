@@ -1,6 +1,7 @@
 #include "../../include/systems/BonusCollectSystems.h"
 #include "../../include/Components.h"
 #include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CPaddle.h"
 
 
 using namespace TDEngine2;
@@ -118,5 +119,57 @@ namespace Game
 	TDE2_API ISystem* CreateGodModeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
 	{
 		return CREATE_IMPL(ISystem, CGodModeBonusCollectSystem, result, pEventManager);
+	}
+
+
+	/*!
+		\brief ExpandPaddleBonusCollectSystem
+	*/
+
+	CExpandPaddleBonusCollectSystem::CExpandPaddleBonusCollectSystem() :
+		CCollectingSystem()
+	{
+	}
+
+	static void ApplyScaleForPaddles(IWorld* mpWorld, F32 paddleScale)
+	{
+		for (auto currEntityId : mpWorld->FindEntitiesWithComponents<CPaddle>())
+		{
+			CEntity* pEntity = mpWorld->FindEntity(currEntityId);
+			if (!pEntity)
+			{
+				continue;
+			}
+
+			CTransform* pTransform = pEntity->GetComponent<CTransform>();
+
+			TVector3 scale = pTransform->GetScale();
+			scale.x *= paddleScale;
+
+			pTransform->SetScale(scale);
+		}
+	}
+
+	void CExpandPaddleBonusCollectSystem::_onApplyCollectable(const CExpandPaddleBonus* pCollectable)
+	{
+		ApplyScaleForPaddles(mpWorld, pCollectable->mExpandCoefficient);
+
+		mCurrTimer += pCollectable->mEffectDuration;
+		mIsEffectActive = true;
+
+		mPrevScale = pCollectable->mExpandCoefficient;
+	}
+
+	void CExpandPaddleBonusCollectSystem::_onCollectableEffectFinished()
+	{
+		CCollectingSystem::_onCollectableEffectFinished();
+
+		ApplyScaleForPaddles(mpWorld, 1.0f / mPrevScale);
+	}
+
+
+	TDE2_API ISystem* CreateExpandPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CExpandPaddleBonusCollectSystem, result, pEventManager);
 	}
 }

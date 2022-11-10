@@ -98,7 +98,7 @@ namespace Game
 				}
 
 				/// \note Reset the ball, update information about the defeat
-				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft)
+				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && !pLevelInfo->mIsGodModeEnabled)
 				{
 					pLevelInfo->mHasPlayerMissedBall = true;
 					pCurrBall->mIsMoving = false;
@@ -111,7 +111,7 @@ namespace Game
 					}
 				}
 
-				if (currPosition.z > pLevelInfo->mVerticalConstraints.mRight)
+				if (currPosition.z > pLevelInfo->mVerticalConstraints.mRight || (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && pLevelInfo->mIsGodModeEnabled))
 				{
 					pCurrBall->mDirection.z = -pCurrBall->mDirection.z;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);

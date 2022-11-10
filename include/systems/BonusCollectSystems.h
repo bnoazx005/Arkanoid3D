@@ -77,4 +77,29 @@ namespace Game
 			TDE2_API void _onApplyCollectable(const CGodModeBonus* pCollectable) override;
 			TDE2_API void _onCollectableEffectFinished() override;
 	};
+
+
+	/*!
+		\brief ExpandPaddleBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateExpandPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CExpandPaddleBonusCollectSystem : public Game::CCollectingSystem<CExpandPaddleBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateExpandPaddleBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CExpandPaddleBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CExpandPaddleBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CExpandPaddleBonus* pCollectable) override;
+			TDE2_API void _onCollectableEffectFinished() override;
+
+		private:
+			TDEngine2::F32 mPrevScale = 1.0f;
+	};
 }
