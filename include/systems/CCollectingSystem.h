@@ -121,12 +121,12 @@ namespace Game
 				if (pCollectable)
 				{
 					_onApplyCollectable(pCollectable);
-				}
 
-				AddDefferedCommand([this, pCollectableEntity]
-				{
-					mpWorld->Destroy(pCollectableEntity);
-				});
+					AddDefferedCommand([this, pCollectableEntity]
+					{
+						mpWorld->Destroy(pCollectableEntity);
+					});
+				}				
 
 				return TDEngine2::RC_OK;
 			}
