@@ -39,6 +39,7 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CCollectingSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CGravityUpdateSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/BonusCollectSystems.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CStickyBallsProcessSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CCustomEngineListener.h")
 
 set(SOURCES
@@ -54,6 +55,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddleControlSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CBallUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CDamageablesUpdateSystem.cpp"	
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CStickyBallsProcessSystem.cpp"	
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CGravityUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/BonusCollectSystems.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")

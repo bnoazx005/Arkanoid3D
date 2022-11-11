@@ -66,6 +66,7 @@ namespace Game
 			TDEngine2::TVector3 mDirection = TDEngine2::ZeroVector3;
 
 			bool mIsMoving = false;
+			bool mIsStuck = false;
 	};
 
 

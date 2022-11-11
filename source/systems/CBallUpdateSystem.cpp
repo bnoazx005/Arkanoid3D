@@ -76,11 +76,16 @@ namespace Game
 				});
 
 				pCurrBall->mIsMoving = true;
+				pCurrBall->mIsStuck = false;
 			}
 
 			if (!pCurrBall->mIsMoving)
 			{
-				pCurrTransform->SetPosition(TVector3(0.0f, 0.0f, 1.3f)); /// \fixme Remove this later when linkage with specified position will be possible
+				if (!pCurrBall->mIsStuck)
+				{
+					pCurrTransform->SetPosition(TVector3(0.0f, 0.0f, 1.3f)); /// \fixme Remove this later when linkage with specified position will be possible
+				}
+
 				continue;
 			}
 

@@ -6,6 +6,7 @@
 #include "../include/systems/CCollectingSystem.h"
 #include "../include/systems/CGravityUpdateSystem.h"
 #include "../include/systems/BonusCollectSystems.h"
+#include "../include/systems/CStickyBallsProcessSystem.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -23,6 +24,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGravityUpdateSystem(result));
+		pWorld->RegisterSystem(Game::CreateStickyBallsProcessSystem(pEventManager, result));
 
 		// bonuses' systems
 		pWorld->RegisterSystem(Game::CreateAddScoreBonusCollectSystem(pEventManager, result));
