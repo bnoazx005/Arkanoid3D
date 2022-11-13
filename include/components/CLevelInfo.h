@@ -60,6 +60,8 @@ namespace Game
 
 			TDEngine2::U32 mPlayerScore = 0;
 			TDEngine2::U32 mScoreMultiplier = 1;
+
+			TDEngine2::U32 mPlayerLives = 3;
 	};
 
 

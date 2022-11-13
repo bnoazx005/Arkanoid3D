@@ -57,12 +57,14 @@ namespace Game
 		auto& transforms = mSystemContext.mpTransforms;
 		auto& balls = mSystemContext.mpBalls;
 
+		CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>();
+
 		for (USIZE i = 0; i < mSystemContext.mComponentsCount; ++i)
 		{
 			CTransform* pCurrTransform = transforms[i];
 			CBall* pCurrBall = balls[i];
 
-			if (!pCurrBall->mIsMoving && mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE))
+			if (!pCurrBall->mIsMoving && mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) && pLevelInfo->mPlayerLives > 0)
 			{
 				AddDefferedCommand([pWorld, pCurrTransform, pCurrBall]
 				{
@@ -92,7 +94,6 @@ namespace Game
 			pCurrTransform->SetPosition(pCurrTransform->GetPosition() + (pCurrBall->mSpeed * dt) * pCurrBall->mDirection);
 
 			/// \note Process bounces
-			if (CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>())
 			{
 				auto currPosition = pCurrTransform->GetPosition();
 
@@ -106,6 +107,8 @@ namespace Game
 				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && !pLevelInfo->mIsGodModeEnabled)
 				{
 					pLevelInfo->mHasPlayerMissedBall = true;
+					pLevelInfo->mPlayerLives = std::max<U32>(0, pLevelInfo->mPlayerLives - 1);
+
 					pCurrBall->mIsMoving = false;
 
 					auto paddles = pWorld->FindEntitiesWithComponents<Game::CPaddle>();

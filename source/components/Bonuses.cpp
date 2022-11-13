@@ -578,4 +578,102 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CStickyPaddleBonusFactory, result);
 	}
+
+
+	/*!
+		class CExtraLifeBonus's definition
+	*/
+
+	CExtraLifeBonus::CExtraLifeBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CExtraLifeBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CExtraLifeBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CExtraLifeBonus::GetTypeId()));
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CExtraLifeBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CExtraLifeBonus* pBonus = dynamic_cast<CExtraLifeBonus*>(pDestObject))
+		{
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CExtraLifeBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("ExtraLifeBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CExtraLifeBonus& component = dynamic_cast<CExtraLifeBonus&>(editorContext.mComponent);
+
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateExtraLifeBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CExtraLifeBonus, result);
+	}
+
+
+	/*!
+		\brief CExtraLifeBonusFactory's definition
+	*/
+
+	CExtraLifeBonusFactory::CExtraLifeBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CExtraLifeBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateExtraLifeBonus(result);
+	}
+
+	E_RESULT_CODE CExtraLifeBonusFactory::SetupComponent(CExtraLifeBonus* pComponent, const TExtraLifeBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateExtraLifeBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CExtraLifeBonusFactory, result);
+	}
 }

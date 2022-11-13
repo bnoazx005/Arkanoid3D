@@ -123,4 +123,25 @@ namespace Game
 
 			TDE2_API void _onApplyCollectable(const CStickyPaddleBonus* pCollectable) override;
 	};
+
+
+	/*!
+		\brief ExtraLifeBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateExtraLifeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CExtraLifeBonusCollectSystem : public Game::CCollectingSystem<CExtraLifeBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateExtraLifeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CExtraLifeBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CExtraLifeBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CExtraLifeBonus* pCollectable) override;
+	};
 }

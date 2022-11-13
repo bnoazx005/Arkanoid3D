@@ -32,6 +32,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateGodModeBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateExpandPaddleBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateStickyPaddleBonusCollectSystem(pEventManager, result));
+		pWorld->RegisterSystem(Game::CreateExtraLifeBonusCollectSystem(pEventManager, result));
 
 		return result;
 	}

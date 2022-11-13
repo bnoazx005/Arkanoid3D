@@ -205,4 +205,31 @@ namespace Game
 	{
 		return CREATE_IMPL(ISystem, CStickyPaddleBonusCollectSystem, result, pEventManager);
 	}
+
+
+	/*!
+		\brief ExtraLifeBonusCollectSystem
+	*/
+
+	CExtraLifeBonusCollectSystem::CExtraLifeBonusCollectSystem() :
+		CCollectingSystem()
+	{
+	}
+
+	void CExtraLifeBonusCollectSystem::_onApplyCollectable(const CExtraLifeBonus* pCollectable)
+	{
+		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
+		if (!pLevelInfo)
+		{
+			return;
+		}
+
+		pLevelInfo->mPlayerLives++;
+	}
+
+
+	TDE2_API ISystem* CreateExtraLifeBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CExtraLifeBonusCollectSystem, result, pEventManager);
+	}
 }
