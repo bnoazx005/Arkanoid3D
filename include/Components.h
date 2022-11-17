@@ -18,6 +18,7 @@ namespace Game
 #endif 
 	);
 
-	//TDE2_DECLARE_FLAG_COMPONENT(Paddle);
+
+	TDE2_DECLARE_FLAG_COMPONENT(Projectile);
 	//TDE2_REGISTER_UNIQUE_COMPONENT(CPaddle);
 }
