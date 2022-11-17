@@ -28,6 +28,6 @@ entities:
               z: 0.300000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
       id: 10
       name: Ball

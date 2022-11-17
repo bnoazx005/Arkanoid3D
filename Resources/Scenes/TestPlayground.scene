@@ -58,7 +58,7 @@ entities:
               z: 0.250000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
         - component: 
             type_id: 1023355219
       id: 8
@@ -94,7 +94,7 @@ entities:
               z: 0.300000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
       id: 9
       name: Ball
   - entity: 
@@ -130,7 +130,7 @@ entities:
               z: 0.250000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
       id: 11
       name: Brick
     link: 
@@ -169,7 +169,7 @@ entities:
               z: 0.250000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
       id: 13
       name: Brick
     link: 
@@ -208,7 +208,7 @@ entities:
               z: 0.250000
             mass: 1.000000
             type: COT_KINEMATIC
-            type_id: 2272726859
+            type_id: 1841622609
       id: 14
       name: Brick
     link: 
