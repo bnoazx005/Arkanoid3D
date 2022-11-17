@@ -1,24 +1,26 @@
 collection: 
-  - path: ProjectResources/Prefabs/PowerUps/PowerUp_ExpandPaddle.prefab
-    prefab_id: PowerUp_ExpandPaddle
-  - path: ProjectResources/Prefabs/PowerUps/PowerUp_Score2X.prefab
-    prefab_id: PowerUp_Score2X
   - path: ProjectResources/Prefabs/Ball.prefab
     prefab_id: Ball
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp_Score2X.prefab
+    prefab_id: PowerUp_Score2X
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp_ExpandPaddle.prefab
+    prefab_id: PowerUp_ExpandPaddle
   - path: ProjectResources/Prefabs/Paddle.prefab
     prefab_id: Paddle
   - path: ProjectResources/Prefabs/SimpleBrick.prefab
     prefab_id: SimpleBrick
-  - path: ProjectResources/Prefabs/PowerUps/PowerUp.prefab
-    prefab_id: PowerUp
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_AddScore.prefab
     prefab_id: PowerUp_AddScore
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp.prefab
+    prefab_id: PowerUp
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_GodMode.prefab
     prefab_id: PowerUp_GodMode
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_StickyPaddle.prefab
     prefab_id: PowerUp_StickyPaddle
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_ExtraLife.prefab
     prefab_id: PowerUp_ExtraLife
+  - path: ProjectResources/Prefabs/Projectile.prefab
+    prefab_id: Projectile
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1

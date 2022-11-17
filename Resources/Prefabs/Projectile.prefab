@@ -1,0 +1,83 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 16
+              - child_id: 15
+            owner_id: 14
+            parent_id: 4294967295
+            position: 
+              y: 0.162000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 1930024581
+        - component: 
+            mass: "-8.000000"
+            type_id: 3467057449
+      id: 14
+      name: Shot_Root
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 15
+            parent_id: 14
+            position: 
+              x: 0.500000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 0.100000
+              y: 0.100000
+              z: 0.100000
+            type_id: 3864726948
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            extents: 
+              x: 0.100000
+              y: 0.100000
+              z: 0.100000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 1841622609
+      id: 15
+      name: RightProjectile
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 16
+            parent_id: 14
+            position: 
+              x: "-0.500000"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 0.100000
+              y: 0.100000
+              z: 0.100000
+            type_id: 3864726948
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            extents: 
+              x: 0.100000
+              y: 0.100000
+              z: 0.100000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 1841622609
+      id: 16
+      name: LeftProjectile
