@@ -20,6 +20,7 @@ namespace Game
 			return RC_FAIL;
 		}
 
+		mMass = pReader->GetFloat("mass");
 
 		return RC_OK;
 	}
@@ -34,11 +35,24 @@ namespace Game
 		pWriter->BeginGroup("component");
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CGravitable::GetTypeId()));
+			pWriter->SetFloat("mass", mMass);
 
 		}
 		pWriter->EndGroup();
 
 		return RC_OK;
+	}
+
+	E_RESULT_CODE CGravitable::Clone(IComponent*& pDestObject) const
+	{
+		if (auto pComponent = dynamic_cast<CGravitable*>(pDestObject))
+		{
+			pComponent->mMass = mMass;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
 	}
 
 #if TDE2_EDITORS_ENABLED
@@ -50,15 +64,15 @@ namespace Game
 			IImGUIContext& imguiContext = editorContext.mImGUIContext;
 			CGravitable& component = dynamic_cast<CGravitable&>(editorContext.mComponent);
 
-			///// \note Speed of the Gravitable
-			//{
-			//	F32 speed = component.mSpeed;
+			/// \note Mass
+			{
+				F32 mass = component.mMass;
 
-			//	imguiContext.BeginHorizontal();
-			//	imguiContext.Label("Speed:");
-			//	imguiContext.FloatField("##Speed", speed, [&component, &speed]() { component.mSpeed = speed; });
-			//	imguiContext.EndHorizontal();
-			//}
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Mass:");
+				imguiContext.FloatField("##Mass", mass, [&component, &mass]() { component.mMass = mass; });
+				imguiContext.EndHorizontal();
+			}
 		});
 	}
 
@@ -92,8 +106,6 @@ namespace Game
 		{
 			return RC_INVALID_ARGS;
 		}
-
-
 
 		return RC_OK;
 	}
