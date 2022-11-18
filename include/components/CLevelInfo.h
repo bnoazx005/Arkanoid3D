@@ -63,6 +63,8 @@ namespace Game
 			TDEngine2::U32 mScoreMultiplier = 1;
 
 			TDEngine2::U32 mPlayerLives = 3;
+
+			TDEngine2::TSceneId mCurrLoadedLevelId = TDEngine2::TSceneId::Invalid;
 	};
 
 

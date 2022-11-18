@@ -7,20 +7,22 @@
 #include "../include/systems/CGravityUpdateSystem.h"
 #include "../include/systems/BonusCollectSystems.h"
 #include "../include/systems/CStickyBallsProcessSystem.h"
+#include "../include/components/CLevelInfo.h"
 #include <TDEngine2.h>
 #include <iostream>
 
 
 using namespace TDEngine2;
+using namespace Game;
 
 
 namespace Game
 {
-	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext, TPtr<IEventManager> pEventManager)
+	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext, TPtr<IEventManager> pEventManager, TPtr<ISceneManager> pSceneManager)
 	{
 		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
 
-		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, result));
+		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, pSceneManager, result));
 		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGravityUpdateSystem(result));
@@ -45,7 +47,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	mpWorld = mpSceneManager->GetWorld();
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
-	Game::RegisterGameSystems(mpWorld, mpInputContext, mpEngineCoreInstance->GetSubsystem<IEventManager>());
+	Game::RegisterGameSystems(mpWorld, mpInputContext, mpEngineCoreInstance->GetSubsystem<IEventManager>(), mpEngineCoreInstance->GetSubsystem<ISceneManager>());
 
 	/// \todo Replace this later with scene's configurable solution
 	if (auto pMainScene = mpSceneManager->GetScene(MainScene).Get())
@@ -75,9 +77,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	}
 
-	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", [](auto)
+	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", [this](const TResult<TSceneId>& sceneId)
 	{
-
+		if (CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CLevelInfo>())->GetComponent<CLevelInfo>())
+		{
+			pLevelInfo->mCurrLoadedLevelId = sceneId.Get();
+		}
 	});
 
 	return RC_OK;

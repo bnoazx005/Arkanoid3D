@@ -13,13 +13,16 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, 
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, 
+		TDEngine2::E_RESULT_CODE& result);
 
 
 	class CPaddleControlSystem : public TDEngine2::CBaseSystem
 	{
 		public:
-			friend TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::ISystem* CreatePaddleControlSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::TPtr<TDEngine2::ISceneManager>, TDEngine2::E_RESULT_CODE&);
 		public:
 			TDE2_SYSTEM(CPaddleControlSystem);
 
@@ -29,7 +32,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>);
+			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager);
 
 			/*!
 				\brief The method inject components array into a system
@@ -53,7 +56,8 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CPaddleControlSystem)
 
 		private:
-			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext = nullptr;
+			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext = nullptr; 
+			TDEngine2::TPtr<TDEngine2::ISceneManager> mpSceneManager = nullptr;
 			
 			TDEngine2::TComponentsQueryLocalSlice<CPaddle, TDEngine2::CTransform> mSystemContext;
 
