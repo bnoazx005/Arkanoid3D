@@ -144,4 +144,26 @@ namespace Game
 
 			TDE2_API void _onApplyCollectable(const CExtraLifeBonus* pCollectable) override;
 	};
+
+
+	/*!
+		\brief LaserBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateLaserBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CLaserBonusCollectSystem : public Game::CCollectingSystem<CLaserBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateLaserBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CLaserBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLaserBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CLaserBonus* pCollectable) override;
+			TDE2_API void _onCollectableEffectFinished() override;
+	};
 }

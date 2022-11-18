@@ -33,6 +33,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateExpandPaddleBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateStickyPaddleBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateExtraLifeBonusCollectSystem(pEventManager, result));
+		pWorld->RegisterSystem(Game::CreateLaserBonusCollectSystem(pEventManager, result));
 
 		return result;
 	}

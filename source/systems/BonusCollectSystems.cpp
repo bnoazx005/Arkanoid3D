@@ -232,4 +232,47 @@ namespace Game
 	{
 		return CREATE_IMPL(ISystem, CExtraLifeBonusCollectSystem, result, pEventManager);
 	}
+
+
+	/*!
+		\brief LaserBonusCollectSystem
+	*/
+
+	CLaserBonusCollectSystem::CLaserBonusCollectSystem() :
+		CCollectingSystem()
+	{
+	}
+
+	void CLaserBonusCollectSystem::_onApplyCollectable(const CLaserBonus* pCollectable)
+	{
+		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
+		if (!pLevelInfo)
+		{
+			return;
+		}
+
+		pLevelInfo->mIsLaserEnabled = true;
+
+		mCurrTimer += pCollectable->mEffectDuration;
+		mIsEffectActive = true;
+	}
+
+	void CLaserBonusCollectSystem::_onCollectableEffectFinished()
+	{
+		CCollectingSystem::_onCollectableEffectFinished();
+
+		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
+		if (!pLevelInfo)
+		{
+			return;
+		}
+
+		pLevelInfo->mIsLaserEnabled = false;
+	}
+
+
+	TDE2_API ISystem* CreateLaserBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CLaserBonusCollectSystem, result, pEventManager);
+	}
 }

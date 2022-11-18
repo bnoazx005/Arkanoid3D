@@ -57,6 +57,7 @@ namespace Game
 
 			bool mHasPlayerMissedBall = false;
 			bool mIsGodModeEnabled = false;
+			bool mIsLaserEnabled = false;
 
 			TDEngine2::U32 mPlayerScore = 0;
 			TDEngine2::U32 mScoreMultiplier = 1;

@@ -676,4 +676,116 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CExtraLifeBonusFactory, result);
 	}
+
+
+	/*!
+		class CLaserBonus's definition
+	*/
+
+	CLaserBonus::CLaserBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CLaserBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mEffectDuration = pReader->GetFloat("duration");
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CLaserBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CLaserBonus::GetTypeId()));
+			pWriter->SetFloat("duration", mEffectDuration);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CLaserBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CLaserBonus* pBonus = dynamic_cast<CLaserBonus*>(pDestObject))
+		{
+			pBonus->mEffectDuration = mEffectDuration;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CLaserBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("LaserBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CLaserBonus& component = dynamic_cast<CLaserBonus&>(editorContext.mComponent);
+
+			/// \note duration
+			{
+				F32 duration = component.mEffectDuration;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Duration:");
+				imguiContext.FloatField("##Duration", duration, [&component, &duration]() { component.mEffectDuration = duration; });
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateLaserBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CLaserBonus, result);
+	}
+
+
+	/*!
+		\brief CLaserBonusFactory's definition
+	*/
+
+	CLaserBonusFactory::CLaserBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CLaserBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateLaserBonus(result);
+	}
+
+	E_RESULT_CODE CLaserBonusFactory::SetupComponent(CLaserBonus* pComponent, const TLaserBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateLaserBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CLaserBonusFactory, result);
+	}
 }

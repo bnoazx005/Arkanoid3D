@@ -20,7 +20,7 @@ namespace Game
 			return RC_FAIL;
 		}
 
-		mMass = pReader->GetFloat("mass");
+		mMass = pReader->GetFloat("mass", 1.0f);
 
 		return RC_OK;
 	}

@@ -67,10 +67,14 @@ namespace Game
 		}
 
 		CBall* pBall = GetValidPtrOrDefault(pEntity0->GetComponent<CBall>(), pEntity1->GetComponent<CBall>());
+		CProjectile* pProjectile = GetValidPtrOrDefault(pEntity0->GetComponent<CProjectile>(), pEntity1->GetComponent<CProjectile>());
 
-		if (pDamageable && pBall && pDamageable->mLifes > 0)
+		if (pDamageable && (pBall || pProjectile) && pDamageable->mLifes > 0)
 		{
-			pBall->mDirection = Reflect(-pBall->mDirection, pCollisionEvent->mContactNormal);
+			if (pBall)
+			{
+				pBall->mDirection = Reflect(-pBall->mDirection, pCollisionEvent->mContactNormal);
+			}
 
 			if (!pDamageable->mIsConstant)
 			{
