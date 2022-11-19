@@ -25,7 +25,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
+			TDE2_API virtual TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager = nullptr)
 			{
 				if (mIsInitialized)
 				{
@@ -38,6 +38,8 @@ namespace Game
 				}
 
 				pEventManager->Subscribe(TDEngine2::TOn3DCollisionRegisteredEvent::GetTypeId(), this);
+
+				mpSceneManager = pSceneManager;
 
 				mIsInitialized = true;
 
@@ -152,7 +154,8 @@ namespace Game
 			}
 
 		protected:
-			TDEngine2::IWorld* mpWorld = nullptr;
+			TDEngine2::IWorld* mpWorld = nullptr; 
+			TDEngine2::TPtr<TDEngine2::ISceneManager> mpSceneManager = nullptr;
 
 			TDEngine2::F32 mCurrTimer = 0.0f;
 			bool           mIsEffectActive = false;

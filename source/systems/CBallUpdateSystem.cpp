@@ -64,11 +64,14 @@ namespace Game
 			CTransform* pCurrTransform = transforms[i];
 			CBall* pCurrBall = balls[i];
 
-			if (!pCurrBall->mIsMoving && mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) && pLevelInfo->mPlayerLives > 0)
+			if (!pCurrBall->mIsMoving && (mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) && pLevelInfo->mPlayerLives > 0 || pCurrBall->mNeedUpdateDirection))
 			{
 				AddDefferedCommand([pWorld, pCurrTransform, pCurrBall]
 				{
-					TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
+					if (TEntityId::Invalid != pCurrTransform->GetParent())
+					{
+						TDEngine2::GroupEntities(pWorld, TEntityId::Invalid, pCurrTransform->GetOwnerId());
+					}
 
 					/// \todo Add RandVector2
 

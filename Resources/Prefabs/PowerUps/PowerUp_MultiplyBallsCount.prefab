@@ -2,20 +2,19 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 10
+            owner_id: 14
             parent_id: 4294967295
             position: 
-              z: 1.300000
+              y: 0.260646
             rotation: 
               w: 1.000000
             scale: 
-              x: 0.30000
+              x: 0.500000
               y: 0.300000
               z: 0.300000
             type_id: 3864726948
         - component: 
-            speed: 5.000000
-            type_id: 216090083
+            type_id: 1930024581
         - component: 
             material: ProjectResources/Materials/DefaultMaterial.material
             mesh: Cube
@@ -23,11 +22,19 @@ entities:
             type_id: 780504096
         - component: 
             extents: 
-              x: 0.300000
+              x: 0.500000
               y: 0.300000
               z: 0.300000
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 1841622609
-      id: 10
-      name: Ball
+        - component: 
+            mass: 1.000000
+            type_id: 3467057449
+        - component: 
+            type_id: 1023355219
+        - component: 
+            balls_count: 3
+            type_id: 156079881
+      id: 14
+      name: PowerUp

@@ -788,4 +788,116 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CLaserBonusFactory, result);
 	}
+
+
+	/*!
+		class CMultipleBallsBonus's definition
+	*/
+
+	CMultipleBallsBonus::CMultipleBallsBonus() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CMultipleBallsBonus::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mBallsCount = pReader->GetUInt32("balls_count");
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CMultipleBallsBonus::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CMultipleBallsBonus::GetTypeId()));
+			pWriter->SetUInt32("balls_count", mBallsCount);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CMultipleBallsBonus::Clone(IComponent*& pDestObject) const
+	{
+		if (CMultipleBallsBonus* pBonus = dynamic_cast<CMultipleBallsBonus*>(pDestObject))
+		{
+			pBonus->mBallsCount = mBallsCount;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CMultipleBallsBonus::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("MultipleBallsBonus", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CMultipleBallsBonus& component = dynamic_cast<CMultipleBallsBonus&>(editorContext.mComponent);
+			
+			/// \note balls count
+			{
+				I32 value = static_cast<I32>(component.mBallsCount);
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Balls Count:");
+				imguiContext.IntField("##BallsCount", value, [&component, &value]() { component.mBallsCount = static_cast<U32>(value); });
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateMultipleBallsBonus(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CMultipleBallsBonus, result);
+	}
+
+
+	/*!
+		\brief CMultipleBallsBonusFactory's definition
+	*/
+
+	CMultipleBallsBonusFactory::CMultipleBallsBonusFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CMultipleBallsBonusFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateMultipleBallsBonus(result);
+	}
+
+	E_RESULT_CODE CMultipleBallsBonusFactory::SetupComponent(CMultipleBallsBonus* pComponent, const TMultipleBallsBonusParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateMultipleBallsBonusFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CMultipleBallsBonusFactory, result);
+	}
 }

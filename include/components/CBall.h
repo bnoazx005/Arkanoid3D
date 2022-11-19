@@ -67,6 +67,7 @@ namespace Game
 
 			bool mIsMoving = false;
 			bool mIsStuck = false;
+			bool mNeedUpdateDirection = false; /// \note if the flag's set to true a new direction vector should be computed
 	};
 
 

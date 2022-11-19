@@ -166,4 +166,25 @@ namespace Game
 			TDE2_API void _onApplyCollectable(const CLaserBonus* pCollectable) override;
 			TDE2_API void _onCollectableEffectFinished() override;
 	};
+
+
+	/*!
+		\brief MultipleBallsBonusCollectSystem
+	*/
+
+	TDE2_API TDEngine2::ISystem* CreateMultipleBallsBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::E_RESULT_CODE& result);
+
+
+	class CMultipleBallsBonusCollectSystem : public Game::CCollectingSystem<CMultipleBallsBonus>
+	{
+		public:
+			friend TDE2_API TDEngine2::ISystem* CreateMultipleBallsBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::TPtr<TDEngine2::ISceneManager>, TDEngine2::E_RESULT_CODE&);
+		public:
+			TDE2_SYSTEM(CMultipleBallsBonusCollectSystem);
+
+		protected:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMultipleBallsBonusCollectSystem)
+
+			TDE2_API void _onApplyCollectable(const CMultipleBallsBonus* pCollectable) override;
+	};
 }

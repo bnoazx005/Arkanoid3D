@@ -2,6 +2,7 @@
 #include "../../include/Components.h"
 #include "../../include/components/CLevelInfo.h"
 #include "../../include/components/CPaddle.h"
+#include "../../include/components/CBall.h"
 
 
 using namespace TDEngine2;
@@ -274,5 +275,74 @@ namespace Game
 	TDE2_API ISystem* CreateLaserBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, E_RESULT_CODE& result)
 	{
 		return CREATE_IMPL(ISystem, CLaserBonusCollectSystem, result, pEventManager);
+	}
+
+
+	/*!
+		\brief MultipleBallsBonusCollectSystem
+	*/
+
+	CMultipleBallsBonusCollectSystem::CMultipleBallsBonusCollectSystem() :
+		CCollectingSystem()
+	{
+	}
+
+	void CMultipleBallsBonusCollectSystem::_onApplyCollectable(const CMultipleBallsBonus* pCollectable)
+	{
+		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
+		if (!pLevelInfo)
+		{
+			return;
+		}
+
+		auto sceneResult = mpSceneManager->GetScene(pLevelInfo->mCurrLoadedLevelId);
+		if (sceneResult.HasError())
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		IScene* pScene = sceneResult.Get();
+		if (!pScene)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		const U32 ballsCount = pCollectable->mBallsCount;
+
+		/// \note Instantiate new balls 
+		for (TEntityId currBallEntityId : mpWorld->FindEntitiesWithComponents<CBall>())
+		{
+			CEntity* pEntity = mpWorld->FindEntity(currBallEntityId);
+			if (!pEntity)
+			{
+				continue;
+			}
+
+			CTransform* pBallTransform = pEntity->GetComponent<CTransform>();
+			const TVector3& ballPosition = pBallTransform->GetPosition();
+
+			for (U32 i = 0; i < ballsCount; i++)
+			{
+				CEntity* pNewBallEntity = pScene->Spawn("Ball"); /// \todo Replace constant with configurable identifier
+				if (!pNewBallEntity)
+				{
+					continue;
+				}
+
+				CTransform* pNewBallTransform = pNewBallEntity->GetComponent<CTransform>();
+				pNewBallTransform->SetPosition(ballPosition);
+
+				CBall* pNewBall = pNewBallEntity->GetComponent<CBall>();
+				pNewBall->mNeedUpdateDirection = true;
+			}
+		}
+	}
+
+
+	TDE2_API ISystem* CreateMultipleBallsBonusCollectSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(ISystem, CMultipleBallsBonusCollectSystem, result, pEventManager, pSceneManager);
 	}
 }
