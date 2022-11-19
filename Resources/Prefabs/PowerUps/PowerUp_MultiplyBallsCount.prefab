@@ -34,7 +34,7 @@ entities:
         - component: 
             type_id: 1023355219
         - component: 
-            balls_count: 3
+            balls_count: 2
             type_id: 156079881
       id: 14
       name: PowerUp
