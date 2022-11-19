@@ -78,6 +78,8 @@ namespace Game
 					pCurrBall->mDirection = RandVector3(TVector3(-1.0f, 0.0f, 1.0f), TVector3(1.0f, 0.0f, 1.0f));
 					pCurrBall->mDirection.y = 0.0f;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
+
+					pCurrBall->mNeedUpdateDirection = false;
 				});
 
 				pCurrBall->mIsMoving = true;
@@ -110,7 +112,11 @@ namespace Game
 				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && !pLevelInfo->mIsGodModeEnabled)
 				{
 					pLevelInfo->mHasPlayerMissedBall = true;
-					pLevelInfo->mPlayerLives = std::max<U32>(0, pLevelInfo->mPlayerLives - 1);
+
+					if (pLevelInfo->mPlayerLives >= 1)
+					{
+						pLevelInfo->mPlayerLives--;
+					}
 
 					pCurrBall->mIsMoving = false;
 
