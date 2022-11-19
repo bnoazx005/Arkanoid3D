@@ -118,6 +118,15 @@ namespace Game
 						pLevelInfo->mPlayerLives--;
 					}
 
+					/// \note Remove the extra ball if there is another one
+					if (mSystemContext.mComponentsCount >= 2)
+					{
+						AddDefferedCommand([pWorld, pCurrTransform]
+						{
+							pWorld->DestroyImmediately(pWorld->FindEntity(pCurrTransform->GetOwnerId()));
+						});
+					}
+
 					pCurrBall->mIsMoving = false;
 
 					auto paddles = pWorld->FindEntitiesWithComponents<Game::CPaddle>();
