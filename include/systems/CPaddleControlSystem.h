@@ -61,6 +61,6 @@ namespace Game
 			
 			TDEngine2::TComponentsQueryLocalSlice<CPaddle, TDEngine2::CTransform> mSystemContext;
 
-			TDEngine2::TEntityId mLevelInfoEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::TEntityId mGameInfoEntityId = TDEngine2::TEntityId::Invalid;
 	};
 }

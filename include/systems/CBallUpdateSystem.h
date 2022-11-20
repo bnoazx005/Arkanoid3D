@@ -67,6 +67,6 @@ namespace Game
 			
 			TSystemContext mSystemContext;
 			
-			TDEngine2::TEntityId mLevelInfoEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::TEntityId mGameInfoEntityId = TDEngine2::TEntityId::Invalid;
 	};
 }

@@ -1,6 +1,6 @@
 #include "../../include/systems/BonusCollectSystems.h"
 #include "../../include/Components.h"
-#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CGameInfo.h"
 #include "../../include/components/CPaddle.h"
 #include "../../include/components/CBall.h"
 
@@ -21,13 +21,13 @@ namespace Game
 
 	void CAddScoreBonusCollectSystem::_onApplyCollectable(const CScoreBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mPlayerScore += pLevelInfo->mScoreMultiplier * pCollectable->mScoreToAdd;
+		pGameInfo->mPlayerScore += pGameInfo->mScoreMultiplier * pCollectable->mScoreToAdd;
 	}
 
 
@@ -48,13 +48,13 @@ namespace Game
 
 	void CScoreMultiplierBonusCollectSystem::_onApplyCollectable(const CScoreMultiplierBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mScoreMultiplier = pCollectable->mValue;
+		pGameInfo->mScoreMultiplier = pCollectable->mValue;
 
 		mCurrTimer += pCollectable->mEffectDuration;
 		mIsEffectActive = true;
@@ -64,13 +64,13 @@ namespace Game
 	{
 		CCollectingSystem::_onCollectableEffectFinished();
 
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mScoreMultiplier = 1;
+		pGameInfo->mScoreMultiplier = 1;
 	}
 
 
@@ -91,13 +91,13 @@ namespace Game
 
 	void CGodModeBonusCollectSystem::_onApplyCollectable(const CGodModeBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mIsGodModeEnabled = true;
+		pGameInfo->mIsGodModeEnabled = true;
 
 		mCurrTimer += pCollectable->mEffectDuration;
 		mIsEffectActive = true;
@@ -107,13 +107,13 @@ namespace Game
 	{
 		CCollectingSystem::_onCollectableEffectFinished();
 
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mIsGodModeEnabled = false;
+		pGameInfo->mIsGodModeEnabled = false;
 	}
 
 
@@ -219,13 +219,13 @@ namespace Game
 
 	void CExtraLifeBonusCollectSystem::_onApplyCollectable(const CExtraLifeBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mPlayerLives++;
+		pGameInfo->mPlayerLives++;
 	}
 
 
@@ -246,13 +246,13 @@ namespace Game
 
 	void CLaserBonusCollectSystem::_onApplyCollectable(const CLaserBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mIsLaserEnabled = true;
+		pGameInfo->mIsLaserEnabled = true;
 
 		mCurrTimer += pCollectable->mEffectDuration;
 		mIsEffectActive = true;
@@ -262,13 +262,13 @@ namespace Game
 	{
 		CCollectingSystem::_onCollectableEffectFinished();
 
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		pLevelInfo->mIsLaserEnabled = false;
+		pGameInfo->mIsLaserEnabled = false;
 	}
 
 
@@ -289,13 +289,13 @@ namespace Game
 
 	void CMultipleBallsBonusCollectSystem::_onApplyCollectable(const CMultipleBallsBonus* pCollectable)
 	{
-		CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>())->GetComponent<CLevelInfo>();
-		if (!pLevelInfo)
+		CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
 		{
 			return;
 		}
 
-		auto sceneResult = mpSceneManager->GetScene(pLevelInfo->mCurrLoadedLevelId);
+		auto sceneResult = mpSceneManager->GetScene(pGameInfo->mCurrLoadedGameId);
 		if (sceneResult.HasError())
 		{
 			TDE2_ASSERT(false);

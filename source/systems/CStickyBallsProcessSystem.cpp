@@ -2,7 +2,7 @@
 #include "../../include/Components.h"
 #include "../../include/components/CBall.h"
 #include "../../include/components/CPaddle.h"
-#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CGameInfo.h"
 
 
 using namespace TDEngine2;

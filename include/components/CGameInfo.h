@@ -1,5 +1,5 @@
 /*!
-	\file CLevelInfo.h
+	\file CGameInfo.h
 	\date 04.10.2022
 	\authors Kasimov Ildar
 */
@@ -12,19 +12,19 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::IComponent* CreateLevelInfo(TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::IComponent* CreateGameInfo(TDEngine2::E_RESULT_CODE& result);
 
 
 	/*!
-		class CLevelInfo
+		class CGameInfo
 	*/
 
-	class CLevelInfo : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CLevelInfo, 1 << 20>
+	class CGameInfo : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CGameInfo, 1 << 20>
 	{
 		public:
-			friend TDE2_API TDEngine2::IComponent* CreateLevelInfo(TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::IComponent* CreateGameInfo(TDEngine2::E_RESULT_CODE&);
 		public:
-			TDE2_REGISTER_COMPONENT_TYPE(CLevelInfo)
+			TDE2_REGISTER_COMPONENT_TYPE(CGameInfo)
 
 			/*!
 				\brief The method deserializes object's state from given reader
@@ -50,7 +50,7 @@ namespace Game
 			TDE2_API static void DrawInspectorGUI(const TDEngine2::TEditorContext& context);
 	#endif
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelInfo)
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CGameInfo)
 		public:
 			TDEngine2::TRangeF32 mHorizontalConstraints = TDEngine2::TRangeF32(-4.0f, 4.0f);
 			TDEngine2::TRangeF32 mVerticalConstraints = TDEngine2::TRangeF32(-5.0f, 4.0f);
@@ -64,22 +64,22 @@ namespace Game
 
 			TDEngine2::U32 mPlayerLives = 3;
 
-			TDEngine2::TSceneId mCurrLoadedLevelId = TDEngine2::TSceneId::Invalid;
+			TDEngine2::TSceneId mCurrLoadedGameId = TDEngine2::TSceneId::Invalid;
 	};
 
 
 	/*!
-		struct TLevelInfoParameters
+		struct TGameInfoParameters
 
-		\brief The structure contains parameters for creation of CLevelInfo
+		\brief The structure contains parameters for creation of CGameInfo
 	*/
 
-	typedef struct TLevelInfoParameters : public TDEngine2::TBaseComponentParameters
+	typedef struct TGameInfoParameters : public TDEngine2::TBaseComponentParameters
 	{
 		TDEngine2::TRangeF32 mHorizontalConstraints;
 		TDEngine2::TRangeF32 mVerticalConstraints;
-	} TLevelInfoParameters;
+	} TGameInfoParameters;
 
 
-	TDE2_DECLARE_COMPONENT_FACTORY(LevelInfo, TLevelInfoParameters);
+	TDE2_DECLARE_COMPONENT_FACTORY(GameInfo, TGameInfoParameters);
 }

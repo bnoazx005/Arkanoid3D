@@ -1,6 +1,6 @@
 #include "../../include/systems/CBallUpdateSystem.h"
 #include "../../include/Components.h"
-#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CGameInfo.h"
 #include "../../include/components/CBall.h"
 #include "../../include/components/CPaddle.h"
 
@@ -48,8 +48,8 @@ namespace Game
 		}
 
 		mSystemContext.mComponentsCount = mSystemContext.mpBalls.size();
-
-		mLevelInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>();
+		
+		mGameInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CGameInfo>();
 	}
 
 	void CBallUpdateSystem::Update(IWorld* pWorld, F32 dt)
@@ -57,14 +57,14 @@ namespace Game
 		auto& transforms = mSystemContext.mpTransforms;
 		auto& balls = mSystemContext.mpBalls;
 
-		CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>();
+		CGameInfo* pGameInfo = pWorld->FindEntity(mGameInfoEntityId)->GetComponent<CGameInfo>();
 
 		for (USIZE i = 0; i < mSystemContext.mComponentsCount; ++i)
 		{
 			CTransform* pCurrTransform = transforms[i];
 			CBall* pCurrBall = balls[i];
 
-			if (!pCurrBall->mIsMoving && (mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) && pLevelInfo->mPlayerLives > 0 || pCurrBall->mNeedUpdateDirection))
+			if (!pCurrBall->mIsMoving && (mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) && pGameInfo->mPlayerLives > 0 || pCurrBall->mNeedUpdateDirection))
 			{
 				AddDefferedCommand([pWorld, pCurrTransform, pCurrBall]
 				{
@@ -102,20 +102,20 @@ namespace Game
 			{
 				auto currPosition = pCurrTransform->GetPosition();
 
-				if (currPosition.x < pLevelInfo->mHorizontalConstraints.mLeft || currPosition.x > pLevelInfo->mHorizontalConstraints.mRight)
+				if (currPosition.x < pGameInfo->mHorizontalConstraints.mLeft || currPosition.x > pGameInfo->mHorizontalConstraints.mRight)
 				{
 					pCurrBall->mDirection.x = -pCurrBall->mDirection.x;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);
 				}
 
 				/// \note Reset the ball, update information about the defeat
-				if (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && !pLevelInfo->mIsGodModeEnabled)
+				if (currPosition.z < pGameInfo->mVerticalConstraints.mLeft && !pGameInfo->mIsGodModeEnabled)
 				{
-					pLevelInfo->mHasPlayerMissedBall = true;
+					pGameInfo->mHasPlayerMissedBall = true;
 
-					if (pLevelInfo->mPlayerLives >= 1)
+					if (pGameInfo->mPlayerLives >= 1)
 					{
-						pLevelInfo->mPlayerLives--;
+						pGameInfo->mPlayerLives--;
 					}
 
 					/// \note Remove the extra ball if there is another one
@@ -137,7 +137,7 @@ namespace Game
 					}
 				}
 
-				if (currPosition.z > pLevelInfo->mVerticalConstraints.mRight || (currPosition.z < pLevelInfo->mVerticalConstraints.mLeft && pLevelInfo->mIsGodModeEnabled))
+				if (currPosition.z > pGameInfo->mVerticalConstraints.mRight || (currPosition.z < pGameInfo->mVerticalConstraints.mLeft && pGameInfo->mIsGodModeEnabled))
 				{
 					pCurrBall->mDirection.z = -pCurrBall->mDirection.z;
 					pCurrBall->mDirection = Normalize(pCurrBall->mDirection);

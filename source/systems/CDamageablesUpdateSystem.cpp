@@ -1,6 +1,6 @@
 #include "../../include/systems/CDamageablesUpdateSystem.h"
 #include "../../include/Components.h"
-#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CGameInfo.h"
 
 
 using namespace TDEngine2;

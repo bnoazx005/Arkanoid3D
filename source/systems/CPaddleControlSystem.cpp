@@ -1,6 +1,6 @@
 #include "../../include/systems/CPaddleControlSystem.h"
 #include "../../include/Components.h"
-#include "../../include/components/CLevelInfo.h"
+#include "../../include/components/CGameInfo.h"
 
 
 using namespace TDEngine2;
@@ -37,13 +37,13 @@ namespace Game
 	{
 		mSystemContext = pWorld->CreateLocalComponentsSlice<CPaddle, CTransform>();
 
-		mLevelInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CLevelInfo>();
+		mGameInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CGameInfo>();
 	}
 
 
-	static void ProcessLaserShot(IWorld* pWorld, TPtr<ISceneManager> pSceneManager, CTransform* pPaddleTransform, CLevelInfo* pLevelInfo)
+	static void ProcessLaserShot(IWorld* pWorld, TPtr<ISceneManager> pSceneManager, CTransform* pPaddleTransform, CGameInfo* pGameInfo)
 	{
-		auto sceneResult = pSceneManager->GetScene(pLevelInfo->mCurrLoadedLevelId);
+		auto sceneResult = pSceneManager->GetScene(pGameInfo->mCurrLoadedGameId);
 		if (sceneResult.HasError())
 		{
 			TDE2_ASSERT(false);
@@ -80,7 +80,7 @@ namespace Game
 		auto& transforms = std::get<std::vector<CTransform*>>(mSystemContext.mComponentsSlice);
 		auto& paddles = std::get<std::vector<CPaddle*>>(mSystemContext.mComponentsSlice);
 
-		CLevelInfo* pLevelInfo = pWorld->FindEntity(mLevelInfoEntityId)->GetComponent<CLevelInfo>();
+		CGameInfo* pGameInfo = pWorld->FindEntity(mGameInfoEntityId)->GetComponent<CGameInfo>();
 
 		for (USIZE i = 0; i < mSystemContext.mComponentsCount; ++i)
 		{
@@ -105,19 +105,19 @@ namespace Game
 			}
 
 			/// \note Clamp the horizontal position
-			if (!pLevelInfo)
+			if (!pGameInfo)
 			{
 				continue;
 			}
 
 			auto currPosition = pCurrTransform->GetPosition();
-			currPosition.x = CMathUtils::Clamp(pLevelInfo->mHorizontalConstraints.mLeft, pLevelInfo->mHorizontalConstraints.mRight, currPosition.x);
+			currPosition.x = CMathUtils::Clamp(pGameInfo->mHorizontalConstraints.mLeft, pGameInfo->mHorizontalConstraints.mRight, currPosition.x);
 
 			pCurrTransform->SetPosition(currPosition);
 
-			if (pLevelInfo->mIsLaserEnabled && (mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) || mpInputContext->IsMouseButtonPressed(0)))
+			if (pGameInfo->mIsLaserEnabled && (mpInputContext->IsKeyPressed(E_KEYCODES::KC_SPACE) || mpInputContext->IsMouseButtonPressed(0)))
 			{
-				ProcessLaserShot(pWorld, mpSceneManager, pCurrTransform, pLevelInfo);
+				ProcessLaserShot(pWorld, mpSceneManager, pCurrTransform, pGameInfo);
 			}
 		}
 	}

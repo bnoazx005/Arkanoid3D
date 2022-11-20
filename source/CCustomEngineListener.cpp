@@ -7,7 +7,7 @@
 #include "../include/systems/CGravityUpdateSystem.h"
 #include "../include/systems/BonusCollectSystems.h"
 #include "../include/systems/CStickyBallsProcessSystem.h"
-#include "../include/components/CLevelInfo.h"
+#include "../include/components/CGameInfo.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -80,9 +80,9 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", [this](const TResult<TSceneId>& sceneId)
 	{
-		if (CLevelInfo* pLevelInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CLevelInfo>())->GetComponent<CLevelInfo>())
+		if (CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
 		{
-			pLevelInfo->mCurrLoadedLevelId = sceneId.Get();
+			pGameInfo->mCurrLoadedGameId = sceneId.Get();
 		}
 	});
 
