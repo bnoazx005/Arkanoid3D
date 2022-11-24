@@ -22,3 +22,23 @@ namespace Game
 	TDE2_DECLARE_FLAG_COMPONENT(Projectile);
 	//TDE2_REGISTER_UNIQUE_COMPONENT(CPaddle);
 }
+
+
+namespace TDEngine2
+{
+	/*!
+		struct TSpawnNewBonusEvent
+
+		\brief The structure represents an event which occurs when a new power up should be spawned
+	*/
+
+	typedef struct TSpawnNewBonusEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TSpawnNewBonusEvent() = default;
+
+		TDE2_REGISTER_TYPE(TSpawnNewBonusEvent)
+		REGISTER_EVENT_TYPE(TSpawnNewBonusEvent)
+
+		TDEngine2::TVector3 mPosition;
+	} TSpawnNewBonusEvent, * TSpawnNewBonusEventPtr;
+}

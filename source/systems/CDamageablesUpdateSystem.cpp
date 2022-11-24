@@ -25,6 +25,8 @@ namespace Game
 			return RC_INVALID_ARGS;
 		}
 
+		mpEventManager = pEventManager;
+
 		pEventManager->Subscribe(TOn3DCollisionRegisteredEvent::GetTypeId(), this);
 
 		mIsInitialized = true;
@@ -83,6 +85,15 @@ namespace Game
 
 			if (!pDamageable->mLifes)
 			{
+				TSpawnNewBonusEvent spawnEvent;
+
+				if (auto pTransform = pDamageableEntity->GetComponent<CTransform>())
+				{
+					spawnEvent.mPosition = pTransform->GetPosition();
+				}
+
+				mpEventManager->Notify(&spawnEvent);
+
 				AddDefferedCommand([this, pDamageableEntity]
 				{
 					mpWorld->Destroy(pDamageableEntity);

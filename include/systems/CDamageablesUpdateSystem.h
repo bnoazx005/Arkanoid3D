@@ -74,6 +74,7 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CDamageablesUpdateSystem)
 
 		private:
+			TDEngine2::TPtr<TDEngine2::IEventManager> mpEventManager = nullptr;
 			TDEngine2::IWorld* mpWorld = nullptr;
 	};
 }
