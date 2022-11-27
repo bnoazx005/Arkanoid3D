@@ -11,6 +11,7 @@
 #include "../components/CDamageable.h"
 #include "../components/CBall.h"
 #include <vector>
+#include "randomUtils.hpp"
 
 
 namespace Game
@@ -76,5 +77,7 @@ namespace Game
 		private:
 			TDEngine2::TPtr<TDEngine2::IEventManager> mpEventManager = nullptr;
 			TDEngine2::IWorld* mpWorld = nullptr;
+
+			Wrench::DefaultRandom mRandomUtility;
 	};
 }

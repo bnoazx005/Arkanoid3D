@@ -9,7 +9,7 @@ using namespace TDEngine2;
 namespace Game
 {
 	CDamageablesUpdateSystem::CDamageablesUpdateSystem() :
-		CBaseSystem()
+		CBaseSystem(), mRandomUtility(static_cast<int>(time(nullptr)))
 	{
 	}
 
@@ -85,14 +85,23 @@ namespace Game
 
 			if (!pDamageable->mLifes)
 			{
-				TSpawnNewBonusEvent spawnEvent;
+				CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<Game::CGameInfo>())->GetComponent<CGameInfo>();
 
-				if (auto pTransform = pDamageableEntity->GetComponent<CTransform>())
+				const F32 probabilityFactor = mRandomUtility.Get(0.0f, 1.0f);
+				if (probabilityFactor < pGameInfo->mBonusesSpawnCommonProbability)
 				{
-					spawnEvent.mPosition = pTransform->GetPosition();
-				}
+					TSpawnNewBonusEvent spawnEvent;
 
-				mpEventManager->Notify(&spawnEvent);
+					if (auto pTransform = pDamageableEntity->GetComponent<CTransform>())
+					{
+						spawnEvent.mPosition = pTransform->GetPosition();
+						spawnEvent.mSpawnerEntityId = pDamageableEntity->GetId();
+
+						LOG_MESSAGE(Wrench::StringUtils::Format("[CDamageablesUpdateSystem] A new power up is spawned at {0}", spawnEvent.mPosition.ToString()));
+					}
+
+					mpEventManager->Notify(&spawnEvent);
+				}
 
 				AddDefferedCommand([this, pDamageableEntity]
 				{

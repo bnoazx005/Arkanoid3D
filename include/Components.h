@@ -40,5 +40,6 @@ namespace TDEngine2
 		REGISTER_EVENT_TYPE(TSpawnNewBonusEvent)
 
 		TDEngine2::TVector3 mPosition;
+		TDEngine2::TEntityId mSpawnerEntityId;
 	} TSpawnNewBonusEvent, * TSpawnNewBonusEventPtr;
 }
