@@ -13,13 +13,13 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::ISystem* CreatePowerUpSpawnSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::ISystem* CreatePowerUpSpawnSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::E_RESULT_CODE& result);
 
 
 	class CPowerUpSpawnSystem : public TDEngine2::CBaseSystem, public TDEngine2::IEventHandler
 	{
 		public:
-			friend TDE2_API TDEngine2::ISystem* CreatePowerUpSpawnSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::ISystem* CreatePowerUpSpawnSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::TPtr<TDEngine2::ISceneManager>, TDEngine2::E_RESULT_CODE&);
 
 		public:
 			TDE2_SYSTEM(CPowerUpSpawnSystem);
@@ -30,7 +30,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
+			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager);
 
 			/*!
 				\brief The method inject components array into a system
@@ -73,6 +73,7 @@ namespace Game
 
 		private:
 			TDEngine2::TPtr<TDEngine2::IEventManager> mpEventManager = nullptr;
+			TDEngine2::TPtr<TDEngine2::ISceneManager> mpSceneManager = nullptr;
 			TDEngine2::IWorld* mpWorld = nullptr;
 
 			Wrench::DefaultRandom mRandomUtility;

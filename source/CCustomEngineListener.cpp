@@ -28,7 +28,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGravityUpdateSystem(result));
 		pWorld->RegisterSystem(Game::CreateStickyBallsProcessSystem(pEventManager, result));
-		pWorld->RegisterSystem(Game::CreatePowerUpSpawnSystem(pEventManager, result));
+		pWorld->RegisterSystem(Game::CreatePowerUpSpawnSystem(pEventManager, pSceneManager, result));
 
 		// bonuses' systems
 		pWorld->RegisterSystem(Game::CreateAddScoreBonusCollectSystem(pEventManager, result));
