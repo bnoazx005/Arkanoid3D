@@ -8,6 +8,7 @@
 #include "../include/systems/BonusCollectSystems.h"
 #include "../include/systems/CStickyBallsProcessSystem.h"
 #include "../include/systems/CPowerUpSpawnSystem.h"
+#include "../include/systems/CProjectilesPoolSystem.h"
 #include "../include/components/CGameInfo.h"
 #include <TDEngine2.h>
 #include <iostream>
@@ -39,6 +40,8 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateExtraLifeBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateLaserBonusCollectSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateMultipleBallsBonusCollectSystem(pEventManager, pSceneManager, result));
+
+		pWorld->RegisterSystem(Game::CreateProjectilesPoolSystem(result));
 
 		return result;
 	}

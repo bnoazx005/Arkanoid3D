@@ -57,12 +57,19 @@ namespace Game
 			return;
 		}
 
+		auto& projectilesPool = pGameInfo->mpProjectilesPool;
+
 		const TVector3& pos = pPaddleTransform->GetPosition();
 
-		auto spawnProjectile = [&pos, pScene](float xOffset)
+		auto spawnProjectile = [&pos, pScene, &projectilesPool](float xOffset)
 		{
-			if (CEntity* pProjectileEntity = pScene->Spawn("Projectile")) /// \todo Replace this with configurable id
+			if (CEntity* pProjectileEntity = projectilesPool.empty() ? pScene->Spawn("Projectile") : projectilesPool.front()) /// \todo Replace this with configurable id
 			{
+				if (!projectilesPool.empty())
+				{
+					projectilesPool.pop_front(); /// \note Remove the entity from the pool
+				}
+
 				if (CTransform* pTransform = pProjectileEntity->GetComponent<CTransform>())
 				{
 					pTransform->SetPosition(TVector3(pos.x + xOffset, pTransform->GetPosition().y, pos.z));

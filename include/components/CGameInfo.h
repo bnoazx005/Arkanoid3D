@@ -8,6 +8,7 @@
 
 
 #include <TDEngine2.h>
+#include <list>
 
 
 namespace Game
@@ -67,6 +68,8 @@ namespace Game
 			TDEngine2::TSceneId mCurrLoadedGameId = TDEngine2::TSceneId::Invalid;
 
 			TDEngine2::F32 mBonusesSpawnCommonProbability = 0.75f; /// \note The common probability of bonus' spawning
+
+			std::list<TDEngine2::CEntity*> mpProjectilesPool; /// \todo Replace with the generic and safe pool implementation in future
 	};
 
 
