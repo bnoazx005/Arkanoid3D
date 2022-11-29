@@ -20,6 +20,8 @@ namespace Game
 			return RC_FAIL;
 		}
 
+		mPowerUpPrefabId = pReader->GetString("bonus_prefab_id");
+		mSpawnProbability = pReader->GetFloat("spawn_probability");
 
 		return RC_OK;
 	}
@@ -34,11 +36,26 @@ namespace Game
 		pWriter->BeginGroup("component");
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CBrick::GetTypeId()));
+			pWriter->SetString("bonus_prefab_id", mPowerUpPrefabId);
+			pWriter->SetFloat("spawn_probability", mSpawnProbability);
 
 		}
 		pWriter->EndGroup();
 
 		return RC_OK;
+	}
+
+	E_RESULT_CODE CBrick::Clone(IComponent*& pDestObject) const
+	{
+		if (CBrick* pBonus = dynamic_cast<CBrick*>(pDestObject))
+		{
+			pBonus->mPowerUpPrefabId = mPowerUpPrefabId;
+			pBonus->mSpawnProbability = mSpawnProbability;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
 	}
 
 #if TDE2_EDITORS_ENABLED
@@ -50,15 +67,25 @@ namespace Game
 			IImGUIContext& imguiContext = editorContext.mImGUIContext;
 			CBrick& component = dynamic_cast<CBrick&>(editorContext.mComponent);
 
-			///// \note Speed of the Brick
-			//{
-			//	F32 speed = component.mSpeed;
+			/// \note Spawn probability
+			{
+				std::string prefabId = component.mPowerUpPrefabId;
 
-			//	imguiContext.BeginHorizontal();
-			//	imguiContext.Label("Speed:");
-			//	imguiContext.FloatField("##Speed", speed, [&component, &speed]() { component.mSpeed = speed; });
-			//	imguiContext.EndHorizontal();
-			//}
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Power Up Prefab Id:");
+				imguiContext.TextField("##PowerUpPrefabId", prefabId, [&component](auto&& value) { component.mPowerUpPrefabId = value; });
+				imguiContext.EndHorizontal();
+			}
+
+			/// \note Spawn probability
+			{
+				F32 probability = component.mSpawnProbability;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Spawn Probability:");
+				imguiContext.FloatField("##SpawnProbability", probability, [&component, &probability]() { component.mSpawnProbability = probability; });
+				imguiContext.EndHorizontal();
+			}
 		});
 	}
 

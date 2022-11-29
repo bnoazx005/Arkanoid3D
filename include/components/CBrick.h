@@ -46,12 +46,23 @@ namespace Game
 
 			TDE2_API TDEngine2::E_RESULT_CODE Save(TDEngine2::IArchiveWriter* pWriter) override;
 
+			/*!
+				\brief The method creates a new deep copy of the instance and returns a smart pointer to it.
+				The original state of the object stays the same
+
+				\param[in] pDestObject A valid pointer to an object which the properties will be assigned into
+			*/
+
+			TDE2_API TDEngine2::E_RESULT_CODE Clone(TDEngine2::IComponent*& pDestObject) const override;
+
 	#if TDE2_EDITORS_ENABLED
 			TDE2_API static void DrawInspectorGUI(const TDEngine2::TEditorContext& context);
 	#endif
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CBrick)
 		public:
+			std::string mPowerUpPrefabId = Wrench::StringUtils::GetEmptyStr();
+			TDEngine2::F32 mSpawnProbability = 0.15f;
 	};
 
 

@@ -2,6 +2,7 @@
 #include "../../include/Components.h"
 #include "../../include/components/CGameInfo.h"
 #include "../../include/components/Bonuses.h"
+#include "../../include/components/CBrick.h"
 #include <vector>
 
 
@@ -66,7 +67,7 @@ namespace Game
 		const TVector3& spawnPosition = pSpawnEvent->mPosition;
 		
 		/// \todo Replace with configurable YAML archive
-		static const std::vector<TPowerUpConfigEntity> PowerUpsTable
+		/*static const std::vector<TPowerUpConfigEntity> PowerUpsTable
 		{
 			{ CScoreBonus::GetTypeId(),				0.15f, "PowerUp_AddScore" },
 			{ CScoreMultiplierBonus::GetTypeId(),	0.15f, "PowerUp_Score2X" },
@@ -77,10 +78,16 @@ namespace Game
 			{ CLaserBonus::GetTypeId(),				0.15f, "PowerUp_Laser" },
 			{ CMultipleBallsBonus::GetTypeId(),		0.15f, "PowerUp_MultiplyBallsCount" },
 			{ CTransform::GetTypeId(),				1.0f, "PowerUp" }, /// \note The default one
-		};
+		};*/
 
 		CEntity* pEntity = mpWorld->FindEntity(pSpawnEvent->mSpawnerEntityId);
 		if (!pEntity)
+		{
+			return RC_OK;
+		}
+
+		CBrick* pBrick = pEntity->GetComponent<CBrick>();
+		if (!pBrick)
 		{
 			return RC_OK;
 		}
@@ -106,30 +113,20 @@ namespace Game
 			return RC_OK;
 		}
 
-		const F32 probabilityFactor = mRandomUtility.Get(0.0f, 1.0f);
-
-		for (auto&& currPowerUp : PowerUpsTable)
+		if (mRandomUtility.Get(0.0f, 1.0f) < pBrick->mSpawnProbability)
 		{
-			if (!pEntity->HasComponent(currPowerUp.mPowerUpTypeId))
-			{
-				continue;
-			}
-
-			if (probabilityFactor > currPowerUp.mProbability)
-			{
-				continue;
-			}
-
-			/// \note Spawn
-			CEntity* pPowerUpEntity = pScene->Spawn(currPowerUp.mPrefabId);
-			if (!pPowerUpEntity)
-			{
-				continue;
-			}
-
-			CTransform* pPowerUpTransform = pPowerUpEntity->GetComponent<CTransform>();
-			pPowerUpTransform->SetPosition(spawnPosition);
+			return RC_OK;
 		}
+
+		/// \note Spawn
+		CEntity* pPowerUpEntity = pScene->Spawn(pBrick->mPowerUpPrefabId);
+		if (!pPowerUpEntity)
+		{
+			return RC_OK;
+		}
+
+		CTransform* pPowerUpTransform = pPowerUpEntity->GetComponent<CTransform>();
+		pPowerUpTransform->SetPosition(spawnPosition);
 
 		return RC_OK;
 	}
