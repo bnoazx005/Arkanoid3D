@@ -30,7 +30,7 @@ entities:
             type: COT_KINEMATIC
             type_id: 1841622609            
         - component: 
-            mass: "-1.000000"
+            mass: "-5.000000"
             type_id: 3467057449
       id: 16
       name: Projectile
