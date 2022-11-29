@@ -100,6 +100,8 @@ entities:
   - entity: 
       components: 
         - component: 
+            bonus_prefab_id: PowerUp_AddScore
+            spawn_probability: 0.5
             type_id: 2836612915
         - component: 
             owner_id: 11
@@ -138,6 +140,8 @@ entities:
   - entity: 
       components: 
         - component: 
+            bonus_prefab_id: PowerUp_AddScore
+            spawn_probability: 0.5
             type_id: 2836612915
         - component: 
             owner_id: 13
@@ -177,6 +181,8 @@ entities:
   - entity: 
       components: 
         - component: 
+            bonus_prefab_id: PowerUp_AddScore
+            spawn_probability: 0.5
             type_id: 2836612915
         - component: 
             owner_id: 14

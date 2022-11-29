@@ -66,7 +66,7 @@ namespace Game
 
 			TDEngine2::TSceneId mCurrLoadedGameId = TDEngine2::TSceneId::Invalid;
 
-			TDEngine2::F32 mBonusesSpawnCommonProbability = 0.15f; /// \note The common probability of bonus' spawning
+			TDEngine2::F32 mBonusesSpawnCommonProbability = 0.75f; /// \note The common probability of bonus' spawning
 	};
 
 
