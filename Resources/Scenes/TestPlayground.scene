@@ -219,6 +219,8 @@ entities:
       name: Brick
     link: 
       prefab_id: SimpleBrick
+  - link:
+      prefab_id: GameUI
 name: TestPlayground.scene
 scene_properties: 
   is_main: 0

@@ -25,6 +25,8 @@ collection:
     prefab_id: PowerUp_Laser
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_MultiplyBallsCount.prefab
     prefab_id: PowerUp_MultiplyBallsCount
+  - path: ProjectResources/Prefabs/UI/GameUI.prefab
+    prefab_id: GameUI
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1
