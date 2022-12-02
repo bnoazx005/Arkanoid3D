@@ -20,7 +20,10 @@ namespace Game
 
 
 	TDE2_DECLARE_FLAG_COMPONENT(Projectile);
-	//TDE2_REGISTER_UNIQUE_COMPONENT(CPaddle);
+
+	/// UI components
+	TDE2_DECLARE_FLAG_COMPONENT(LivesLabel);
+	TDE2_DECLARE_FLAG_COMPONENT(ScoreLabel);
 }
 
 
@@ -42,4 +45,38 @@ namespace TDEngine2
 		TDEngine2::TVector3 mPosition;
 		TDEngine2::TEntityId mSpawnerEntityId;
 	} TSpawnNewBonusEvent, * TSpawnNewBonusEventPtr;
+
+
+	/*!
+		struct TScoreChangedEvent
+
+		\brief The structure represents an event which occurs when game score's changed
+	*/
+
+	typedef struct TScoreChangedEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TScoreChangedEvent() = default;
+
+		TDE2_REGISTER_TYPE(TScoreChangedEvent)
+		REGISTER_EVENT_TYPE(TScoreChangedEvent)
+
+		TDEngine2::U32 mNewPlayerScore;
+	} TScoreChangedEvent, * TScoreChangedEventPtr;
+
+
+	/*!
+		struct TLivesChangedEvent
+
+		\brief The structure represents an event which occurs when game score's changed
+	*/
+
+	typedef struct TLivesChangedEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TLivesChangedEvent() = default;
+
+		TDE2_REGISTER_TYPE(TLivesChangedEvent)
+		REGISTER_EVENT_TYPE(TLivesChangedEvent)
+
+		TDEngine2::U32 mPlayerLives;
+	} TLivesChangedEvent, * TLivesChangedEventPtr;
 }

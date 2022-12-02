@@ -15,13 +15,13 @@ namespace Game
 	class CBall;
 
 
-	TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
 
 
 	class CBallUpdateSystem : public TDEngine2::CBaseSystem
 	{
 		public:
-			friend TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
 		private:
 			struct TSystemContext
 			{
@@ -39,7 +39,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IDesktopInputContext>);
+			TDE2_API TDEngine2::E_RESULT_CODE Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::IDesktopInputContext>);
 
 			/*!
 				\brief The method inject components array into a system
@@ -63,6 +63,7 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CBallUpdateSystem)
 
 		private:
+			TDEngine2::TPtr<TDEngine2::IEventManager> mpEventManager = nullptr;
 			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext = nullptr;
 			
 			TSystemContext mSystemContext;

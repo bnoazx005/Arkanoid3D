@@ -9,6 +9,7 @@
 #include "../include/systems/CStickyBallsProcessSystem.h"
 #include "../include/systems/CPowerUpSpawnSystem.h"
 #include "../include/systems/CProjectilesPoolSystem.h"
+#include "../include/systems/CGameUIUpdateSystem.h"
 #include "../include/components/CGameInfo.h"
 #include <TDEngine2.h>
 #include <iostream>
@@ -25,7 +26,7 @@ namespace Game
 		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
 
 		pWorld->RegisterSystem(Game::CreatePaddleControlSystem(pInputContext, pSceneManager, result));
-		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pInputContext, result));
+		pWorld->RegisterSystem(Game::CreateBallUpdateSystem(pEventManager, pInputContext, result));
 		pWorld->RegisterSystem(Game::CreateDamageablesUpdateSystem(pEventManager, result));
 		pWorld->RegisterSystem(Game::CreateGravityUpdateSystem(result));
 		pWorld->RegisterSystem(Game::CreateStickyBallsProcessSystem(pEventManager, result));
@@ -42,6 +43,7 @@ namespace Game
 		pWorld->RegisterSystem(Game::CreateMultipleBallsBonusCollectSystem(pEventManager, pSceneManager, result));
 
 		pWorld->RegisterSystem(Game::CreateProjectilesPoolSystem(result));
+		pWorld->RegisterSystem(Game::CreateGameUIUpdateSystem(pEventManager, result));
 
 		return result;
 	}
@@ -85,9 +87,25 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", [this](const TResult<TSceneId>& sceneId)
 	{
+		auto&& pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
+
 		if (CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
 		{
 			pGameInfo->mCurrLoadedGameId = sceneId.Get();
+
+			{
+				TScoreChangedEvent scoreChangedEvent;
+				scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
+
+				pEventManager->Notify(&scoreChangedEvent);
+			}
+
+			{
+				TLivesChangedEvent livesChangedEvent;
+				livesChangedEvent.mPlayerLives = pGameInfo->mPlayerLives;
+
+				pEventManager->Notify(&livesChangedEvent);
+			}
 		}
 	});
 

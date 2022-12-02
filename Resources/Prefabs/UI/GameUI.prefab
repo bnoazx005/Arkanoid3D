@@ -3,10 +3,10 @@ entities:
       components: 
         - component: 
             Children: 
+              - child_id: 18
+              - child_id: 17
               - child_id: 16
               - child_id: 15
-              - child_id: 17
-              - child_id: 18
             owner_id: 14
             parent_id: 4294967295
             position: 
@@ -43,7 +43,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 18
+            owner_id: 15
             parent_id: 14
             position: 
               x: 130.000000
@@ -76,12 +76,14 @@ entities:
             overflow_policy_type: NO_BREAK
             text: 0000
             type_id: 2847853640
-      id: 18
+        - component: 
+            type_id: 3613622628
+      id: 15
       name: ScoreValue_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 17
+            owner_id: 16
             parent_id: 14
             position: 
               x: 924.000000
@@ -115,12 +117,14 @@ entities:
             overflow_policy_type: NO_BREAK
             text: 00
             type_id: 2847853640
-      id: 17
+        - component: 
+            type_id: 600057003
+      id: 16
       name: LivesValue_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 15
+            owner_id: 17
             parent_id: 14
             position: 
               x: 889.000000
@@ -154,12 +158,12 @@ entities:
             overflow_policy_type: NO_BREAK
             text: "Lives: "
             type_id: 2847853640
-      id: 15
+      id: 17
       name: Lives_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 16
+            owner_id: 18
             parent_id: 14
             position: 
               x: 70.000000
@@ -192,5 +196,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: "Score: "
             type_id: 2847853640
-      id: 16
+      id: 18
       name: Score_Label

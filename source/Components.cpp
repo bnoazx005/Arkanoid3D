@@ -17,6 +17,9 @@ namespace Game
 {
 	TDE2_DEFINE_FLAG_COMPONENT(Projectile)
 
+	TDE2_DEFINE_FLAG_COMPONENT(LivesLabel)
+	TDE2_DEFINE_FLAG_COMPONENT(ScoreLabel)
+
 
 	TDEngine2::E_RESULT_CODE RegisterGameComponents(TDEngine2::TPtr<TDEngine2::IWorld> pWorld
 #if TDE2_EDITORS_ENABLED
@@ -43,6 +46,9 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateExtraLifeBonusFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLaserBonusFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateMultipleBallsBonusFactory(result)));
+		
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLivesLabelFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreLabelFactory(result)));
 
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);

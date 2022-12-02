@@ -28,6 +28,11 @@ namespace Game
 		}
 
 		pGameInfo->mPlayerScore += pGameInfo->mScoreMultiplier * pCollectable->mScoreToAdd;
+
+		TScoreChangedEvent scoreChangedEvent;
+		scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
+
+		mpEventManager->Notify(&scoreChangedEvent);
 	}
 
 

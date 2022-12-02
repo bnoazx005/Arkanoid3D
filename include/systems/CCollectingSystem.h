@@ -39,6 +39,7 @@ namespace Game
 
 				pEventManager->Subscribe(TDEngine2::TOn3DCollisionRegisteredEvent::GetTypeId(), this);
 
+				mpEventManager = pEventManager;
 				mpSceneManager = pSceneManager;
 
 				mIsInitialized = true;
@@ -155,6 +156,7 @@ namespace Game
 
 		protected:
 			TDEngine2::IWorld* mpWorld = nullptr; 
+			TDEngine2::TPtr<TDEngine2::IEventManager> mpEventManager = nullptr;
 			TDEngine2::TPtr<TDEngine2::ISceneManager> mpSceneManager = nullptr;
 
 			TDEngine2::F32 mCurrTimer = 0.0f;

@@ -15,18 +15,19 @@ namespace Game
 	{
 	}
 
-	E_RESULT_CODE CBallUpdateSystem::Init(TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
+	E_RESULT_CODE CBallUpdateSystem::Init(TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
 	{
 		if (mIsInitialized)
 		{
 			return RC_FAIL;
 		}
 
-		if (!pInputContext)
+		if (!pEventManager || !pInputContext)
 		{
 			return RC_INVALID_ARGS;
 		}
 
+		mpEventManager = pEventManager;
 		mpInputContext = pInputContext;
 
 		mIsInitialized = true;
@@ -116,6 +117,11 @@ namespace Game
 					if (pGameInfo->mPlayerLives >= 1)
 					{
 						pGameInfo->mPlayerLives--;
+
+						TLivesChangedEvent livesChangedEvent;
+						livesChangedEvent.mPlayerLives = pGameInfo->mPlayerLives;
+
+						mpEventManager->Notify(&livesChangedEvent);
 					}
 
 					/// \note Remove the extra ball if there is another one
@@ -149,8 +155,8 @@ namespace Game
 	}
 
 
-	TDE2_API ISystem* CreateBallUpdateSystem(TPtr<IDesktopInputContext> pInputContext, E_RESULT_CODE& result)
+	TDE2_API ISystem* CreateBallUpdateSystem(TPtr<IEventManager> pEventManager, TPtr<IDesktopInputContext> pInputContext, E_RESULT_CODE& result)
 	{
-		return CREATE_IMPL(ISystem, CBallUpdateSystem, result, pInputContext);
+		return CREATE_IMPL(ISystem, CBallUpdateSystem, result, pEventManager, pInputContext);
 	}
 }
