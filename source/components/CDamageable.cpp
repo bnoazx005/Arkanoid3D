@@ -11,10 +11,12 @@ namespace Game
 	struct TDamageableArchiveKeys
 	{
 		static const std::string mLifesKeyId;
+		static const std::string mRewardScoreKeyId;
 		static const std::string mConstantKeyId;
 	};
 
 	const std::string TDamageableArchiveKeys::mLifesKeyId = "lifes";
+	const std::string TDamageableArchiveKeys::mRewardScoreKeyId = "score";
 	const std::string TDamageableArchiveKeys::mConstantKeyId = "is_constant";
 
 
@@ -31,6 +33,7 @@ namespace Game
 		}
 
 		mLifes = pReader->GetUInt32(TDamageableArchiveKeys::mLifesKeyId, 1);
+		mRewardScore = pReader->GetUInt32(TDamageableArchiveKeys::mRewardScoreKeyId, 1);
 		mIsConstant = pReader->GetBool(TDamageableArchiveKeys::mConstantKeyId);
 
 		return RC_OK;
@@ -47,12 +50,27 @@ namespace Game
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CDamageable::GetTypeId()));
 			pWriter->SetUInt32(TDamageableArchiveKeys::mLifesKeyId, mLifes);
+			pWriter->SetUInt32(TDamageableArchiveKeys::mRewardScoreKeyId, mRewardScore);
 			pWriter->SetBool(TDamageableArchiveKeys::mConstantKeyId, mIsConstant);
 
 		}
 		pWriter->EndGroup();
 
 		return RC_OK;
+	}
+
+	E_RESULT_CODE CDamageable::Clone(IComponent*& pDestObject) const
+	{
+		if (CDamageable* pObj = dynamic_cast<CDamageable*>(pDestObject))
+		{
+			pObj->mLifes = mLifes;
+			pObj->mRewardScore = mRewardScore;
+			pObj->mIsConstant = mIsConstant;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
 	}
 
 #if TDE2_EDITORS_ENABLED
@@ -71,6 +89,24 @@ namespace Game
 				imguiContext.BeginHorizontal();
 				imguiContext.Label("Lifes:");
 				imguiContext.IntField("##Lifes", lifes, [&component, &lifes]() { component.mLifes = static_cast<U32>(lifes); });
+				imguiContext.EndHorizontal();
+			}
+
+			/// \note reward score
+			{
+				I32 reward = component.mRewardScore;
+
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Reward Score:");
+				imguiContext.IntField("##RewardScore", reward, [&component, &reward]() { component.mRewardScore = static_cast<U32>(reward); });
+				imguiContext.EndHorizontal();
+			}
+
+			/// \note Is constant
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Is Constant:");
+				imguiContext.Checkbox("##IsConst", component.mIsConstant);
 				imguiContext.EndHorizontal();
 			}
 		});

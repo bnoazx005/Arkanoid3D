@@ -103,6 +103,16 @@ namespace Game
 					mpEventManager->Notify(&spawnEvent);
 				}
 
+				/// \note Update the score
+				{
+					pGameInfo->mPlayerScore += pGameInfo->mScoreMultiplier * pDamageable->mRewardScore;
+
+					TScoreChangedEvent scoreChangedEvent;
+					scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
+
+					mpEventManager->Notify(&scoreChangedEvent);
+				}
+
 				AddDefferedCommand([this, pDamageableEntity]
 				{
 					mpWorld->Destroy(pDamageableEntity);

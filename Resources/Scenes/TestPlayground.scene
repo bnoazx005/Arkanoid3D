@@ -124,6 +124,7 @@ entities:
             sub_mesh_id: 
             type_id: 780504096
         - component: 
+            score: 50
             type_id: 3273204379            
         - component: 
             extents: 
@@ -165,6 +166,7 @@ entities:
             sub_mesh_id: 
             type_id: 780504096
         - component: 
+            score: 50
             type_id: 3273204379
         - component: 
             extents: 
@@ -206,6 +208,7 @@ entities:
             sub_mesh_id: 
             type_id: 780504096
         - component: 
+            score: 50
             type_id: 3273204379
         - component: 
             extents: 
