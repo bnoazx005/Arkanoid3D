@@ -1,0 +1,84 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            speed: 5.000000
+            type_id: 3941469362
+        - component: 
+            Children: 
+              - child_id: 9
+            owner_id: 8
+            parent_id: 4294967295
+            position: 
+              y: 0.265626
+              z: "-4.338742"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            type_id: 3864726948
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            type_id: 4238380769
+        - component: 
+            lifes: 999
+            is_constant: true
+            type_id: 3273204379
+        - component: 
+            extents: 
+              x: 1.200000
+              y: 0.500000
+              z: 0.250000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 1841622609
+        - component: 
+            type_id: 1023355219
+      id: 8
+      name: Paddle
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 9
+            parent_id: 8
+            position: 
+              z: 1.3
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 0.250000
+              y: 0.600000
+              z: 1.200000
+            type_id: 3864726948
+        - component: 
+            type_id: 4238380769
+        - component: 
+            speed: 5.000000
+            type_id: 216090083
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Cube
+            sub_mesh_id: 
+            type_id: 780504096
+        - component: 
+            extents: 
+              x: 0.30000
+              y: 0.300000
+              z: 0.300000
+            mass: 1.000000
+            type: COT_KINEMATIC
+            type_id: 1841622609
+      id: 9
+      name: Ball
+  - link:
+      prefab_id: GameUI
+name: PlayerScene.scene
+scene_properties: 
+  is_main: 0
+version: 0

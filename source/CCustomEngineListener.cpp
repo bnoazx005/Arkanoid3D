@@ -85,7 +85,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	}
 
-	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", [this](const TResult<TSceneId>& sceneId)
+	mpSceneManager->LoadSceneAsync("Resources/Scenes/PlayerScene.scene", [this](const TResult<TSceneId>& sceneId)
 	{
 		auto&& pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
 
@@ -108,6 +108,8 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 			}
 		}
 	});
+
+	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", nullptr);
 
 	return RC_OK;
 }
