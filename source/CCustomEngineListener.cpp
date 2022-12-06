@@ -11,6 +11,7 @@
 #include "../include/systems/CProjectilesPoolSystem.h"
 #include "../include/systems/CGameUIUpdateSystem.h"
 #include "../include/components/CGameInfo.h"
+#include "../include/editor/CLevelsEditorWindow.h"
 #include <TDEngine2.h>
 #include <iostream>
 
@@ -111,11 +112,31 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", nullptr);
 
+#if TDE2_EDITORS_ENABLED
+	E_RESULT_CODE result = RC_OK;
+	
+	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(result));
+#endif
+
 	return RC_OK;
 }
 
 E_RESULT_CODE CCustomEngineListener::OnUpdate(const float& dt)
 {
+#if TDE2_EDITORS_ENABLED
+
+	if (mpLevelsEditor)
+	{
+		if (mpInputContext->IsKeyPressed(E_KEYCODES::KC_F1))
+		{
+			mpLevelsEditor->SetVisible(!mpLevelsEditor->IsVisible());
+		}
+
+		mpLevelsEditor->Draw(mpEngineCoreInstance->GetSubsystem<IImGUIContext>().Get(), dt);
+	}
+
+#endif
+
 	return RC_OK;
 }
 

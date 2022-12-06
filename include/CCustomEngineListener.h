@@ -57,4 +57,8 @@ class CCustomEngineListener: public TDEngine2::IEngineListener
 		TDEngine2::TPtr<TDEngine2::IDesktopInputContext>    mpInputContext;
 		
 		TDEngine2::TPtr<TDEngine2::ISceneManager>           mpSceneManager;
+
+#if TDE2_EDITORS_ENABLED
+		TDEngine2::TPtr<TDEngine2::IEditorWindow>           mpLevelsEditor;
+#endif
 };

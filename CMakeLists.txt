@@ -43,6 +43,7 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPowerUpSpawnSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CProjectilesPoolSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CGameUIUpdateSystem.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/editor/CLevelsEditorWindow.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CCustomEngineListener.h")
 
 set(SOURCES
@@ -64,6 +65,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPowerUpSpawnSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CProjectilesPoolSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CGameUIUpdateSystem.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/editor/CLevelsEditorWindow.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
 source_group("includes" FILES ${HEADERS})
