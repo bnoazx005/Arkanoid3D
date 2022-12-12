@@ -10,67 +10,34 @@
 #include "../utils/Types.h"
 #include "../utils/Utils.h"
 #include "IEngineSubsystem.h"
+#include "memory/CBaseAllocator.h"
 #include <functional>
 #include <memory>
+#include <atomic>
 
 
 namespace TDEngine2
 {
-	/*!
-		interface IJob
+	struct TJobDecl;
+	struct TJobCounter;
 
-		\brief The interface represents a single job's functionality
-	*/
 
-	struct IJob
+	struct TJobArgs
 	{
-		/*!
-			\brief The operator executes current job
-		*/
-
-		TDE2_API virtual void operator()() = 0;
+		U32 mJobIndex = 0;
+		U32 mGroupIndex = 0;
+		TJobDecl* mpCurrJob = nullptr;
 	};
+		
 
-
-	template <typename... TArgs>
-	struct TJob: public IJob
+	typedef struct TJobManagerInitParams
 	{
-		protected:
-			typedef std::function<void(TArgs...)> TJobCallback;
-			typedef std::tuple<TArgs...>          TArguments;
-		public:
-			/*!
-				\brief The main constructor of the type
+		U32                      mMaxNumOfThreads;								///< A maximum number of threads that will be created and processed by the manager
+		TAllocatorFactoryFunctor mAllocatorFactoryFunctor;						///< Allocator's factory, used to allocate buffers for fibers stacks
+		USIZE                    mFiberStackSize = 64 * 1024;					///< A stack's size for a single allocated fiber
+		U32                      mFibersPoolSize = 128;							///< Amount of created fibers that will be used by the manager
+	} TJobManagerInitParams, *TJobManagerInitParamsPtr;
 
-				\param[in] callback A job's callback
-				\param[in] args An arguments that should be passed into a job
-			*/
-
-			TDE2_API TJob(const TJobCallback& callback, TArgs... args);
-
-			/*!
-				\brief The operator executes current job
-			*/
-
-			TDE2_API void operator()() override;
-		protected:
-			TJobCallback mJobCallback;
-			TArguments   mArguments;
-	};
-
-	
-	template <typename... TArgs>
-	TJob<TArgs...>::TJob(const TJobCallback& callback, TArgs... args) :
-		mJobCallback(callback), mArguments(args...)
-	{
-	}
-
-	template <typename... TArgs>
-	void TJob<TArgs...>::operator() ()
-	{
-		mJobCallback(std::get<TArgs>(mArguments)...);
-	}
-	
 
 	/*!
 		interface IJobManager
@@ -81,29 +48,50 @@ namespace TDEngine2
 	class IJobManager : public IEngineSubsystem
 	{
 		public:
+			typedef std::function<void(const TJobArgs&)> TJobCallback;
+		public:
 			/*!
 				\brief The method initializes an inner state of a resource manager
 
-				\param[in] maxNumOfThreads A maximum number of threads that will be created and processed by the manager
+				\param[in] desc A configuration of the job system 
 
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual E_RESULT_CODE Init(U32 maxNumOfThreads) = 0;
+			TDE2_API virtual E_RESULT_CODE Init(const TJobManagerInitParams& desc) = 0;
 
 			/*!
 				\brief The method pushes specified job into a queue for an execution
 
-				\param[in] pJob A pointer to IJob's implementation
+				\param[in] pCounter A pointer to created object of counter. Can be nullptr if synchronization isn't needed
+				\param[in] job A callback with the task that will be executed
 
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			template <typename... TArgs>
-			TDE2_API E_RESULT_CODE SubmitJob(std::function<void (TArgs...)> jobCallback, TArgs... args)
-			{
-				return _submitJob(std::make_unique<TJob<TArgs...>>(jobCallback, std::forward<TArgs>(args)...));
-			}
+			TDE2_API virtual E_RESULT_CODE SubmitJob(TJobCounter* pCounter, const TJobCallback& job, const C8* jobName = "TDE2Job") = 0;
+			
+			/*!
+				\brief The method is an equvivalent for "parallel_for" algorithm that splits some complex work between groups and
+				executes the given job for all of them
+
+				\param[in] pCounter A pointer to created object of counter. Can be nullptr if synchronization isn't needed
+				\param[in] job A callback with the task that will be executed
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API virtual E_RESULT_CODE SubmitMultipleJobs(TJobCounter* pCounter, U32 jobsCount, U32 groupSize, const TJobCallback& job) = 0;
+
+			/*!
+				\brief The function represents an execution barrier to make sure that any dependencies are finished to the point
+
+				\param[in, out] counter A reference to syncronization context
+				\param[in] counterThreshold A value to compare with context's one
+				\param[in] pAwaitingJob There is should be a pointer to a job that emits another one and should wait for its completion. In other cases pass nullptr
+			*/
+
+			TDE2_API virtual void WaitForJobCounter(TJobCounter& counter, U32 counterThreshold = 0, TJobDecl* pAwaitingJob = nullptr) = 0;
 
 			/*!
 				\brief The method allows to execute some code from main thread nomatter from which thread it's called
@@ -124,8 +112,6 @@ namespace TDEngine2
 			TDE2_API static E_ENGINE_SUBSYSTEM_TYPE GetTypeID() { return EST_JOB_MANAGER; }
 		protected:
 			DECLARE_INTERFACE_PROTECTED_MEMBERS(IJobManager)
-
-			TDE2_API virtual E_RESULT_CODE _submitJob(std::unique_ptr<IJob> pJob) = 0;
 	};
 
 
