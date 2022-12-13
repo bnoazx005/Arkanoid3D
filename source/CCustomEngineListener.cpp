@@ -1,5 +1,6 @@
 #include "../include/CCustomEngineListener.h"
 #include "../include/Components.h"
+#include "../include/Utilities.h"
 #include "../include/systems/CPaddleControlSystem.h"
 #include "../include/systems/CBallUpdateSystem.h"
 #include "../include/systems/CDamageablesUpdateSystem.h"
@@ -10,6 +11,7 @@
 #include "../include/systems/CPowerUpSpawnSystem.h"
 #include "../include/systems/CProjectilesPoolSystem.h"
 #include "../include/systems/CGameUIUpdateSystem.h"
+#include "../include/systems/CPaddlePositionerSystem.h"
 #include "../include/components/CGameInfo.h"
 #include "../include/editor/CLevelsEditorWindow.h"
 #include <TDEngine2.h>
@@ -45,6 +47,8 @@ namespace Game
 
 		pWorld->RegisterSystem(Game::CreateProjectilesPoolSystem(result));
 		pWorld->RegisterSystem(Game::CreateGameUIUpdateSystem(pEventManager, result));
+
+		pWorld->RegisterSystem(Game::CreatePaddlePositionerSystem(pEventManager, result));
 
 		return result;
 	}
@@ -92,8 +96,6 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 		if (CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
 		{
-			pGameInfo->mCurrLoadedGameId = sceneId.Get();
-
 			{
 				TScoreChangedEvent scoreChangedEvent;
 				scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
@@ -110,12 +112,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	});
 
-	mpSceneManager->LoadSceneAsync("Resources/Scenes/TestPlayground.scene", nullptr);
+	LoadGameLevel(mpEngineCoreInstance, "Resources/Scenes/TestPlayground.scene");
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;
 	
-	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(result));
+	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(mpSceneManager, result));
 #endif
 
 	return RC_OK;

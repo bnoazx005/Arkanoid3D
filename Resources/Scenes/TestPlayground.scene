@@ -37,6 +37,24 @@ entities:
         x: "-1.609408"
         y: 0.265626
         z: 0.584660
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 20
+            parent_id: 4294967295
+            position: 
+              z: "-4.513174"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 3544622881
+      id: 20
+      name: PaddlePositioner
 name: TestPlayground.scene
 scene_properties: 
   is_main: 0

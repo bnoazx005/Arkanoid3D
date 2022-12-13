@@ -20,6 +20,7 @@ namespace Game
 
 
 	TDE2_DECLARE_FLAG_COMPONENT(Projectile);
+	TDE2_DECLARE_FLAG_COMPONENT(PlayerPositioner);
 
 	/// UI components
 	TDE2_DECLARE_FLAG_COMPONENT(LivesLabel);
@@ -79,4 +80,20 @@ namespace TDEngine2
 
 		TDEngine2::U32 mPlayerLives;
 	} TLivesChangedEvent, * TLivesChangedEventPtr;
+
+
+	/*!
+		struct TGameLevelLoadedEvent
+
+		\brief The structure represents an event which occurs when a new game level's loaded
+	*/
+
+	typedef struct TGameLevelLoadedEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TGameLevelLoadedEvent() = default;
+
+		TDE2_REGISTER_TYPE(TGameLevelLoadedEvent)
+		REGISTER_EVENT_TYPE(TGameLevelLoadedEvent)
+		
+	} TGameLevelLoadedEvent, *TGameLevelLoadedEventPtr;
 }

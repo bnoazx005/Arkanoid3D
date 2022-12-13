@@ -16,6 +16,7 @@ namespace TDEngine2
 namespace Game
 {
 	TDE2_DEFINE_FLAG_COMPONENT(Projectile)
+	TDE2_DEFINE_FLAG_COMPONENT(PlayerPositioner)
 
 	TDE2_DEFINE_FLAG_COMPONENT(LivesLabel)
 	TDE2_DEFINE_FLAG_COMPONENT(ScoreLabel)
@@ -36,6 +37,7 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateDamageableFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGravitableFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateProjectileFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreatePlayerPositionerFactory(result)));
 
 		/// bonuses
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreBonusFactory(result)));
