@@ -6,6 +6,7 @@
 #include "../include/components/CDamageable.h"
 #include "../include/components/CGravitable.h"
 #include "../include/components/Bonuses.h"
+#include "../include/components/CLevelBoundaries.h"
 
 namespace TDEngine2
 {
@@ -38,6 +39,7 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGravitableFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateProjectileFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreatePlayerPositionerFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLevelBoundariesFactory(result)));
 
 		/// bonuses
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreBonusFactory(result)));
@@ -59,6 +61,7 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CGameInfo::GetTypeId(), CGameInfo::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CDamageable::GetTypeId(), CDamageable::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CGravitable::GetTypeId(), CGravitable::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CLevelBoundaries::GetTypeId(), CLevelBoundaries::DrawInspectorGUI);
 
 		result = result | pEditorsManager->RegisterComponentInspector(CScoreBonus::GetTypeId(), CScoreBonus::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CScoreMultiplierBonus::GetTypeId(), CScoreMultiplierBonus::DrawInspectorGUI);
