@@ -1,0 +1,5 @@
+collection: 
+  - level_path: ProjectResources/Scenes/TestPlayground.scene
+meta: 
+  resource_type: game_levels_collection
+  version_tag: 1

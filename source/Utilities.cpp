@@ -2,6 +2,7 @@
 #include "../include/components/CGameInfo.h"
 #include "../include/components/CLevelBoundaries.h"
 #include "../include/Components.h"
+#include "../include/CGameLevelsCollection.h"
 
 
 using namespace TDEngine2;
@@ -51,5 +52,16 @@ namespace Game
 				pEventManager->Notify(&gameLevelLoadedEvent);
 			}
 		});
+	}
+
+
+	TDE2_API TDEngine2::E_RESULT_CODE RegisterGameResourceTypes(TPtr<IResourceManager> pResourceManager, TPtr<IFileSystem> pFileSystem)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		pResourceManager->RegisterFactory(CreateGameLevelsCollectionFactory(pResourceManager.Get(), result));
+		pResourceManager->RegisterLoader(CreateGameLevelsCollectionLoader(pResourceManager.Get(), pFileSystem.Get(), result));
+
+		return result;
 	}
 }

@@ -61,6 +61,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(mpWorld, mpInputContext, mpEngineCoreInstance->GetSubsystem<IEventManager>(), mpEngineCoreInstance->GetSubsystem<ISceneManager>());
+	Game::RegisterGameResourceTypes(mpEngineCoreInstance->GetSubsystem<IResourceManager>(), mpEngineCoreInstance->GetSubsystem<IFileSystem>());
 
 	/// \todo Replace this later with scene's configurable solution
 	if (auto pMainScene = mpSceneManager->GetScene(MainScene).Get())
