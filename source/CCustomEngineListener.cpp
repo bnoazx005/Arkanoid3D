@@ -113,7 +113,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	});
 
-	LoadGameLevel(mpEngineCoreInstance, "Resources/Scenes/TestPlayground.scene");
+	LoadGameLevel(mpEngineCoreInstance, 0);
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;

@@ -13,7 +13,23 @@
 
 namespace Game
 {
-	TDE2_API void LoadGameLevel(TDEngine2::IEngineCore* pEngineCore, const std::string& gameLevelPath);
+	TDE2_API void LoadGameLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, 
+		TDEngine2::USIZE levelIndex);
+	
+	TDE2_API bool IsNextGameLevelExists(TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, TDEngine2::I32 offset = 1);
+
+	TDE2_API void LoadNextGameLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
+
+	TDE2_API void LoadPrevGameLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
 
 
 	TDE2_API TDEngine2::E_RESULT_CODE RegisterGameResourceTypes(TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, TDEngine2::TPtr<TDEngine2::IFileSystem> pFileSystem);

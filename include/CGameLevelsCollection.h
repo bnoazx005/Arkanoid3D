@@ -86,7 +86,13 @@ namespace Game
 
 			TDE2_API TDEngine2::E_RESULT_CODE Save(TDEngine2::IArchiveWriter* pWriter) override;
 
+			TDE2_API TDEngine2::TResult<TDEngine2::USIZE> FindLevelIndex(const std::string& levelPath) const;
+
+			TDE2_API TDEngine2::TResult<std::string> GetLevelPathByIndex(TDEngine2::USIZE index) const;
+
 			TDE2_API const std::vector<std::string>& GetLevels() const;
+
+			TDE2_API TDEngine2::USIZE GetLevelsCount() const;
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CGameLevelsCollection)
 

@@ -95,9 +95,35 @@ namespace Game
 		return RC_OK;
 	}
 
+	TDE2_API TDEngine2::TResult<TDEngine2::USIZE> CGameLevelsCollection::FindLevelIndex(const std::string& levelPath) const
+	{
+		auto it = std::find(mGameLevels.cbegin(), mGameLevels.cend(), levelPath);
+		if (it == mGameLevels.cend())
+		{
+			return Wrench::TErrValue<E_RESULT_CODE>(RC_FAIL);
+		}
+
+		return Wrench::TOkValue<USIZE>(std::distance(mGameLevels.cbegin(), it));
+	}
+
+	TDEngine2::TResult<std::string> CGameLevelsCollection::GetLevelPathByIndex(TDEngine2::USIZE index) const
+	{
+		if (index >= mGameLevels.size())
+		{
+			return Wrench::TErrValue<E_RESULT_CODE>(RC_FAIL);
+		}
+
+		return Wrench::TOkValue<std::string>(mGameLevels[index]);
+	}
+
 	const std::vector<std::string>& CGameLevelsCollection::GetLevels() const
 	{
 		return mGameLevels;
+	}
+
+	TDEngine2::USIZE CGameLevelsCollection::GetLevelsCount() const
+	{
+		return mGameLevels.size();
 	}
 
 	const TPtr<IResourceLoader> CGameLevelsCollection::_getResourceLoader()
