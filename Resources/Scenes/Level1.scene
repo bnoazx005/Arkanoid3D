@@ -79,7 +79,7 @@ entities:
               type_id: 2094576044
         id: 21
         name: LevelBoundaries
-name: TestPlayground.scene
+name: Level1.scene
 scene_properties: 
   is_main: 0
 version: 0
