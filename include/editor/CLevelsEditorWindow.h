@@ -8,12 +8,23 @@
 
 
 #include <editor/IEditorWindow.h>
+#include <scene/ISceneManager.h>
+#include <core/IEventManager.h>
+#include <core/IResourceManager.h>
 
 
 #if TDE2_EDITORS_ENABLED
 
 namespace Game
 {
+	struct TLevelsEditorParams
+	{
+		TDEngine2::TPtr<TDEngine2::ISceneManager>    mpSceneManager;
+		TDEngine2::TPtr<TDEngine2::IEventManager>    mpEventManager;
+		TDEngine2::TPtr<TDEngine2::IResourceManager> mpResourceManager;
+	};
+
+
 	/*!
 		\brief A factory function for creation objects of CLevelsEditorWindow's type
 
@@ -22,7 +33,7 @@ namespace Game
 		\return A pointer to IEditorWindow's implementation
 	*/
 
-	TDE2_API TDEngine2::IEditorWindow * CreateLevelsEditorWindow(TDEngine2::E_RESULT_CODE & result);
+	TDE2_API TDEngine2::IEditorWindow * CreateLevelsEditorWindow(const TLevelsEditorParams& params, TDEngine2::E_RESULT_CODE & result);
 
 
 	/*!
@@ -34,7 +45,7 @@ namespace Game
 	class CLevelsEditorWindow : public TDEngine2::CBaseEditorWindow
 	{
 		public:
-			friend TDE2_API TDEngine2::IEditorWindow* CreateLevelsEditorWindow(TDEngine2::E_RESULT_CODE& result);
+			friend TDE2_API TDEngine2::IEditorWindow* CreateLevelsEditorWindow(const TLevelsEditorParams& params, TDEngine2::E_RESULT_CODE&);
 		public:
 			/*!
 				\brief The method initializes internal state of the editor
@@ -42,7 +53,7 @@ namespace Game
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual TDEngine2::E_RESULT_CODE Init();
+			TDE2_API virtual TDEngine2::E_RESULT_CODE Init(const TLevelsEditorParams& params);
 
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelsEditorWindow)
@@ -53,7 +64,11 @@ namespace Game
 			*/
 
 			TDE2_API void _onDraw() override;
-
+		
+		private:
+			TDEngine2::TPtr<TDEngine2::ISceneManager>    mpSceneManager;
+			TDEngine2::TPtr<TDEngine2::IEventManager>    mpEventManager;
+			TDEngine2::TPtr<TDEngine2::IResourceManager> mpResourceManager;
 	};
 }
 

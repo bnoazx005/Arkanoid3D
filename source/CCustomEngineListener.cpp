@@ -113,12 +113,20 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	});
 
-	LoadGameLevel(mpEngineCoreInstance, 0);
+	LoadGameLevel(
+		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
+		mpEngineCoreInstance->GetSubsystem<IResourceManager>(), 
+		mpEngineCoreInstance->GetSubsystem<IEventManager>(), 0);
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;
 	
-	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(mpSceneManager, result));
+	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(
+		{ 
+			mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
+			mpEngineCoreInstance->GetSubsystem<IEventManager>(),
+			mpEngineCoreInstance->GetSubsystem<IResourceManager>(),
+		}, result));
 #endif
 
 	return RC_OK;
