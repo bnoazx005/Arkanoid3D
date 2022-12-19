@@ -20,15 +20,6 @@ namespace Game
 	{
 		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
 
-		if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
-		{
-			if (TSceneId::Invalid != pGameInfo->mCurrLoadedGameId)
-			{
-				E_RESULT_CODE result = pSceneManager->UnloadScene(pGameInfo->mCurrLoadedGameId); /// \note Unload the previously loaded level
-				TDE2_ASSERT(RC_OK == result);
-			}
-		}
-				
 		const TResourceId gameLevelsCollectionHandle = pResourceManager->Load<CGameLevelsCollection>(GameLevelsCollectionPath);
 		if (TResourceId::Invalid == gameLevelsCollectionHandle)
 		{
@@ -51,13 +42,20 @@ namespace Game
 		}
 
 		/// \note Load a new one
-		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pWorld, pEventManager](const TResult<TSceneId>& sceneId)
+		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pSceneManager, pWorld, pEventManager](const TResult<TSceneId>& sceneId)
 		{
 			CEntity* pLevelBoundariesEntity = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CLevelBoundaries>());
 
 			if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
 			{
+				const TSceneId prevLoadedSceneId = pGameInfo->mCurrLoadedGameId;
 				pGameInfo->mCurrLoadedGameId = sceneId.Get();
+
+				if (TSceneId::Invalid != prevLoadedSceneId)
+				{
+					E_RESULT_CODE result = pSceneManager->UnloadScene(prevLoadedSceneId); /// \note Unload the previously loaded level
+					TDE2_ASSERT(RC_OK == result);
+				}
 
 				if (pLevelBoundariesEntity)
 				{
@@ -160,7 +158,7 @@ namespace Game
 			return;
 		}
 
-		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager) + 1);
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() + 1);
 	}
 
 	void LoadPrevGameLevel(
@@ -174,7 +172,7 @@ namespace Game
 			return;
 		}
 
-		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager) - 1);
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() - 1);
 	}
 
 
