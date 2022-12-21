@@ -11,6 +11,7 @@
 #include <scene/ISceneManager.h>
 #include <core/IEventManager.h>
 #include <core/IResourceManager.h>
+#include <core/IInputContext.h>
 
 
 #if TDE2_EDITORS_ENABLED
@@ -19,9 +20,10 @@ namespace Game
 {
 	struct TLevelsEditorParams
 	{
-		TDEngine2::TPtr<TDEngine2::ISceneManager>    mpSceneManager;
-		TDEngine2::TPtr<TDEngine2::IEventManager>    mpEventManager;
-		TDEngine2::TPtr<TDEngine2::IResourceManager> mpResourceManager;
+		TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
+		TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
+		TDEngine2::TPtr<TDEngine2::IResourceManager>     mpResourceManager;
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
 	};
 
 
@@ -66,9 +68,10 @@ namespace Game
 			TDE2_API void _onDraw() override;
 		
 		private:
-			TDEngine2::TPtr<TDEngine2::ISceneManager>    mpSceneManager;
-			TDEngine2::TPtr<TDEngine2::IEventManager>    mpEventManager;
-			TDEngine2::TPtr<TDEngine2::IResourceManager> mpResourceManager;
+			TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
+			TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
+			TDEngine2::TPtr<TDEngine2::IResourceManager>     mpResourceManager;
+			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
 	};
 }
 

@@ -126,6 +126,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 			mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
 			mpEngineCoreInstance->GetSubsystem<IEventManager>(),
 			mpEngineCoreInstance->GetSubsystem<IResourceManager>(),
+			DynamicPtrCast<IDesktopInputContext>(mpEngineCoreInstance->GetSubsystem<IInputContext>())
 		}, result));
 #endif
 

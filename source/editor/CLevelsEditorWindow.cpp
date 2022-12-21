@@ -14,6 +14,13 @@ using namespace TDEngine2;
 
 namespace Game
 {
+	struct TActionKeyBindings
+	{
+		static constexpr E_KEYCODES mLoadPrevGameLevel = E_KEYCODES::KC_Q;
+		static constexpr E_KEYCODES mLoadNextGameLevel = E_KEYCODES::KC_E;
+	};
+
+
 	class CLevelsListWindow
 	{
 		public:
@@ -21,6 +28,7 @@ namespace Game
 				mpSceneManager(params.mpSceneManager),
 				mpResourceManager(params.mpResourceManager),
 				mpEventManager(params.mpEventManager),
+				mpInputContext(params.mpInputContext),
 				mpWorld(params.mpSceneManager->GetWorld().Get())
 			{
 			}
@@ -34,8 +42,8 @@ namespace Game
 				static const IImGUIContext::TWindowParams params
 				{
 					ZeroVector2,
-					TVector2(windowSizes.x * 0.6f, windowSizes.y * 0.15f),
-					TVector2(windowSizes.x * 0.6f, windowSizes.y * 0.15f),
+					TVector2(windowSizes.x * 0.6f, windowSizes.y * 0.25f),
+					TVector2(windowSizes.x * 0.6f, windowSizes.y * 0.25f),
 				};
 
 				if (pImGUIContext->BeginWindow("Levels", mIsEnabled, params))
@@ -46,7 +54,8 @@ namespace Game
 					
 					const TVector2 cursorPos = pImGUIContext->GetCursorScreenPos();
 
-					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, -1) && pImGUIContext->Button("<", buttonSizes)) /// \note Load prev level
+					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, -1) &&
+						(mpInputContext->IsKeyPressed(TActionKeyBindings::mLoadPrevGameLevel) || pImGUIContext->Button("<", buttonSizes))) /// \note Load prev level
 					{
 						LoadPrevGameLevel(mpSceneManager, mpResourceManager, mpEventManager);
 					}
@@ -63,26 +72,37 @@ namespace Game
 						pImGUIContext->Label("<<EMPTY>>");
 					}
 
+					const TVector2 currCursorPos = pImGUIContext->GetCursorScreenPos();
 					pImGUIContext->SetCursorScreenPos(cursorPos + TVector2(pImGUIContext->GetWindowWidth() - buttonSizes.x - 10.f, 0.0f));
 
-					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, 1) && pImGUIContext->Button(">", buttonSizes)) /// \note Load next level
+					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, 1) && 
+						(mpInputContext->IsKeyPressed(TActionKeyBindings::mLoadNextGameLevel) || pImGUIContext->Button(">", buttonSizes))) /// \note Load next level
 					{
 						LoadNextGameLevel(mpSceneManager, mpResourceManager, mpEventManager);
 					}
 
+					pImGUIContext->SetCursorScreenPos(currCursorPos);
+
 					pImGUIContext->EndHorizontal();
+
+					/// \note Game level's logic here
+					if (pImGUIContext->Button("Save", TVector2(pImGUIContext->GetWindowWidth(), 25.f)))
+					{
+
+					}
 				}
 
 				pImGUIContext->EndWindow();
 
 			}
 		private:
-			TPtr<ISceneManager>    mpSceneManager = nullptr;
-			TPtr<IResourceManager> mpResourceManager = nullptr;
-			TPtr<IEventManager>    mpEventManager = nullptr;
-			IWorld*                mpWorld = nullptr;
+			TPtr<ISceneManager>        mpSceneManager = nullptr;
+			TPtr<IResourceManager>     mpResourceManager = nullptr;
+			TPtr<IEventManager>        mpEventManager = nullptr;
+			TPtr<IDesktopInputContext> mpInputContext = nullptr;
+			IWorld*                    mpWorld = nullptr;
 
-			bool                   mIsEnabled = false;
+			bool                       mIsEnabled = false;
 	};
 
 
@@ -101,6 +121,7 @@ namespace Game
 		mpSceneManager = params.mpSceneManager;
 		mpEventManager = params.mpEventManager;
 		mpResourceManager = params.mpResourceManager;
+		mpInputContext = params.mpInputContext;
 
 		mIsInitialized = true;
 
@@ -118,7 +139,7 @@ namespace Game
 			TVector2(500.0f, 300.0f),
 		};
 
-		static CLevelsListWindow levelsListWindow({ mpSceneManager, mpEventManager, mpResourceManager });
+		static CLevelsListWindow levelsListWindow({ mpSceneManager, mpEventManager, mpResourceManager, mpInputContext });
 
 		levelsListWindow.SetEnabled(isEnabled);
 
