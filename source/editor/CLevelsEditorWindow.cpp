@@ -18,6 +18,7 @@ namespace Game
 	{
 		static constexpr E_KEYCODES mLoadPrevGameLevel = E_KEYCODES::KC_Q;
 		static constexpr E_KEYCODES mLoadNextGameLevel = E_KEYCODES::KC_E;
+		static constexpr E_KEYCODES mSaveCurrentLevel = E_KEYCODES::KC_F5;
 	};
 
 
@@ -86,9 +87,9 @@ namespace Game
 					pImGUIContext->EndHorizontal();
 
 					/// \note Game level's logic here
-					if (pImGUIContext->Button("Save", TVector2(pImGUIContext->GetWindowWidth(), 25.f)))
+					if (mpInputContext->IsKeyPressed(TActionKeyBindings::mSaveCurrentLevel) || pImGUIContext->Button("Save", TVector2(pImGUIContext->GetWindowWidth(), 25.f)))
 					{
-
+						SaveCurrentGameLevel(mpSceneManager, mpResourceManager);
 					}
 				}
 

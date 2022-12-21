@@ -3,6 +3,7 @@
 #include "../include/components/CLevelBoundaries.h"
 #include "../include/Components.h"
 #include "../include/CGameLevelsCollection.h"
+#include <utils/CFileLogger.h>
 
 
 using namespace TDEngine2;
@@ -175,6 +176,45 @@ namespace Game
 		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() - 1);
 	}
 
+
+	/*!
+		\brief Save level's utility function
+	*/
+
+	void SaveCurrentGameLevel(TPtr<ISceneManager> pSceneManager, TPtr<IResourceManager> pResourceManager)
+	{
+		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
+
+		CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>();
+		if (!pGameInfo)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		auto getSceneResult = pSceneManager->GetScene(pGameInfo->mCurrLoadedGameId);
+		if (getSceneResult.HasError())
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		auto pScene = getSceneResult.Get();
+		if (!pScene)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		E_RESULT_CODE result = pSceneManager->SaveSceneChunk(pScene->GetScenePath(), pSceneManager->GetSceneId(pScene->GetName()));
+		if (RC_OK != result)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		LOG_MESSAGE(Wrench::StringUtils::Format("[SaveCurrentGameLevel] The current game level \"{0}\" successfully saved", pScene->GetName()));
+	}
 
 
 	TDE2_API TDEngine2::E_RESULT_CODE RegisterGameResourceTypes(TPtr<IResourceManager> pResourceManager, TPtr<IFileSystem> pFileSystem)
