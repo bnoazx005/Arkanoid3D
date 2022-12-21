@@ -18,6 +18,9 @@
 
 namespace Game
 {
+	class CLevelsListWindow;
+
+
 	struct TLevelsEditorParams
 	{
 		TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
@@ -58,7 +61,8 @@ namespace Game
 			TDE2_API virtual TDEngine2::E_RESULT_CODE Init(const TLevelsEditorParams& params);
 
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelsEditorWindow)
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS_NO_DCTR(CLevelsEditorWindow)
+			~CLevelsEditorWindow() override;
 
 			/*!
 				\brief The method should be should be implemented in all derived classes. It's called
@@ -72,6 +76,8 @@ namespace Game
 			TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
 			TDEngine2::TPtr<TDEngine2::IResourceManager>     mpResourceManager;
 			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
+
+			std::unique_ptr<CLevelsListWindow> mpLevelsList = nullptr;
 	};
 }
 

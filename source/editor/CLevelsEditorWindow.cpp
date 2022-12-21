@@ -112,6 +112,10 @@ namespace Game
 	{
 	}
 
+	CLevelsEditorWindow::~CLevelsEditorWindow()
+	{
+	}
+
 	E_RESULT_CODE CLevelsEditorWindow::Init(const TLevelsEditorParams& params)
 	{
 		if (mIsInitialized)
@@ -123,6 +127,8 @@ namespace Game
 		mpEventManager = params.mpEventManager;
 		mpResourceManager = params.mpResourceManager;
 		mpInputContext = params.mpInputContext;
+
+		mpLevelsList = std::make_unique<CLevelsListWindow>(params);
 
 		mIsInitialized = true;
 
@@ -140,11 +146,8 @@ namespace Game
 			TVector2(500.0f, 300.0f),
 		};
 
-		static CLevelsListWindow levelsListWindow({ mpSceneManager, mpEventManager, mpResourceManager, mpInputContext });
-
-		levelsListWindow.SetEnabled(isEnabled);
-
-		levelsListWindow.Draw(mpImGUIContext);
+		mpLevelsList->SetEnabled(isEnabled);
+		mpLevelsList->Draw(mpImGUIContext);
 
 		if (mpImGUIContext->BeginWindow("Levels Editor", isEnabled, params))
 		{

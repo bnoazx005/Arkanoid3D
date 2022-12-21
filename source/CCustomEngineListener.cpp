@@ -154,6 +154,8 @@ E_RESULT_CODE CCustomEngineListener::OnUpdate(const float& dt)
 
 E_RESULT_CODE CCustomEngineListener::OnFree()
 {
+	mpLevelsEditor = nullptr;
+
 	return RC_OK;
 }
 
