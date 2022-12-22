@@ -1,4 +1,4 @@
-#include "../../include/components/CLevelBoundaries.h"
+#include "../../include/components/CLevelSettings.h"
 #include <editor/Inspectors.h>
 #include <core/IImGUIContext.h>
 
@@ -8,12 +8,12 @@ namespace Game
 	using namespace TDEngine2;
 
 
-	CLevelBoundaries::CLevelBoundaries() :
+	CLevelSettings::CLevelSettings() :
 		CBaseComponent()
 	{
 	}
 
-	E_RESULT_CODE CLevelBoundaries::Load(IArchiveReader* pReader)
+	E_RESULT_CODE CLevelSettings::Load(IArchiveReader* pReader)
 	{
 		if (!pReader)
 		{
@@ -51,7 +51,7 @@ namespace Game
 		return RC_OK;
 	}
 
-	E_RESULT_CODE CLevelBoundaries::Save(IArchiveWriter* pWriter)
+	E_RESULT_CODE CLevelSettings::Save(IArchiveWriter* pWriter)
 	{
 		if (!pWriter)
 		{
@@ -60,7 +60,7 @@ namespace Game
 
 		pWriter->BeginGroup("component");
 		{
-			pWriter->SetUInt32("type_id", static_cast<U32>(CLevelBoundaries::GetTypeId()));
+			pWriter->SetUInt32("type_id", static_cast<U32>(CLevelSettings::GetTypeId()));
 			
 			pWriter->BeginGroup("horizontal_constraints");
 			SaveVector2(pWriter, TVector2(mHorizontalConstraints.mLeft, mHorizontalConstraints.mRight));
@@ -75,9 +75,9 @@ namespace Game
 		return RC_OK;
 	}
 
-	E_RESULT_CODE CLevelBoundaries::Clone(IComponent*& pDestObject) const
+	E_RESULT_CODE CLevelSettings::Clone(IComponent*& pDestObject) const
 	{
-		if (auto pComponent = dynamic_cast<CLevelBoundaries*>(pDestObject))
+		if (auto pComponent = dynamic_cast<CLevelSettings*>(pDestObject))
 		{
 			pComponent->mHorizontalConstraints = mHorizontalConstraints;
 			pComponent->mVerticalConstraints = mVerticalConstraints;
@@ -90,12 +90,12 @@ namespace Game
 
 #if TDE2_EDITORS_ENABLED
 
-	void CLevelBoundaries::DrawInspectorGUI(const TEditorContext& context)
+	void CLevelSettings::DrawInspectorGUI(const TEditorContext& context)
 	{
-		CDefaultInspectorsRegistry::DrawInspectorHeader("LevelBoundaries", context, [](const TEditorContext& editorContext)
+		CDefaultInspectorsRegistry::DrawInspectorHeader("LevelSettings", context, [](const TEditorContext& editorContext)
 		{
 			IImGUIContext& imguiContext = editorContext.mImGUIContext;
-			CLevelBoundaries& component = dynamic_cast<CLevelBoundaries&>(editorContext.mComponent);
+			CLevelSettings& component = dynamic_cast<CLevelSettings&>(editorContext.mComponent);
 
 			/// \note Horizontal constraints
 			{
@@ -128,28 +128,28 @@ namespace Game
 #endif
 
 
-	IComponent* CreateLevelBoundaries(E_RESULT_CODE& result)
+	IComponent* CreateLevelSettings(E_RESULT_CODE& result)
 	{
-		return CREATE_IMPL(IComponent, CLevelBoundaries, result);
+		return CREATE_IMPL(IComponent, CLevelSettings, result);
 	}
 
 
 	/*!
-		\brief CLevelBoundariesFactory's definition
+		\brief CLevelSettingsFactory's definition
 	*/
 
-	CLevelBoundariesFactory::CLevelBoundariesFactory() :
+	CLevelSettingsFactory::CLevelSettingsFactory() :
 		CBaseComponentFactory()
 	{
 	}
 
-	IComponent* CLevelBoundariesFactory::CreateDefault() const
+	IComponent* CLevelSettingsFactory::CreateDefault() const
 	{
 		E_RESULT_CODE result = RC_OK;
-		return CreateLevelBoundaries(result);
+		return CreateLevelSettings(result);
 	}
 
-	E_RESULT_CODE CLevelBoundariesFactory::SetupComponent(CLevelBoundaries* pComponent, const TLevelBoundariesParameters& params) const
+	E_RESULT_CODE CLevelSettingsFactory::SetupComponent(CLevelSettings* pComponent, const TLevelSettingsParameters& params) const
 	{
 		if (!pComponent)
 		{
@@ -162,8 +162,8 @@ namespace Game
 	}
 
 
-	IComponentFactory* CreateLevelBoundariesFactory(E_RESULT_CODE& result)
+	IComponentFactory* CreateLevelSettingsFactory(E_RESULT_CODE& result)
 	{
-		return CREATE_IMPL(IComponentFactory, CLevelBoundariesFactory, result);
+		return CREATE_IMPL(IComponentFactory, CLevelSettingsFactory, result);
 	}
 }

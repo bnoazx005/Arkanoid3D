@@ -1,6 +1,6 @@
 #include "../include/Utilities.h"
 #include "../include/components/CGameInfo.h"
-#include "../include/components/CLevelBoundaries.h"
+#include "../include/components/CLevelSettings.h"
 #include "../include/Components.h"
 #include "../include/CGameLevelsCollection.h"
 #include <utils/CFileLogger.h>
@@ -45,7 +45,7 @@ namespace Game
 		/// \note Load a new one
 		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pSceneManager, pWorld, pEventManager](const TResult<TSceneId>& sceneId)
 		{
-			CEntity* pLevelBoundariesEntity = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CLevelBoundaries>());
+			CEntity* pLevelSettingsEntity = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CLevelSettings>());
 
 			if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
 			{
@@ -58,16 +58,16 @@ namespace Game
 					TDE2_ASSERT(RC_OK == result);
 				}
 
-				if (pLevelBoundariesEntity)
+				if (pLevelSettingsEntity)
 				{
-					CLevelBoundaries* boundariesData = pLevelBoundariesEntity->GetComponent<CLevelBoundaries>();
+					CLevelSettings* SettingsData = pLevelSettingsEntity->GetComponent<CLevelSettings>();
 					
-					pGameInfo->mHorizontalConstraints = boundariesData->mHorizontalConstraints;
-					pGameInfo->mVerticalConstraints = boundariesData->mVerticalConstraints;
+					pGameInfo->mHorizontalConstraints = SettingsData->mHorizontalConstraints;
+					pGameInfo->mVerticalConstraints = SettingsData->mVerticalConstraints;
 				}
 				else
 				{
-					TDE2_ASSERT("[LoadGameLevel] LevelBoundaries component wasn't found in the level");
+					TDE2_ASSERT("[LoadGameLevel] LevelSettings component wasn't found in the level");
 				}
 			}
 

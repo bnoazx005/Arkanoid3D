@@ -82,7 +82,7 @@ entities:
               vertical_constraints: 
                 x: "-5.000000"
                 y: 4.000000
-              type_id: 2094576044
+              type_id: 3001886929
         id: 21
         name: LevelBoundaries
 name: Level2.scene

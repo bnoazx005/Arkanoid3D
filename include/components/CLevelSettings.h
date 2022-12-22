@@ -1,5 +1,5 @@
 /*!
-	\file CLevelBoundaries.h
+	\file CLevelSettings.h
 	\date 13.12.2022
 	\authors Kasimov Ildar
 */
@@ -12,19 +12,19 @@
 
 namespace Game
 {
-	TDE2_API TDEngine2::IComponent* CreateLevelBoundaries(TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::IComponent* CreateLevelSettings(TDEngine2::E_RESULT_CODE& result);
 
 
 	/*!
-		class CLevelBoundaries
+		class CLevelSettings
 	*/
 
-	class CLevelBoundaries : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CLevelBoundaries, 1 << 20>
+	class CLevelSettings : public TDEngine2::CBaseComponent, public TDEngine2::CPoolMemoryAllocPolicy<CLevelSettings, 1 << 20>
 	{
 		public:
-			friend TDE2_API TDEngine2::IComponent* CreateLevelBoundaries(TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::IComponent* CreateLevelSettings(TDEngine2::E_RESULT_CODE&);
 		public:
-			TDE2_REGISTER_COMPONENT_TYPE(CLevelBoundaries)
+			TDE2_REGISTER_COMPONENT_TYPE(CLevelSettings)
 
 			/*!
 				\brief The method deserializes object's state from given reader
@@ -59,7 +59,7 @@ namespace Game
 			TDE2_API static void DrawInspectorGUI(const TDEngine2::TEditorContext& context);
 	#endif
 		protected:
-			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelBoundaries)
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelSettings)
 		public:
 			TDEngine2::TRangeF32 mHorizontalConstraints = TDEngine2::TRangeF32(-4.0f, 4.0f);
 			TDEngine2::TRangeF32 mVerticalConstraints = TDEngine2::TRangeF32(-5.0f, 4.0f);
@@ -67,15 +67,15 @@ namespace Game
 
 
 	/*!
-		struct TLevelBoundariesParameters
+		struct TLevelSettingsParameters
 
-		\brief The structure contains parameters for creation of CLevelBoundaries
+		\brief The structure contains parameters for creation of CLevelSettings
 	*/
 
-	typedef struct TLevelBoundariesParameters : public TDEngine2::TBaseComponentParameters
+	typedef struct TLevelSettingsParameters : public TDEngine2::TBaseComponentParameters
 	{
-	} TLevelBoundariesParameters;
+	} TLevelSettingsParameters;
 
 
-	TDE2_DECLARE_COMPONENT_FACTORY(LevelBoundaries, TLevelBoundariesParameters);
+	TDE2_DECLARE_COMPONENT_FACTORY(LevelSettings, TLevelSettingsParameters);
 }
