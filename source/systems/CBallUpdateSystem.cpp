@@ -37,26 +37,14 @@ namespace Game
 
 	void CBallUpdateSystem::InjectBindings(IWorld* pWorld)
 	{
-		mSystemContext.mpBalls.clear();
-		mSystemContext.mpTransforms.clear();
-
-		for (TEntityId currEntityId : pWorld->FindEntitiesWithComponents<Game::CBall, TDEngine2::CTransform>())
-		{
-			CEntity* pCurrEntity = pWorld->FindEntity(currEntityId);
-
-			mSystemContext.mpTransforms.push_back(pCurrEntity->GetComponent<CTransform>());
-			mSystemContext.mpBalls.push_back(pCurrEntity->GetComponent<Game::CBall>());
-		}
-
-		mSystemContext.mComponentsCount = mSystemContext.mpBalls.size();
-		
+		mSystemContext = pWorld->CreateLocalComponentsSlice<Game::CBall, TDEngine2::CTransform>();
 		mGameInfoEntityId = pWorld->FindEntityWithUniqueComponent<Game::CGameInfo>();
 	}
 
 	void CBallUpdateSystem::Update(IWorld* pWorld, F32 dt)
 	{
-		auto& transforms = mSystemContext.mpTransforms;
-		auto& balls = mSystemContext.mpBalls;
+		auto& transforms = std::get<std::vector<CTransform*>>(mSystemContext.mComponentsSlice);
+		auto& balls = std::get<std::vector<CBall*>>(mSystemContext.mComponentsSlice);
 
 		CGameInfo* pGameInfo = pWorld->FindEntity(mGameInfoEntityId)->GetComponent<CGameInfo>();
 

@@ -23,13 +23,7 @@ namespace Game
 		public:
 			friend TDE2_API TDEngine2::ISystem* CreateBallUpdateSystem(TDEngine2::TPtr<TDEngine2::IEventManager>, TDEngine2::TPtr<TDEngine2::IDesktopInputContext>, TDEngine2::E_RESULT_CODE&);
 		private:
-			struct TSystemContext
-			{
-				std::vector<TDEngine2::CTransform*> mpTransforms;
-				std::vector<CBall*>                 mpBalls;
-
-				TDEngine2::USIZE                    mComponentsCount;
-			};
+			typedef TDEngine2::TComponentsQueryLocalSlice<Game::CBall, TDEngine2::CTransform> TSystemContext;
 		public:
 			TDE2_SYSTEM(CBallUpdateSystem);
 
