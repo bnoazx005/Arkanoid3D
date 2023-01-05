@@ -107,6 +107,56 @@ namespace Game
 	};
 
 
+	class CPaletteWindow
+	{
+		public:
+			explicit CPaletteWindow(const TLevelsEditorParams& params) :
+				mpSceneManager(params.mpSceneManager),
+				mpResourceManager(params.mpResourceManager),
+				mpEventManager(params.mpEventManager),
+				mpInputContext(params.mpInputContext),
+				mpWorld(params.mpSceneManager->GetWorld().Get())
+			{
+			}
+
+			void SetEnabled(bool value) { mIsEnabled = value; }
+
+			void Draw(IImGUIContext* pImGUIContext)
+			{
+				const TVector2 windowSizes(pImGUIContext->GetWindowWidth(), pImGUIContext->GetWindowHeight());
+
+				static const IImGUIContext::TWindowParams params
+				{
+					ZeroVector2,
+					TVector2(windowSizes.x * 0.6f, windowSizes.y * 0.25f),
+					TVector2(windowSizes.x * 0.6f, windowSizes.y),
+				};
+
+				if (pImGUIContext->BeginWindow("Palette", mIsEnabled, params))
+				{
+					const TVector2 paletteWindowSizes(pImGUIContext->GetWindowWidth() - 10.0f, pImGUIContext->GetWindowHeight() - 10.0f);
+
+					if (pImGUIContext->BeginChildWindow("##PalleteItems", paletteWindowSizes))
+					{
+
+
+						pImGUIContext->EndChildWindow();
+					}
+				}
+
+				pImGUIContext->EndWindow();
+			}
+		private:
+			TPtr<ISceneManager>        mpSceneManager = nullptr;
+			TPtr<IResourceManager>     mpResourceManager = nullptr;
+			TPtr<IEventManager>        mpEventManager = nullptr;
+			TPtr<IDesktopInputContext> mpInputContext = nullptr;
+			IWorld*                    mpWorld = nullptr;
+
+			bool                       mIsEnabled = false;
+	};
+
+
 	CLevelsEditorWindow::CLevelsEditorWindow() :
 		CBaseEditorWindow()
 	{
@@ -129,6 +179,7 @@ namespace Game
 		mpInputContext = params.mpInputContext;
 
 		mpLevelsList = std::make_unique<CLevelsListWindow>(params);
+		mpPaletteWindow = std::make_unique<CPaletteWindow>(params);
 
 		mIsInitialized = true;
 
@@ -148,6 +199,9 @@ namespace Game
 
 		mpLevelsList->SetEnabled(isEnabled);
 		mpLevelsList->Draw(mpImGUIContext);
+
+		mpPaletteWindow->SetEnabled(isEnabled);
+		mpPaletteWindow->Draw(mpImGUIContext);
 
 		if (mpImGUIContext->BeginWindow("Levels Editor", isEnabled, params))
 		{

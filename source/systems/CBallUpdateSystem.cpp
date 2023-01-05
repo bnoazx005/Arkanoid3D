@@ -129,7 +129,7 @@ namespace Game
 					{
 						AddDefferedCommand([pWorld, pCurrTransform]
 						{
-							pWorld->DestroyImmediately(pWorld->FindEntity(pCurrTransform->GetOwnerId()));
+							pWorld->Destroy(pCurrTransform->GetOwnerId());
 						});
 					}
 

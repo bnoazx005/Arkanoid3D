@@ -113,9 +113,9 @@ namespace Game
 					mpEventManager->Notify(&scoreChangedEvent);
 				}
 
-				AddDefferedCommand([this, pDamageableEntity]
+				AddDefferedCommand([this, id = pDamageableEntity->GetId()]
 				{
-					mpWorld->Destroy(pDamageableEntity);
+					mpWorld->Destroy(id);
 				});
 			}
 		}

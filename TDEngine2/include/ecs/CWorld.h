@@ -37,7 +37,7 @@ namespace TDEngine2
 		\return A pointer to CWorld's implementation
 	*/
 
-	TDE2_API IWorld* CreateWorld(TPtr<IEventManager> pEventManager, E_RESULT_CODE& result);
+	TDE2_API IWorld* CreateWorld(TPtr<IEventManager> pEventManager, TPtr<IJobManager> pJobManager, E_RESULT_CODE& result);
 
 
 	/*!
@@ -50,7 +50,7 @@ namespace TDEngine2
 	class CWorld : public CBaseObject, public IWorld
 	{
 		public:
-			friend TDE2_API IWorld* CreateWorld(TPtr<IEventManager>, E_RESULT_CODE&);
+			friend TDE2_API IWorld* CreateWorld(TPtr<IEventManager>, TPtr<IJobManager>, E_RESULT_CODE&);
 		public:
 			/*!
 				\brief The method initializes a world's instance
@@ -60,7 +60,7 @@ namespace TDEngine2
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API E_RESULT_CODE Init(TPtr<IEventManager> pEventManager) override;
+			TDE2_API E_RESULT_CODE Init(TPtr<IEventManager> pEventManager, TPtr<IJobManager> pJobManager) override;
 			
 			/*!
 				\brief The method creates a new instance of CEntity
@@ -85,23 +85,12 @@ namespace TDEngine2
 				Note that the entity won't be deleted, it will be
 				reused later, so a pointer will be valid.
 
-				\param[in] pEntity A pointer to an entity
+				\param[in] entityId An identifier of existing entity
 
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API E_RESULT_CODE Destroy(CEntity* pEntity) override;
-
-			/*!
-				\brief The method destroys specified entity
-				and frees the memory, that it occupies
-
-				\param[in] pEntity A pointer to an entity
-
-				\return RC_OK if everything went ok, or some other code, which describes an error
-			*/
-
-			TDE2_API E_RESULT_CODE DestroyImmediately(CEntity* pEntity) override;
+			TDE2_API E_RESULT_CODE Destroy(TEntityId entityId) override;
 
 			/*!
 				\brief The method registers specified resource factory within a manager
@@ -195,6 +184,7 @@ namespace TDEngine2
 			TDE2_API E_RESULT_CODE RegisterRaycastContext(TPtr<IRaycastContext> pRaycastContext) override;
 
 			TDE2_API E_RESULT_CODE NotifyOnHierarchyChanged(TEntityId parentEntityId, TEntityId childEntityId) override;
+			TDE2_API E_RESULT_CODE NotifyOnEntityActivityChanged(TEntityId entityId, bool state) override;
 
 			/*!
 				\brief The method seeks out an entity and either return it or return nullptr
@@ -276,6 +266,8 @@ namespace TDEngine2
 
 			TPtr<IEventManager>   mpEventManager;
 
+			TPtr<IJobManager>     mpJobManager;
+
 			TPtr<IRaycastContext> mpRaycastContext;
 
 			F32                   mTimeScaleFactor;
@@ -328,6 +320,20 @@ namespace TDEngine2
 	*/
 
 	TDE2_API E_RESULT_CODE GroupEntities(IWorld* pWorld, TEntityId parentEntity, TEntityId childEntity);
+
+	/*!
+		\brief The function allows to activate/deactivate some entity. The deactivation means that the entity would be skipped during 
+		processing of systems. 
+
+		\param[in, out] pWorld A pointer to IWorld implementation
+		\param[in] entityId An identifier of the entity that should be activated/deactivated
+		\param[in] state Pass true to activate entity, false in other case
+
+		\return RC_OK if everything went ok, or some other code, which describes an error
+	*/
+
+	TDE2_API E_RESULT_CODE SetEntityActive(IWorld* pWorld, TEntityId entityId, bool state);
+
 
 	TDE2_API class ICamera* GetCurrentActiveCamera(IWorld* pWorld);
 

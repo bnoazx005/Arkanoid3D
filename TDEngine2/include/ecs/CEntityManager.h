@@ -7,8 +7,8 @@
 #pragma once
 
 
-#include "./../core/CBaseObject.h"
-#include "./../utils/Utils.h"
+#include "../core/CBaseObject.h"
+#include "../utils/Utils.h"
 #include "IComponentManager.h"
 #include <vector>
 #include <list>
@@ -24,6 +24,9 @@ namespace TDEngine2
 	class CEntityManager;
 
 
+	TDE2_DECLARE_SCOPED_PTR(CEntity)
+
+
 	/*!
 		\brief A factory function for creation objects of CEntityManager's type.
 
@@ -36,7 +39,7 @@ namespace TDEngine2
 		\return A pointer to CEntityManager's implementation
 	*/
 
-	TDE2_API CEntityManager* CreateEntityManager(IEventManager* pEventManager, IComponentManager* pComponentManager, E_RESULT_CODE& result);
+	TDE2_API CEntityManager* CreateEntityManager(IEventManager* pEventManager, IComponentManager* pComponentManager, bool createWithPredefinedComponents, E_RESULT_CODE& result);
 
 
 	/*!
@@ -51,8 +54,9 @@ namespace TDEngine2
 	class CEntityManager: public CBaseObject
 	{
 		public:
-			friend TDE2_API CEntityManager* CreateEntityManager(IEventManager* pEventManager, IComponentManager* pComponentManager, E_RESULT_CODE& result);
+			friend TDE2_API CEntityManager* CreateEntityManager(IEventManager*, IComponentManager*, bool, E_RESULT_CODE&);
 		protected:
+			typedef std::vector<TPtr<CEntity>>         TEntitiesArray;
 			typedef std::unordered_map<TEntityId, U32> TEntitiesHashTable;
 		public:
 			/*!
@@ -65,7 +69,7 @@ namespace TDEngine2
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual E_RESULT_CODE Init(IEventManager* pEventManager, IComponentManager* pComponentManager);
+			TDE2_API virtual E_RESULT_CODE Init(IEventManager* pEventManager, IComponentManager* pComponentManager, bool createWithPredefinedComponents = true);
 
 			/*!
 				\brief The method creates a new instance of CEntity
@@ -73,7 +77,7 @@ namespace TDEngine2
 				\return A pointer to a new instance of CEntity, nullptr may be returned
 			*/
 
-			TDE2_API CEntity* Create();
+			TDE2_API TPtr<CEntity> Create();
 
 			/*!
 				\brief The method creates a new instance of CEntity
@@ -83,7 +87,7 @@ namespace TDEngine2
 				\return A pointer to a new instance of CEntity, nullptr may be returned
 			*/
 
-			TDE2_API CEntity* Create(const std::string& name);
+			TDE2_API TPtr<CEntity> Create(const std::string& name);
 
 			/*!
 				\brief The method destroys specified entity.
@@ -95,18 +99,7 @@ namespace TDEngine2
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API E_RESULT_CODE Destroy(CEntity* pEntity);
-
-			/*!
-				\brief The method destroys specified entity
-				and frees the memory, that it occupies
-
-				\param[in] pEntity A pointer to an entity
-
-				\return RC_OK if everything went ok, or some other code, which describes an error
-			*/
-
-			TDE2_API E_RESULT_CODE DestroyImmediately(CEntity* pEntity);
+			TDE2_API E_RESULT_CODE Destroy(TEntityId entityId);
 
 			/*!
 				\brief The method destroys all created entities, but
@@ -118,15 +111,6 @@ namespace TDEngine2
 			*/
 
 			TDE2_API E_RESULT_CODE DestroyAllEntities();
-
-			/*!
-				\brief The method destroys all created entities and
-				frees memory they occupy
-
-				\return RC_OK if everything went ok, or some other code, which describes an error
-			*/
-
-			TDE2_API E_RESULT_CODE DestroyAllImmediately();
 
 			/*!
 				\brief The method creates a new component and connects it with
@@ -190,35 +174,34 @@ namespace TDEngine2
 				\return The method seeks out an entity and either return it or return nullptr
 			*/
 
-			TDE2_API CEntity* GetEntity(TEntityId entityId) const;
+			TDE2_API TPtr<CEntity> GetEntity(TEntityId entityId) const;
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CEntityManager)
 
 			std::string _constructDefaultEntityName(U32 id) const;
 
-			TDE2_API CEntity* _createEntity(const std::string& name);
-
-			TDE2_API E_RESULT_CODE _destroyImmediatelyInternal(CEntity* pEntity);
+			TDE2_API TPtr<CEntity> _createEntity(const std::string& name);
 
 			TDE2_API void _notifyOnAddComponent(TEntityId entityId, TypeId componentTypeId);
 
 			TDE2_API void _notifyOnRemovedComponent(TEntityId entityId, TypeId componentTypeId);
 
 			TDE2_API E_RESULT_CODE _onFreeInternal() override;
+
+			TDE2_API E_RESULT_CODE _destroyInternal(TEntityId entityId, bool recomputeHandles = true);
 		protected:
-			mutable std::mutex    mMutex;
+			mutable std::mutex mMutex;
 
-			std::vector<CEntity*> mActiveEntities;
+			TEntitiesArray     mActiveEntities;
+			TEntitiesHashTable mEntitiesHashTable;
 
-			std::list<CEntity*>   mDestroyedEntities;
+			U32                mNextIdValue;
 
-			TEntitiesHashTable    mEntitiesHashTable;
+			IComponentManager* mpComponentManager;
 
-			U32                   mNextIdValue;
+			IEventManager*     mpEventManager;
 
-			IComponentManager*    mpComponentManager;
-
-			IEventManager*        mpEventManager;
+			bool               mCreateEntitiesWithPredefinedComponents = false;
 	};
 	
 

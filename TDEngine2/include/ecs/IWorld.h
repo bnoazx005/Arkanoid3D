@@ -27,6 +27,7 @@ namespace TDEngine2
 	class IComponent;
 	class IComponentIterator;
 	class IEventManager;
+	class IJobManager;
 	class IRaycastContext;
 	class CTransform;
 	class IComponentFactory;
@@ -34,6 +35,7 @@ namespace TDEngine2
 
 
 	TDE2_DECLARE_SCOPED_PTR(IEventManager)
+	TDE2_DECLARE_SCOPED_PTR(IJobManager)
 	TDE2_DECLARE_SCOPED_PTR(IRaycastContext)
 	TDE2_DECLARE_SCOPED_PTR(IComponentFactory)
 
@@ -93,7 +95,7 @@ namespace TDEngine2
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual E_RESULT_CODE Init(TPtr<IEventManager> pEventManager) = 0;
+			TDE2_API virtual E_RESULT_CODE Init(TPtr<IEventManager> pEventManager, TPtr<IJobManager> pJobManager) = 0;
 
 			/*!
 				\brief The method creates a new instance of CEntity
@@ -118,23 +120,12 @@ namespace TDEngine2
 				Note that the entity won't be deleted, it will be
 				reused later, so a pointer will be valid.
 
-				\param[in] pEntity A pointer to an entity
+				\param[in] entityId An identifier of existing entity
 
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API virtual E_RESULT_CODE Destroy(CEntity* pEntity) = 0;
-
-			/*!
-				\brief The method destroys specified entity
-				and frees the memory, that it occupies
-
-				\param[in] pEntity A pointer to an entity
-
-				\return RC_OK if everything went ok, or some other code, which describes an error
-			*/
-
-			TDE2_API virtual E_RESULT_CODE DestroyImmediately(CEntity* pEntity) = 0;
+			TDE2_API virtual E_RESULT_CODE Destroy(TEntityId entityId) = 0;
 
 			/*!
 				\brief The method registers specified resource factory within a manager
@@ -348,14 +339,38 @@ namespace TDEngine2
 						}
 					}
 
-					entities.clear();
-
 					std::stack<std::tuple<TEntityId, USIZE>> entitiesToProcess;
-
+										
 					for (TEntityId currEntityId : parentToChildRelations[TEntityId::Invalid])
 					{
 						entitiesToProcess.push({ currEntityId, TComponentsQueryLocalSlice<TArgs...>::mInvalidParentIndex });
 					}
+
+					std::vector<TEntityId> parentsWithoutSpecifiedComponents;
+
+					/// \note Process the case when an entity has parent but the one has no specified component
+					const USIZE originalEntitiesCount = entities.size();
+					USIZE index = 0;
+
+					for (TEntityId currEntityId : entities)
+					{
+						if (CEntity* pEntity = FindEntity(currEntityId))
+						{
+							CTransform* pTransform = pEntity->GetComponent<CTransform>();
+							const TEntityId parentId = pTransform->GetParent();
+
+							/// \note Skip all the entities've already been added from parentToChildRelations[TEntityId::Invalid] and intermediate entities
+							if (TEntityId::Invalid == parentId || !pTransform->GetChildren().empty())
+							{
+								continue;
+							}
+
+							parentsWithoutSpecifiedComponents.emplace_back(parentId);
+							entitiesToProcess.push({ currEntityId, originalEntitiesCount + index++ });
+						}
+					}
+
+					entities.clear();
 
 					TEntityId currEntityId;
 					USIZE currParentElementIndex = 0;
@@ -375,8 +390,13 @@ namespace TDEngine2
 							entitiesToProcess.push({ currEntityId, parentIndex });
 						}
 					}
+
+					for (TEntityId parentId : parentsWithoutSpecifiedComponents)
+					{
+						result.mParentsToChildMapping.push_back(decltype(result)::mInvalidParentIndex);
+					}
 				}
-				
+												
 				result.mComponentsSlice = std::make_tuple(_getComponentsOfTypeFromEntities<TArgs>(entities)...);
 				result.mComponentsCount = entities.size();
 
@@ -394,6 +414,7 @@ namespace TDEngine2
 			TDE2_API virtual E_RESULT_CODE RegisterRaycastContext(TPtr<IRaycastContext> pRaycastContext) = 0;
 
 			TDE2_API virtual E_RESULT_CODE NotifyOnHierarchyChanged(TEntityId parentEntityId, TEntityId childEntityId) = 0;
+			TDE2_API virtual E_RESULT_CODE NotifyOnEntityActivityChanged(TEntityId entityId, bool state) = 0;
 
 			/*!
 				\brief The method sets up time scale factor which impacts on update cycles of all entities and systems

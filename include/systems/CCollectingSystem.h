@@ -125,9 +125,9 @@ namespace Game
 				{
 					_onApplyCollectable(pCollectable);
 
-					AddDefferedCommand([this, pCollectableEntity]
+					AddDefferedCommand([this, id = pCollectableEntity->GetId()]
 					{
-						mpWorld->Destroy(pCollectableEntity);
+						mpWorld->Destroy(id);
 					});
 				}				
 

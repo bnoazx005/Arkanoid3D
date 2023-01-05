@@ -247,6 +247,24 @@ namespace TDEngine2
 	} TOnComponentRemovedEvent, * TOnComponentRemovedEventPtr;
 
 
+	/*!
+		struct TOnEntityActivityChangedEvent
+
+		\brief The structure represents an event which occurs when an activity state of the entity's changed
+	*/
+
+	typedef struct TOnEntityActivityChangedEvent : TBaseEvent
+	{
+		virtual ~TOnEntityActivityChangedEvent() = default;
+
+		TDE2_REGISTER_TYPE(TOnEntityActivityChangedEvent)
+		REGISTER_EVENT_TYPE(TOnEntityActivityChangedEvent)
+
+		TEntityId mEntityId;
+		bool      mNewActivityState;
+	} TOnEntityActivityChangedEvent, *TOnEntityActivityChangedEventPtr;
+
+
 #define TDE2_COMPONENT_CLASS_NAME(ComponentName)			C ## ComponentName
 #define TDE2_COMPONENT_FUNCTION_NAME(ComponentName)			Create ## ComponentName
 #define TDE2_COMPONENT_FACTORY_NAME(ComponentName)			C ## ComponentName ## Factory
@@ -477,4 +495,14 @@ namespace TDEngine2
 																					TDE2_COMPONENT_FACTORY_NAME(ComponentName),				      \
 																					TDE2_COMPONENT_FACTORY_FUNCTION_NAME(ComponentName), true)
 
+
+
+	/*!
+		\brief The components are used to hide the entity from the processing.
+		The difference between Deactivated and DeactivatedGroup could be corresponded to local and global activity of the entity in other engines.
+		The Deactivated component is a kind of local state of the entity while DeactivedGroup is related with the entity's parent activity 
+	*/
+
+	TDE2_DECLARE_FLAG_COMPONENT(DeactivatedComponent)
+	TDE2_DECLARE_FLAG_COMPONENT(DeactivatedGroupComponent)
 }
