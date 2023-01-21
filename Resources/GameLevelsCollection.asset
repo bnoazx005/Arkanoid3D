@@ -1,6 +1,7 @@
 collection: 
   - level_path: ProjectResources/Scenes/Level1.scene
   - level_path: ProjectResources/Scenes/Level2.scene
+  - level_path: ProjectResources/Scenes/Palette.scene
 meta: 
   resource_type: game_levels_collection
   version_tag: 1

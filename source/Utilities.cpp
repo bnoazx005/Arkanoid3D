@@ -77,7 +77,7 @@ namespace Game
 	}
 
 
-	static TResult<USIZE> GetCurrLevelIndex(TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager)
+	TResult<USIZE> GetCurrLevelIndex(TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager)
 	{
 		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
 
@@ -145,7 +145,8 @@ namespace Game
 
 		const I32 nextLevelIndex = static_cast<I32>(GetCurrLevelIndex(pSceneManager, pResourceManager).Get()) + offset;
 
-		return nextLevelIndex >= 0 && nextLevelIndex < pLevelsCollection->GetLevelsCount();
+		/// \note Last level is a palette
+		return nextLevelIndex >= 0 && nextLevelIndex < pLevelsCollection->GetLevelsCount() - 1;
 	}
 
 	void LoadNextGameLevel(
@@ -174,6 +175,32 @@ namespace Game
 		}
 
 		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() - 1);
+	}
+
+	void LoadPaletteLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
+	{
+		const TResourceId gameLevelsCollectionHandle = pResourceManager->Load<CGameLevelsCollection>(GameLevelsCollectionPath);
+		if (TResourceId::Invalid == gameLevelsCollectionHandle)
+		{
+			TDE2_ASSERT(false);
+		}
+
+		auto pLevelsCollection = pResourceManager->GetResource<CGameLevelsCollection>(gameLevelsCollectionHandle);
+		if (!pLevelsCollection)
+		{
+			TDE2_ASSERT(false);
+		}
+
+		auto findLevelResult = pLevelsCollection->FindLevelIndex("ProjectResources/Scenes/Palette.scene");
+		if (findLevelResult.HasError())
+		{
+			TDE2_ASSERT(false);
+		}
+
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, findLevelResult.Get());
 	}
 
 

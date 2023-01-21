@@ -19,6 +19,7 @@ namespace Game
 		static constexpr E_KEYCODES mLoadPrevGameLevel = E_KEYCODES::KC_Q;
 		static constexpr E_KEYCODES mLoadNextGameLevel = E_KEYCODES::KC_E;
 		static constexpr E_KEYCODES mSaveCurrentLevel = E_KEYCODES::KC_F5;
+		static constexpr E_KEYCODES mLoadPaletteLevel = E_KEYCODES::KC_P;
 	};
 
 
@@ -91,6 +92,24 @@ namespace Game
 					{
 						SaveCurrentGameLevel(mpSceneManager, mpResourceManager);
 					}
+
+					/// \note Open game items' palette
+					if (mpInputContext->IsKeyPressed(TActionKeyBindings::mLoadPaletteLevel))
+					{
+						if (!mIsPaletteEnabled)
+						{
+							mLastEditedLevelIndex = GetCurrLevelIndex(mpSceneManager, mpResourceManager);
+
+							SaveCurrentGameLevel(mpSceneManager, mpResourceManager);
+							LoadPaletteLevel(mpSceneManager, mpResourceManager, mpEventManager);
+						}
+						else
+						{
+							LoadGameLevel(mpSceneManager, mpResourceManager, mpEventManager, mLastEditedLevelIndex);
+						}
+
+						mIsPaletteEnabled = !mIsPaletteEnabled;
+					}
 				}
 
 				pImGUIContext->EndWindow();
@@ -104,6 +123,9 @@ namespace Game
 			IWorld*                    mpWorld = nullptr;
 
 			bool                       mIsEnabled = false;
+			bool                       mIsPaletteEnabled = false;
+
+			USIZE                      mLastEditedLevelIndex = 0;
 	};
 
 

@@ -17,6 +17,8 @@ namespace Game
 		\brief Level's loading utilities
 	*/
 
+	TDE2_API TDEngine2::TResult<TDEngine2::USIZE> GetCurrLevelIndex(TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager);
+
 	TDE2_API void LoadGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
@@ -33,6 +35,11 @@ namespace Game
 	TDE2_API void LoadPrevGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
+
+	TDE2_API void LoadPaletteLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
 		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
 
 	/*!
