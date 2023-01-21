@@ -79,7 +79,6 @@ namespace Game
 			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
 
 			std::unique_ptr<CLevelsListWindow> mpLevelsList = nullptr;
-			std::unique_ptr<CPaletteWindow>    mpPaletteWindow = nullptr;
 	};
 }
 
