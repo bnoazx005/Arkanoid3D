@@ -16,6 +16,13 @@
 namespace TDEngine2
 {
 	class IDebugUtility;
+	class IWorld;
+	class IPrefabsRegistry;
+	class IScene;
+
+
+	TDE2_DECLARE_SCOPED_PTR(IWorld);
+	TDE2_DECLARE_SCOPED_PTR(IPrefabsRegistry);
 
 
 	/*!
@@ -23,6 +30,14 @@ namespace TDEngine2
 	*/
 
 	TDE2_API void DrawEditorGrid(IDebugUtility* pDebugUtility, I32 rows, I32 cols, F32 cellSize = 1.0f);
+
+
+	class CEntitiesCommands
+	{
+		public:
+			TDE2_API static E_RESULT_CODE CopyEntitiesHierarchy(TPtr<IPrefabsRegistry> pPrefabsRegistry, TPtr<IWorld> pWorld, TEntityId entityId);
+			TDE2_API static TResult<TEntityId> PasteEntitiesHierarchy(TPtr<IPrefabsRegistry> pPrefabsRegistry, TPtr<IWorld> pWorld, IScene* pCurrScene, TEntityId parentEntityId);
+	};
 }
 
 #endif

@@ -11,7 +11,6 @@
 #include "../utils/Utils.h"
 #include "IComponentManager.h"
 #include <vector>
-#include <list>
 #include <string>
 #include <unordered_map>
 #include <mutex>
