@@ -1,6 +1,7 @@
 #include "../include/CCustomEngineListener.h"
 #include "../include/Components.h"
 #include "../include/Utilities.h"
+#include "../include/GameModes.h"
 #include "../include/systems/CPaddleControlSystem.h"
 #include "../include/systems/CBallUpdateSystem.h"
 #include "../include/systems/CDamageablesUpdateSystem.h"
@@ -113,6 +114,15 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	});
 
+	/// \note Specify default core gameplay mode
+	if (auto pGameModeManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>())
+	{
+		E_RESULT_CODE result = RC_OK;
+		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModeManager.Get(), DynamicPtrCast<IInputContext>(mpInputContext), result)));
+
+		TDE2_ASSERT(RC_OK == result);
+	}
+
 	LoadGameLevel(
 		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
 		mpEngineCoreInstance->GetSubsystem<IResourceManager>(), 
@@ -120,13 +130,13 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;
-	
+
 	mpLevelsEditor = TPtr<IEditorWindow>(CreateLevelsEditorWindow(
 		{ 
 			mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
 			mpEngineCoreInstance->GetSubsystem<IEventManager>(),
 			mpEngineCoreInstance->GetSubsystem<IResourceManager>(),
-			DynamicPtrCast<IDesktopInputContext>(mpEngineCoreInstance->GetSubsystem<IInputContext>())
+			DynamicPtrCast<IDesktopInputContext>(mpEngineCoreInstance->GetSubsystem<IInputContext>()),
 		}, result));
 #endif
 

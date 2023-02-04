@@ -27,6 +27,7 @@ configure_file(
 set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/Components.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/Utilities.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/GameModes.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CGameLevelsCollection.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CPaddle.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CBrick.h"
@@ -54,6 +55,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/CCustomEngineListener.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/Components.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/Utilities.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/GameModes.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/CGameLevelsCollection.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CPaddle.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CBrick.cpp"
