@@ -14,8 +14,25 @@ namespace Game
 {
 	struct TStateInitParams
 	{
-		TDEngine2::TPtr<TDEngine2::IInputContext> mpInputContext;
-		TDEngine2::TPtr<TDEngine2::ISceneManager> mpSceneManager;
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
+		TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
+		TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
+	};
+
+
+	class CCommonGameMode: public TDEngine2::CBaseGameMode
+	{
+		protected:
+			TDE2_API explicit CCommonGameMode(const std::string& name);
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCommonGameMode)
+
+			TDE2_API TDEngine2::E_RESULT_CODE SpawnModeWindow(const std::string& prefabId);
+			TDE2_API TDEngine2::E_RESULT_CODE RemoveModeWindow();
+		protected:
+			TStateInitParams     mParams;
+
+			TDEngine2::TEntityId mWindowHierarchyRootEntityId;
+			TDEngine2::TSceneId  mWindowOwnerSceneId;
 	};
 
 
@@ -36,7 +53,7 @@ namespace Game
 		\brief The class represents a mode which is active when a user taps pause button
 	*/
 
-	class CPauseGameMode : public TDEngine2::CBaseGameMode
+	class CPauseGameMode : public CCommonGameMode
 	{
 		public:
 			friend TDE2_API TDEngine2::IGameMode* CreatePauseGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
@@ -61,11 +78,6 @@ namespace Game
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CPauseGameMode)
 		private:
-			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
-			TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
-
-			TDEngine2::TEntityId                             mPauseWindowEntityId;
-			TDEngine2::TSceneId                              mSceneId;
 	};
 
 
@@ -86,7 +98,7 @@ namespace Game
 		\brief The class represents a mode which implements core gameplay state
 	*/
 
-	class CCoreGameMode : public TDEngine2::CBaseGameMode
+	class CCoreGameMode : public CCommonGameMode, public TDEngine2::IEventHandler
 	{
 		public:
 			friend TDE2_API TDEngine2::IGameMode* CreateCoreGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
@@ -108,11 +120,27 @@ namespace Game
 			*/
 
 			TDE2_API void Update(TDEngine2::F32 dt) override;
+
+			/*!
+				\brief The method receives a given event and processes it
+
+				\param[in] pEvent A pointer to event data
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API TDEngine2::E_RESULT_CODE OnEvent(const TDEngine2::TBaseEvent* pEvent) override;
+
+			/*!
+				\brief The method returns an identifier of a listener
+
+				\return The method returns an identifier of a listener
+			*/
+
+			TDE2_API TDEngine2::TEventListenerId GetListenerId() const override;
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCoreGameMode)
 		private:
-			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
-			TDEngine2::TPtr<TDEngine2::ISceneManager>        mpSceneManager;
 	};
 
 
@@ -124,7 +152,7 @@ namespace Game
 		\return A pointer to CBaseGameMode's implementation
 	*/
 
-	TDE2_API TDEngine2::IGameMode* CreateLevelFinishedGameMode(TDEngine2::IGameModesManager* pOwner, TDEngine2::TPtr<TDEngine2::IInputContext> pInputContext, TDEngine2::E_RESULT_CODE& result);
+	TDE2_API TDEngine2::IGameMode* CreateLevelFinishedGameMode(TDEngine2::IGameModesManager* pOwner, const TStateInitParams& params, TDEngine2::E_RESULT_CODE& result);
 
 
 	/*!
@@ -133,10 +161,10 @@ namespace Game
 		\brief The class represents a mode which implements two states 'Game over' and 'Victory'
 	*/
 
-	class CLevelFinishedGameMode : public TDEngine2::CBaseGameMode
+	class CLevelFinishedGameMode : public CCommonGameMode
 	{
 		public:
-			friend TDE2_API TDEngine2::IGameMode* CreateLevelFinishedGameMode(TDEngine2::IGameModesManager*, TDEngine2::TPtr<TDEngine2::IInputContext>, TDEngine2::E_RESULT_CODE&);
+			friend TDE2_API TDEngine2::IGameMode* CreateLevelFinishedGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
 		public:
 			/*!
 				\brief The method is invoked when game modes manager activates the state
@@ -158,7 +186,6 @@ namespace Game
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelFinishedGameMode)
 		private:
-			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
 	};
 
 }

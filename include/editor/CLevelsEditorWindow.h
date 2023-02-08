@@ -16,6 +16,13 @@
 
 #if TDE2_EDITORS_ENABLED
 
+
+namespace TDEngine2
+{
+	class IPhysics3DSystem;
+}
+
+
 namespace Game
 {
 	class CLevelsListWindow;
@@ -28,6 +35,7 @@ namespace Game
 		TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
 		TDEngine2::TPtr<TDEngine2::IResourceManager>     mpResourceManager;
 		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
+		TDEngine2::IPhysics3DSystem*                     mp3DPhysicsSystem;
 	};
 
 
@@ -77,6 +85,7 @@ namespace Game
 			TDEngine2::TPtr<TDEngine2::IEventManager>        mpEventManager;
 			TDEngine2::TPtr<TDEngine2::IResourceManager>     mpResourceManager;
 			TDEngine2::TPtr<TDEngine2::IDesktopInputContext> mpInputContext;
+			TDEngine2::IPhysics3DSystem*                     mp3DPhysicsSystem = nullptr;
 
 			std::unique_ptr<CLevelsListWindow> mpLevelsList = nullptr;
 	};

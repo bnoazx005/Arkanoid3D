@@ -118,7 +118,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	if (auto pGameModeManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>())
 	{
 		E_RESULT_CODE result = RC_OK;
-		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModeManager.Get(), { DynamicPtrCast<IInputContext>(mpInputContext), mpSceneManager }, result)));
+		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModeManager.Get(), 
+			{
+				mpInputContext,
+				mpSceneManager,
+				mpEngineCoreInstance->GetSubsystem<IEventManager>()
+			}, result)));
 
 		TDE2_ASSERT(RC_OK == result);
 	}

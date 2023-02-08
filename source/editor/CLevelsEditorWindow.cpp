@@ -4,6 +4,8 @@
 #include <core/IImGUIContext.h>
 #include <scene/ISceneManager.h>
 #include <scene/IScene.h>
+#include <physics/IPhysics3DSystem.h>
+#include <graphics/CBaseCamera.h>
 #include <ecs/IWorld.h>
 
 
@@ -115,6 +117,8 @@ namespace Game
 				pImGUIContext->EndWindow();
 
 			}
+			
+			bool IsPaletteModeEnabled() const { return mIsPaletteEnabled; }
 		private:
 			TPtr<ISceneManager>        mpSceneManager = nullptr;
 			TPtr<IResourceManager>     mpResourceManager = nullptr;
@@ -149,6 +153,7 @@ namespace Game
 		mpEventManager = params.mpEventManager;
 		mpResourceManager = params.mpResourceManager;
 		mpInputContext = params.mpInputContext;
+		mp3DPhysicsSystem = params.mp3DPhysicsSystem;
 
 		mpLevelsList = std::make_unique<CLevelsListWindow>(params);
 
@@ -170,6 +175,18 @@ namespace Game
 
 		mpLevelsList->SetEnabled(isEnabled);
 		mpLevelsList->Draw(mpImGUIContext);
+				
+		if (auto pCamera = GetCurrentActiveCamera(mpSceneManager->GetWorld().Get()))
+		{
+			if (mp3DPhysicsSystem)
+			{
+				const TRay3D& ray = NormalizedScreenPointToWorldRay(*pCamera, mpInputContext->GetNormalizedMousePosition());
+				mp3DPhysicsSystem->RaycastClosest(ray.origin, ray.dir, 1000.0f, [](const TRaycastResult& result)
+				{
+					LOG_MESSAGE("TTTTT");
+				});
+			}
+		}
 
 		if (mpImGUIContext->BeginWindow("Levels Editor", isEnabled, params))
 		{
