@@ -1,18 +1,18 @@
 collection: 
-  - path: ProjectResources/Prefabs/Ball.prefab
-    prefab_id: Ball
-  - path: ProjectResources/Prefabs/PowerUps/PowerUp_Score2X.prefab
-    prefab_id: PowerUp_Score2X
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_ExpandPaddle.prefab
     prefab_id: PowerUp_ExpandPaddle
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp_Score2X.prefab
+    prefab_id: PowerUp_Score2X
+  - path: ProjectResources/Prefabs/Ball.prefab
+    prefab_id: Ball
   - path: ProjectResources/Prefabs/Paddle.prefab
     prefab_id: Paddle
   - path: ProjectResources/Prefabs/SimpleBrick.prefab
     prefab_id: SimpleBrick
-  - path: ProjectResources/Prefabs/PowerUps/PowerUp_AddScore.prefab
-    prefab_id: PowerUp_AddScore
   - path: ProjectResources/Prefabs/PowerUps/PowerUp.prefab
     prefab_id: PowerUp
+  - path: ProjectResources/Prefabs/PowerUps/PowerUp_AddScore.prefab
+    prefab_id: PowerUp_AddScore
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_GodMode.prefab
     prefab_id: PowerUp_GodMode
   - path: ProjectResources/Prefabs/PowerUps/PowerUp_StickyPaddle.prefab
@@ -27,6 +27,10 @@ collection:
     prefab_id: PowerUp_MultiplyBallsCount
   - path: ProjectResources/Prefabs/UI/GameUI.prefab
     prefab_id: GameUI
+  - path: ProjectResources/Prefabs/UI/PauseWindowUI.prefab
+    prefab_id: PauseWindowUI
+  - path: ProjectResources/Prefabs/UI/GameOverWindowUI.prefab
+    prefab_id: GameOverWindowUI
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1

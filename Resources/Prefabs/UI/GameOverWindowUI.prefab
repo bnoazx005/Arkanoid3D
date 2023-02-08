@@ -1,0 +1,79 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 42
+            owner_id: 41
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+        - component: 
+            height: 768
+            inherit_camera_sizes: 0
+            type_id: 3433087876
+            width: 1024
+        - component: 
+            type_id: 1930024581
+      id: 41
+      name: DefeatWindow_Root
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 42
+            parent_id: 41
+            position: 
+              x: 520.000000
+              y: 363.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 0.500000
+              y: 0.500000
+            max_offset: 
+              x: 82.000000
+              y: 108.000000
+            min_anchor: 
+              x: 0.500000
+              y: 0.500000
+            min_offset: 
+              x: "-33.000000"
+              y: "-75.000000"
+            pivot: 
+              x: 0.500000
+              y: 0.500000
+            type_id: 2172495824
+        - component: 
+            align_type: CENTER
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: Game Over
+            type_id: 2847853640
+      id: 42
+      name: Defeat_Label
