@@ -13,7 +13,7 @@ namespace Game
 	{
 	}
 
-	E_RESULT_CODE CCommonGameMode::SpawnModeWindow(const std::string& prefabId)
+	E_RESULT_CODE CCommonGameMode::SpawnModeWindow(const std::string& prefabId, bool useMainScene)
 	{
 		auto pSceneManager = mParams.mpSceneManager;
 		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
@@ -25,7 +25,7 @@ namespace Game
 			return RC_FAIL;
 		}
 
-		mWindowOwnerSceneId = pGameInfo->mCurrLoadedGameId;
+		mWindowOwnerSceneId = useMainScene ? MainScene : pGameInfo->mCurrLoadedGameId;
 
 		if (auto sceneResult = pSceneManager->GetScene(mWindowOwnerSceneId))
 		{
@@ -157,7 +157,7 @@ namespace Game
 
 		if (pLivesChangedEvent->mPlayerLives <= 0)
 		{
-			mpOwner->SwitchMode(TPtr<IGameMode>(CreateLevelFinishedGameMode(mpOwner, mParams, result)));
+			mpOwner->SwitchMode(TPtr<IGameMode>(CreateLevelFinishedGameMode(mpOwner, mParams, result))); /// \todo Add defeat/victory flag passage
 		}
 
 		return RC_OK;
@@ -216,6 +216,106 @@ namespace Game
 	TDE2_API IGameMode* CreateLevelFinishedGameMode(IGameModesManager* pOwner, const TStateInitParams& params, E_RESULT_CODE& result)
 	{
 		if (auto pMode = CREATE_IMPL(CLevelFinishedGameMode, CLevelFinishedGameMode, result, pOwner))
+		{
+			pMode->mParams = params;
+
+			return dynamic_cast<IGameMode*>(pMode);
+		}
+
+		return nullptr;
+	}
+
+
+	/*!
+		\brief CMainMenuGameMode's definition
+	*/
+
+	CMainMenuGameMode::CMainMenuGameMode() :
+		CCommonGameMode("MainMenuMode")
+	{
+	}
+
+	void CMainMenuGameMode::OnEnter()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
+
+		/// \todo Replace hardcoded value later
+		SpawnModeWindow("MainMenuWindowUI"); /// \note Spawn a MainMenu window's prefab		
+	}
+
+	void CMainMenuGameMode::OnExit()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
+
+		/// \note Remove the MainMenu window
+		RemoveModeWindow();
+	}
+
+	void CMainMenuGameMode::Update(F32 dt)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		/*if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
+		{
+			mpOwner->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(mpOwner, mParams, result)));
+		}*/
+
+	}
+
+
+	TDE2_API IGameMode* CreateMainMenuGameMode(IGameModesManager* pOwner, const TStateInitParams& params, E_RESULT_CODE& result)
+	{
+		if (auto pMode = CREATE_IMPL(CMainMenuGameMode, CMainMenuGameMode, result, pOwner))
+		{
+			pMode->mParams = params;
+
+			return dynamic_cast<IGameMode*>(pMode);
+		}
+
+		return nullptr;
+	}
+
+
+	/*!
+		\brief CLoadingGameMode's definition
+	*/
+
+	CLoadingGameMode::CLoadingGameMode() :
+		CCommonGameMode("LoadingMode")
+	{
+	}
+
+	void CLoadingGameMode::OnEnter()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
+
+		/// \todo Replace hardcoded value later
+		SpawnModeWindow("LoadingWindow", true); /// \note Spawn a Loading window's prefab		
+	}
+
+	void CLoadingGameMode::OnExit()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
+
+		/// \note Remove the Loading window
+		RemoveModeWindow();
+	}
+
+	void CLoadingGameMode::Update(F32 dt)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		/*if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
+		{
+			mpOwner->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(mpOwner, mParams, result)));
+		}*/
+
+	}
+
+
+	TDE2_API IGameMode* CreateLoadingGameMode(IGameModesManager* pOwner, const TStateInitParams& params, E_RESULT_CODE& result)
+	{
+		if (auto pMode = CREATE_IMPL(CLoadingGameMode, CLoadingGameMode, result, pOwner))
 		{
 			pMode->mParams = params;
 

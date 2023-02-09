@@ -26,7 +26,7 @@ namespace Game
 			TDE2_API explicit CCommonGameMode(const std::string& name);
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCommonGameMode)
 
-			TDE2_API TDEngine2::E_RESULT_CODE SpawnModeWindow(const std::string& prefabId);
+			TDE2_API TDEngine2::E_RESULT_CODE SpawnModeWindow(const std::string& prefabId, bool useMainScene = false);
 			TDE2_API TDEngine2::E_RESULT_CODE RemoveModeWindow();
 		protected:
 			TStateInitParams     mParams;
@@ -185,6 +185,94 @@ namespace Game
 			TDE2_API void Update(TDEngine2::F32 dt) override;
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelFinishedGameMode)
+		private:
+	};
+
+
+	/*!
+		\brief A factory function for creation objects of CBaseGameMode's type.
+
+		\param[out] result Contains RC_OK if everything went ok, or some other code, which describes an error
+
+		\return A pointer to CBaseGameMode's implementation
+	*/
+
+	TDE2_API TDEngine2::IGameMode* CreateMainMenuGameMode(TDEngine2::IGameModesManager* pOwner, const TStateInitParams& params, TDEngine2::E_RESULT_CODE& result);
+
+	/*!
+		class CMainMenuGameMode
+
+		\brief The implementation of the main menu of the game
+	*/
+
+	class CMainMenuGameMode : public CCommonGameMode
+	{
+		public:
+			friend TDE2_API TDEngine2::IGameMode* CreateMainMenuGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
+		public:
+			/*!
+				\brief The method is invoked when game modes manager activates the state
+			*/
+
+			TDE2_API void OnEnter() override;
+
+			/*!
+				\brief The method is invoked when a game modes manager is switcher to a new state from the current one
+			*/
+
+			TDE2_API void OnExit() override;
+
+			/*!
+				\brief The method is invoked at least once per frame when the current mode is active
+			*/
+
+			TDE2_API void Update(TDEngine2::F32 dt) override;
+		private:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMainMenuGameMode)
+		private:
+	};
+
+
+	/*!
+		\brief A factory function for creation objects of CBaseGameMode's type.
+
+		\param[out] result Contains RC_OK if everything went ok, or some other code, which describes an error
+
+		\return A pointer to CBaseGameMode's implementation
+	*/
+
+	TDE2_API TDEngine2::IGameMode* CreateLoadingGameMode(TDEngine2::IGameModesManager* pOwner, const TStateInitParams& params, TDEngine2::E_RESULT_CODE& result);
+
+	/*!
+		class CLoadingGameMode
+
+		\brief The implementation of a loading screen
+	*/
+
+	class CLoadingGameMode : public CCommonGameMode
+	{
+		public:
+			friend TDE2_API TDEngine2::IGameMode* CreateLoadingGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
+		public:
+			/*!
+				\brief The method is invoked when game modes manager activates the state
+			*/
+
+			TDE2_API void OnEnter() override;
+
+			/*!
+				\brief The method is invoked when a game modes manager is switcher to a new state from the current one
+			*/
+
+			TDE2_API void OnExit() override;
+
+			/*!
+				\brief The method is invoked at least once per frame when the current mode is active
+			*/
+
+			TDE2_API void Update(TDEngine2::F32 dt) override;
+		private:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLoadingGameMode)
 		private:
 	};
 

@@ -114,11 +114,11 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	});
 
-	/// \note Specify default core gameplay mode
+	/// \note The initial mode for the game is a main menu
 	if (auto pGameModeManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>())
 	{
 		E_RESULT_CODE result = RC_OK;
-		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModeManager.Get(), 
+		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateLoadingGameMode(pGameModeManager.Get(), 
 			{
 				mpInputContext,
 				mpSceneManager,

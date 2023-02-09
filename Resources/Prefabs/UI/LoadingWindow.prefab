@@ -1,0 +1,118 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 24
+              - child_id: 25
+            owner_id: 23
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+        - component: 
+            height: 768
+            inherit_camera_sizes: 0
+            type_id: 3433087876
+            width: 1024
+        - component: 
+            type_id: 1930024581
+      id: 23
+      name: LoadingWindow_Root
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 25
+            parent_id: 23
+            position: 
+              x: 520.000000
+              y: 363.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 0.500000
+              y: 0.500000
+            max_offset: 
+              x: 82.000000
+              y: 108.000000
+            min_anchor: 
+              x: 0.500000
+              y: 0.500000
+            min_offset: 
+              x: "-33.000000"
+              y: "-75.000000"
+            pivot: 
+              x: 0.500000
+              y: 0.500000
+            type_id: 2172495824
+        - component: 
+            align_type: CENTER
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: Loading...
+            type_id: 2847853640
+      id: 25
+      name: Loading_Label
+  - entity: 
+      components: 
+        - component: 
+            color: 
+              a: 1.000000
+              b: 0.083333
+              g: 0.077182
+              r: 0.076797
+            sprite_id: DefaultResources/Textures/DefaultUIWhite_Sprite.png
+            type_id: 2844726091
+        - component: 
+            owner_id: 24
+            parent_id: 23
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 100.000000
+              y: 100.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+      id: 24
+      name: NewEntity

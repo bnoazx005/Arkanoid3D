@@ -31,6 +31,10 @@ collection:
     prefab_id: PauseWindowUI
   - path: ProjectResources/Prefabs/UI/GameOverWindowUI.prefab
     prefab_id: GameOverWindowUI
+  - path: ProjectResources/Prefabs/UI/MainMenuWindowUI.prefab
+    prefab_id: MainMenuWindowUI
+  - path: ProjectResources/Prefabs/UI/LoadingWindow.prefab
+    prefab_id: LoadingWindow
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1
