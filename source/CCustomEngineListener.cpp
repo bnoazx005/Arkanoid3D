@@ -92,33 +92,11 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 		}
 	}
 
-	mpSceneManager->LoadSceneAsync("Resources/Scenes/PlayerScene.scene", [this](const TResult<TSceneId>& sceneId)
-	{
-		auto&& pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
-
-		if (CGameInfo* pGameInfo = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
-		{
-			{
-				TScoreChangedEvent scoreChangedEvent;
-				scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
-
-				pEventManager->Notify(&scoreChangedEvent);
-			}
-
-			{
-				TLivesChangedEvent livesChangedEvent;
-				livesChangedEvent.mPlayerLives = pGameInfo->mPlayerLives;
-
-				pEventManager->Notify(&livesChangedEvent);
-			}
-		}
-	});
-
 	/// \note The initial mode for the game is a main menu
 	if (auto pGameModeManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>())
 	{
 		E_RESULT_CODE result = RC_OK;
-		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateLoadingGameMode(pGameModeManager.Get(), 
+		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateMainMenuGameMode(pGameModeManager.Get(), 
 			{
 				mpInputContext,
 				mpSceneManager,
@@ -131,7 +109,8 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	LoadGameLevel(
 		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
 		mpEngineCoreInstance->GetSubsystem<IResourceManager>(), 
-		mpEngineCoreInstance->GetSubsystem<IEventManager>(), 0);
+		mpEngineCoreInstance->GetSubsystem<IEventManager>(),
+		mpEngineCoreInstance->GetSubsystem<IGameModesManager>(), 0);
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;

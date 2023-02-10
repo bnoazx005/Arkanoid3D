@@ -61,7 +61,7 @@ namespace Game
 					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, -1) &&
 						(mpInputContext->IsKeyPressed(TActionKeyBindings::mLoadPrevGameLevel) || pImGUIContext->Button("<", buttonSizes))) /// \note Load prev level
 					{
-						LoadPrevGameLevel(mpSceneManager, mpResourceManager, mpEventManager);
+						LoadPrevGameLevel(mpSceneManager, mpResourceManager, mpEventManager, nullptr);
 					}
 
 					auto pGameInfoEntity = mpWorld->FindEntity(mpWorld->FindEntityWithUniqueComponent<CGameInfo>());
@@ -82,7 +82,7 @@ namespace Game
 					if (IsNextGameLevelExists(mpSceneManager, mpResourceManager, 1) && 
 						(mpInputContext->IsKeyPressed(TActionKeyBindings::mLoadNextGameLevel) || pImGUIContext->Button(">", buttonSizes))) /// \note Load next level
 					{
-						LoadNextGameLevel(mpSceneManager, mpResourceManager, mpEventManager);
+						LoadNextGameLevel(mpSceneManager, mpResourceManager, mpEventManager, nullptr);
 					}
 
 					pImGUIContext->SetCursorScreenPos(currCursorPos);
@@ -107,7 +107,7 @@ namespace Game
 						}
 						else
 						{
-							LoadGameLevel(mpSceneManager, mpResourceManager, mpEventManager, mLastEditedLevelIndex);
+							LoadGameLevel(mpSceneManager, mpResourceManager, mpEventManager, nullptr, mLastEditedLevelIndex);
 						}
 
 						mIsPaletteEnabled = !mIsPaletteEnabled;

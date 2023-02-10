@@ -23,6 +23,7 @@ namespace Game
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
 		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, 
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
 		TDEngine2::USIZE levelIndex);
 	
 	TDE2_API bool IsNextGameLevelExists(TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager, TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, TDEngine2::I32 offset = 1);
@@ -30,12 +31,14 @@ namespace Game
 	TDE2_API void LoadNextGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
-		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager);
 
 	TDE2_API void LoadPrevGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, 
-		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager);
 
 	TDE2_API void LoadPaletteLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,

@@ -125,6 +125,31 @@ namespace Game
 
 		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TLivesChangedEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
+
+		/// \note Load player's paddle and main UI
+		/// \todo Replace hardcoded path
+		mParams.mpSceneManager->LoadSceneAsync("Resources/Scenes/PlayerScene.scene", [this](const TResult<TSceneId>& sceneId)
+		{
+			auto&& pEventManager = mParams.mpEventManager;
+			auto pWorld = mParams.mpSceneManager->GetWorld();
+
+			if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
+			{
+				{
+					TScoreChangedEvent scoreChangedEvent;
+					scoreChangedEvent.mNewPlayerScore = pGameInfo->mPlayerScore;
+
+					pEventManager->Notify(&scoreChangedEvent);
+				}
+
+				{
+					TLivesChangedEvent livesChangedEvent;
+					livesChangedEvent.mPlayerLives = pGameInfo->mPlayerLives;
+
+					pEventManager->Notify(&livesChangedEvent);
+				}
+			}
+		});
 	}
 
 	void CCoreGameMode::OnExit()

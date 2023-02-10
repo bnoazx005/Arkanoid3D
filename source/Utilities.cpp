@@ -3,6 +3,7 @@
 #include "../include/components/CLevelSettings.h"
 #include "../include/Components.h"
 #include "../include/CGameLevelsCollection.h"
+#include "../include/GameModes.h"
 #include <utils/CFileLogger.h>
 
 
@@ -16,7 +17,8 @@ namespace Game
 	TDE2_API void LoadGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
-		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager, 
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
 		TDEngine2::USIZE levelIndex)
 	{
 		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
@@ -42,8 +44,21 @@ namespace Game
 			return;
 		}
 
+		/// \note Enable loading screen 
+		if (pGameModesManager)
+		{
+			E_RESULT_CODE result = pGameModesManager->PushMode(TPtr<IGameMode>(CreateLoadingGameMode(pGameModesManager.Get(),
+				{
+					nullptr,
+					pSceneManager,
+					pEventManager
+				}, result)));
+
+			TDE2_ASSERT(RC_OK == result);
+		}
+
 		/// \note Load a new one
-		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pSceneManager, pWorld, pEventManager](const TResult<TSceneId>& sceneId)
+		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pSceneManager, pWorld, pEventManager, pGameModesManager](const TResult<TSceneId>& sceneId)
 		{
 			CEntity* pLevelSettingsEntity = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CLevelSettings>());
 
@@ -73,6 +88,13 @@ namespace Game
 
 			TGameLevelLoadedEvent gameLevelLoadedEvent;
 			pEventManager->Notify(&gameLevelLoadedEvent);
+
+			/// \note Disable the loading screen 
+			if (pGameModesManager)
+			{
+				E_RESULT_CODE result = pGameModesManager->PopMode();
+				TDE2_ASSERT(RC_OK == result);
+			}
 		});
 	}
 
@@ -152,7 +174,8 @@ namespace Game
 	void LoadNextGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
-		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager)
 	{
 		if (!IsNextGameLevelExists(pSceneManager, pResourceManager, 1))
 		{
@@ -160,13 +183,14 @@ namespace Game
 			return;
 		}
 
-		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() + 1);
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, pGameModesManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() + 1);
 	}
 
 	void LoadPrevGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
-		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager)
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager)
 	{
 		if (!IsNextGameLevelExists(pSceneManager, pResourceManager, -1))
 		{
@@ -174,7 +198,7 @@ namespace Game
 			return;
 		}
 
-		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() - 1);
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, pGameModesManager, GetCurrLevelIndex(pSceneManager, pResourceManager).Get() - 1);
 	}
 
 	void LoadPaletteLevel(
@@ -200,7 +224,7 @@ namespace Game
 			TDE2_ASSERT(false);
 		}
 
-		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, findLevelResult.Get());
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, nullptr, findLevelResult.Get());
 	}
 
 
