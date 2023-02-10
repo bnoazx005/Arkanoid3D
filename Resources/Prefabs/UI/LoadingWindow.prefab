@@ -105,8 +105,7 @@ entities:
               x: 1.000000
               y: 1.000000
             max_offset: 
-              x: 100.000000
-              y: 100.000000
+              x: 0.000000
             min_anchor: 
               x: 0.000000
             min_offset: 
