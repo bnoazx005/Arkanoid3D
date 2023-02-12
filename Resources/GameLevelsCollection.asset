@@ -1,4 +1,5 @@
 collection: 
+  - level_path: ProjectResources/Scenes/MainMenuLevel.scene
   - level_path: ProjectResources/Scenes/Level1.scene
   - level_path: ProjectResources/Scenes/Level2.scene
   - level_path: ProjectResources/Scenes/Palette.scene

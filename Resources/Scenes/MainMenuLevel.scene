@@ -1,0 +1,88 @@
+entities: 
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 33
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            material: ProjectResources/Materials/DefaultMaterial.material
+            mesh: Plane
+            sub_mesh_id: 
+            type_id: 780504096
+      id: 33
+      name: Floor
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 34
+            parent_id: 4294967295
+            position: 
+              z: "-4.513174"
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            type_id: 3544622881
+      id: 34
+      name: PaddlePositioner
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 35
+            parent_id: 4294967295
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            horizontal_constraints: 
+              x: "-5.000000"
+              y: 4.000000
+            type_id: 3001886929
+            vertical_constraints: 
+              x: "-5.000000"
+              y: 4.000000
+      id: 35
+      name: LevelBoundaries
+  - link: 
+      id: 36
+      position: 
+        y: 0.265626
+        z: 0.584660
+      prefab_id: SimpleBrick
+  - link: 
+      id: 37
+      position: 
+        x: 1.739770
+        y: 0.265626
+        z: 0.584660
+      prefab_id: SimpleBrick
+  - link: 
+      id: 38
+      position: 
+        x: "-1.609408"
+        y: 0.265626
+        z: 0.584660
+      prefab_id: SimpleBrick
+name: MainMenu.scene
+scene_properties: 
+  is_main: 0
+version: 0
