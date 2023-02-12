@@ -48,9 +48,20 @@ namespace TDEngine2
 
 			TDE2_API virtual void Update(F32 dt) = 0;
 
+			/*!
+				\brief The method captures a screenshot of a current test case and saves it into file. The filepath
+				consists of <output_screens_dir>/<test fixture name>/<test case>/<index>
+			*/
+
+			TDE2_API virtual void TakeScreenshot() = 0;
+
 			TDE2_API virtual bool IsStarted() const = 0;
 
 			TDE2_API virtual bool IsFinished() const = 0;
+
+			TDE2_API virtual void SetInfo(const std::string& fixtureName, const std::string& name) = 0;
+			TDE2_API virtual const std::string& GetOwningFixtureName() const = 0;
+			TDE2_API virtual const std::string& GetName() const = 0;
 		protected:
 			DECLARE_INTERFACE_PROTECTED_MEMBERS(ITestCase)
 	};

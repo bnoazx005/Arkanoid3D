@@ -68,6 +68,7 @@ namespace TDEngine2
 		E_RESULT_CODE ResultVariableName = RC_OK;															\
 		TPtr<ITestCase> TestCaseVariableName = TPtr<ITestCase>(CreateBaseTestCase(ResultVariableName));		\
 		pTestFixture->AddTestCase(Name, TestCaseVariableName);												\
+		TestCaseVariableName->SetInfo(pTestFixture->GetName(), Name);										\
 		if (TPtr<ITestCase> pTestCase = TPtr<ITestCase>(TestCaseVariableName))
 
 	#define TDE2_TEST_CASE(Name) TDE2_TEST_CASE_IMPL(Name, TDE2_CONCAT(pTestCase, __COUNTER__), TDE2_CONCAT(result, __COUNTER__))
@@ -113,6 +114,7 @@ namespace TDEngine2
 			TDE2_API void NotifyOnMouseButtonPressEvent(U8 buttonId);
 
 			TDE2_API E_RESULT_CODE TakeScreenshot(const std::string& filename);
+			TDE2_API E_RESULT_CODE TakeScreenshot(const std::string& testFixture, const std::string& testCase);
 
 			/*!
 				\brief The function is replacement of factory method for instances of this type.
@@ -126,6 +128,10 @@ namespace TDEngine2
 			TDE2_API IEngineCore* GetEngineCore() const;
 
 			TDE2_API bool IsFinished() const;
+
+			TDE2_API E_RESULT_CODE SetArtifactsOutputDirectory(const std::string& path);
+			TDE2_API const std::string& GetArtifactsOutputDirectory() const;
+
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CTestContext);
 
@@ -143,6 +149,8 @@ namespace TDEngine2
 			U32                                                mFailedTestsCount = 0;
 
 			IDesktopInputContext*                              mpProxyInputContext;
+
+			std::string                                        mArtifactsOutputDirectoryPath;
 	};
 }
 

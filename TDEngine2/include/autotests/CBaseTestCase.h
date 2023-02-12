@@ -60,14 +60,28 @@ namespace TDEngine2
 
 			TDE2_API void Update(F32 dt) override;
 
+			/*!
+				\brief The method captures a screenshot of a current test case and saves it into file. The filepath
+				consists of <output_screens_dir>/<test fixture name>/<test case>_<time_HHMMSS>
+			*/
+
+			TDE2_API void TakeScreenshot() override;
+
 			TDE2_API bool IsStarted() const override;
 
 			TDE2_API bool IsFinished() const override;
+
+			TDE2_API void SetInfo(const std::string& fixtureName, const std::string& name) override;
+			TDE2_API const std::string& GetOwningFixtureName() const override;
+			TDE2_API const std::string& GetName() const override;
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS_NO_DCTR(CBaseTestCase)
 			~CBaseTestCase() override;
 		protected:
 			std::vector<std::unique_ptr<ITestAction>> mActions;
 			bool                                      mIsStarted = false;
+
+			std::string mOwningFixtureName;
+			std::string mName;
 	};
 }
