@@ -36,6 +36,7 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CDamageable.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CGravitable.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/Bonuses.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/UIComponents.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/components/CLevelSettings.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPaddleControlSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CBallUpdateSystem.h"
@@ -48,6 +49,7 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CProjectilesPoolSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CGameUIUpdateSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPaddlePositionerSystem.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/UI/CMainMenuLogicSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/editor/CLevelsEditorWindow.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CCustomEngineListener.h")
 
@@ -64,6 +66,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CDamageable.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CGravitable.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/Bonuses.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/UIComponents.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/components/CLevelSettings.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddleControlSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CBallUpdateSystem.cpp"
@@ -75,6 +78,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CProjectilesPoolSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CGameUIUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddlePositionerSystem.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/UI/CMainMenuLogicSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/editor/CLevelsEditorWindow.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 

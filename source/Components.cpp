@@ -6,6 +6,7 @@
 #include "../include/components/CDamageable.h"
 #include "../include/components/CGravitable.h"
 #include "../include/components/Bonuses.h"
+#include "../include/components/UIComponents.h"
 #include "../include/components/CLevelSettings.h"
 
 namespace TDEngine2
@@ -54,6 +55,9 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLivesLabelFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreLabelFactory(result)));
 
+		// UI components
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateMainMenuPanelFactory(result)));
+
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CBrick::GetTypeId(), CBrick::DrawInspectorGUI);
@@ -71,6 +75,8 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CExtraLifeBonus::GetTypeId(), CExtraLifeBonus::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CLaserBonus::GetTypeId(), CLaserBonus::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CMultipleBallsBonus::GetTypeId(), CMultipleBallsBonus::DrawInspectorGUI);
+
+		result = result | pEditorsManager->RegisterComponentInspector(CMainMenuPanel::GetTypeId(), CMainMenuPanel::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif

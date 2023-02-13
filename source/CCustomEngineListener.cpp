@@ -13,6 +13,7 @@
 #include "../include/systems/CProjectilesPoolSystem.h"
 #include "../include/systems/CGameUIUpdateSystem.h"
 #include "../include/systems/CPaddlePositionerSystem.h"
+#include "../include/systems/UI/CMainMenuLogicSystem.h"
 #include "../include/components/CGameInfo.h"
 #include "../include/editor/CLevelsEditorWindow.h"
 #include <TDEngine2.h>
@@ -25,7 +26,11 @@ using namespace Game;
 
 namespace Game
 {
-	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld, TPtr<IDesktopInputContext> pInputContext, TPtr<IEventManager> pEventManager, TPtr<ISceneManager> pSceneManager)
+	static E_RESULT_CODE RegisterGameSystems(TPtr<IWorld> pWorld,
+		TPtr<IDesktopInputContext> pInputContext, 
+		TPtr<IEventManager> pEventManager, 
+		TPtr<ISceneManager> pSceneManager,
+		TPtr<IGameModesManager> pGameModesManager)
 	{
 		TDEngine2::E_RESULT_CODE result = TDEngine2::RC_OK;
 
@@ -51,6 +56,9 @@ namespace Game
 
 		pWorld->RegisterSystem(Game::CreatePaddlePositionerSystem(pEventManager, result));
 
+		/// UI systems
+		pWorld->RegisterSystem(Game::CreateMainMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
+
 		return result;
 	}
 }
@@ -61,7 +69,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	mpWorld = mpSceneManager->GetWorld();
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
-	Game::RegisterGameSystems(mpWorld, mpInputContext, mpEngineCoreInstance->GetSubsystem<IEventManager>(), mpEngineCoreInstance->GetSubsystem<ISceneManager>());
+	Game::RegisterGameSystems(
+		mpWorld, mpInputContext, 
+		mpEngineCoreInstance->GetSubsystem<IEventManager>(), 
+		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
+		mpEngineCoreInstance->GetSubsystem<IGameModesManager>());
+
 	Game::RegisterGameResourceTypes(mpEngineCoreInstance->GetSubsystem<IResourceManager>(), mpEngineCoreInstance->GetSubsystem<IFileSystem>());
 
 	/// \todo Replace this later with scene's configurable solution
