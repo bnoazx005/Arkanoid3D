@@ -12,6 +12,14 @@ namespace Game
 		CMainMenuPanel's definition
 	*/
 
+	struct TMainMenuPanelArchiveKeys
+	{
+		static const std::string mPlayButtonEntityIdKey;
+	};
+
+	const std::string TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey = "play_button_entity_id";
+
+
 	CMainMenuPanel::CMainMenuPanel() :
 		CBaseComponent()
 	{
@@ -24,6 +32,7 @@ namespace Game
 			return RC_FAIL;
 		}
 
+		mPlayButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
 
 		return RC_OK;
 	}
@@ -39,17 +48,29 @@ namespace Game
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CMainMenuPanel::GetTypeId()));
 			
+			pWriter->SetUInt32(TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey, static_cast<U32>(mPlayButtonEntityId));
 		}
 		pWriter->EndGroup();
 
 		return RC_OK;
 	}
 
+	E_RESULT_CODE CMainMenuPanel::PostLoad(CEntityManager* pEntityManager, const TEntitiesMapper& entitiesIdentifiersRemapper)
+	{
+		auto it = entitiesIdentifiersRemapper.find(mPlayButtonEntityId);
+		if (it != entitiesIdentifiersRemapper.cend())
+		{
+			mPlayButtonEntityId = it->second;
+		}
+
+		return CBaseComponent::PostLoad(pEntityManager, entitiesIdentifiersRemapper);
+	}
+
 	E_RESULT_CODE CMainMenuPanel::Clone(IComponent*& pDestObject) const
 	{
-		if (CMainMenuPanel* pBonus = dynamic_cast<CMainMenuPanel*>(pDestObject))
+		if (CMainMenuPanel* pObject = dynamic_cast<CMainMenuPanel*>(pDestObject))
 		{
-			
+			pObject->mPlayButtonEntityId = mPlayButtonEntityId;
 
 			return RC_OK;
 		}
@@ -66,6 +87,19 @@ namespace Game
 			IImGUIContext& imguiContext = editorContext.mImGUIContext;
 			CMainMenuPanel& component = dynamic_cast<CMainMenuPanel&>(editorContext.mComponent);
 
+			/// play button entity id
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Play Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld), 
+					Wrench::StringUtils::GetEmptyStr(), 
+					component.mPlayButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
 		});
 	}
 

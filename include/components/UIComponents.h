@@ -47,6 +47,16 @@ namespace Game
 			TDE2_API TDEngine2::E_RESULT_CODE Save(TDEngine2::IArchiveWriter* pWriter) override;
 
 			/*!
+				\brief The method is called after all entities of particular scene were loaded. It remaps all identifiers to
+				make them correctly corresponds to saved state
+
+				\param[in, out] pEntityManager A pointer to entities manager
+				\param[in] entitiesIdentifiersRemapper A structure that maps saved identifier to current runtime equivalent
+			*/
+
+			TDE2_API TDEngine2::E_RESULT_CODE PostLoad(TDEngine2::CEntityManager* pEntityManager, const TDEngine2::CBaseComponent::TEntitiesMapper& entitiesIdentifiersRemapper) override;
+
+			/*!
 				\brief The method creates a new deep copy of the instance and returns a smart pointer to it.
 				The original state of the object stays the same
 
@@ -61,8 +71,7 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMainMenuPanel)
 		public:
-			/// \todo Store here TEntityId to buttons, labels, etc
-			/// But for now references resolving won't work for 100 % of cases, especially if the component is stored within a prefab
+			TDEngine2::TEntityId mPlayButtonEntityId = TDEngine2::TEntityId::Invalid;
 	};
 
 
