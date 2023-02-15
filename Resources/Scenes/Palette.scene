@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 7
+            owner_id: 33
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -18,13 +18,14 @@ entities:
             mesh: Plane
             sub_mesh_id: 
             type_id: 780504096
-      id: 7
+      id: 33
       name: Floor
-  - link:
-      prefab_id: SimpleBrick
+  - link: 
+      id: 34
       position: 
         y: 0.265626
         z: 0.584660
+      prefab_id: SimpleBrick
 name: Palette.scene
 scene_properties: 
   is_main: 0

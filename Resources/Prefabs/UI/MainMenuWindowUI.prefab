@@ -3,8 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 24
-            owner_id: 23
+              - child_id: 21
+              - child_id: 17
+            owner_id: 16
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -29,19 +30,159 @@ entities:
               x: 0.000000
             type_id: 2172495824
         - component: 
+            type_id: 3544801618
+        - component: 
             height: 768
             inherit_camera_sizes: 0
             type_id: 3433087876
             width: 1024
         - component: 
             type_id: 1930024581
-      id: 23
+      id: 16
       name: MainMenuWindow_Root
   - entity: 
       components: 
         - component: 
-            owner_id: 24
-            parent_id: 23
+            Children: 
+              - child_id: 18
+            owner_id: 17
+            parent_id: 16
+            position: 
+              x: 462.000000
+              y: 86.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 0.500000
+              y: 0.500000
+            max_offset: 
+              x: 150.000000
+              y: "-47.000000"
+            min_anchor: 
+              x: 0.500000
+            min_offset: 
+              x: "-50.000000"
+              y: 86.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+      id: 17
+      name: Buttons_Root
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 20
+              - child_id: 19
+            owner_id: 18
+            parent_id: 17
+            position: 
+              x: 442.000000
+              y: 371.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: "-32.000000"
+              y: 10.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: "-20.000000"
+              y: 285.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+      id: 18
+      name: Button
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 19
+            parent_id: 18
+            position: 
+              x: 442.000000
+              y: 371.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+        - component: 
+            align_type: CENTER
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: New Text
+            type_id: 2847853640
+      id: 19
+      name: Label
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 20
+            parent_id: 18
+            position: 
+              x: 442.000000
+              y: 371.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+      id: 20
+      name: Button
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 21
+            parent_id: 16
             position: 
               x: 520.000000
               y: 363.000000
@@ -75,5 +216,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Arkanoid
             type_id: 2847853640
-      id: 24
+      id: 21
       name: Title_Label
