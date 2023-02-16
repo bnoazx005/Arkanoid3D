@@ -1,0 +1,33 @@
+audio_settings:
+  audio_plugin: ./FmodAudioContext
+common_settings:
+  additional_mounted_dirs:
+    - alias: ProjectResources/
+      path: ../Resources/
+    - alias: ProjectShaders/
+      path: ../Resources/Shaders/
+  application_id: ArkanoidGame
+  base_resources_path: ../Resources/
+  flags: 20
+  max_worker_threads_count: 4
+  total_preallocated_memory_size: 134217728
+  user_plugins_list:
+    - id: ./TDE2LevelStreamingUtils
+    - id: ./TDE2BulletPhysics
+graphics_settings:
+  renderer_plugin: ./D3D11GraphicsContext
+  renderer_settings:
+    shadow_maps_enabled: true
+    shadow_maps_size: 1024
+scenes_settings:
+  main_scene_path: Resources/Scenes/MainScene.scene
+meta:
+  resource-type: project-settings
+  version-tag: 1
+world_settings:
+  object_bounds_interval: 0.0
+3d_physics_settings:
+  gravity:
+    x: 0.0
+    y: 0.0
+    z: -2.0

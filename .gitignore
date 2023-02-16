@@ -1,6 +1,7 @@
 .vs/
 [Oo]bj/
 [Bb]in/
+!/[Bb]in/
 tmp/
 Release/
 Debug/
@@ -14,6 +15,8 @@ TODO
 *.opensdf
 *.sdf
 *.log
+*.pdb
+*.ilk
 
 *.sln
 *.user
@@ -37,3 +40,5 @@ TDEngine2/include/utils/Config.h
 
 *.mesh
 *.fbx
+
+*.cfg
