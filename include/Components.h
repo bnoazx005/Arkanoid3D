@@ -96,4 +96,18 @@ namespace TDEngine2
 		REGISTER_EVENT_TYPE(TGameLevelLoadedEvent)
 		
 	} TGameLevelLoadedEvent, *TGameLevelLoadedEventPtr;
+
+
+	/*!
+		struct TExitGameEvent
+	*/
+
+	typedef struct TExitGameEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TExitGameEvent() = default;
+
+		TDE2_REGISTER_TYPE(TExitGameEvent)
+		REGISTER_EVENT_TYPE(TExitGameEvent)
+
+	} TExitGameEvent, *TExitGameEventPtr;
 }

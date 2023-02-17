@@ -68,10 +68,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 {
 	mpWorld = mpSceneManager->GetWorld();
 
+	auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
+	pEventManager->Subscribe(TExitGameEvent::GetTypeId(), this);
+
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(
-		mpWorld, mpInputContext, 
-		mpEngineCoreInstance->GetSubsystem<IEventManager>(), 
+		mpWorld, mpInputContext, pEventManager,
 		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
 		mpEngineCoreInstance->GetSubsystem<IGameModesManager>());
 
@@ -182,3 +184,19 @@ void CCustomEngineListener::SetEngineInstance(IEngineCore* pEngineCore)
 	mpFileSystem      = mpEngineCoreInstance->GetSubsystem<IFileSystem>();
 	mpSceneManager    = mpEngineCoreInstance->GetSubsystem<ISceneManager>();
 }
+
+E_RESULT_CODE CCustomEngineListener::OnEvent(const TBaseEvent* pEvent)
+{
+	if (auto pExitGameEvent = dynamic_cast<const TExitGameEvent*>(pEvent))
+	{
+		return mpEngineCoreInstance->Quit();
+	}
+
+	return RC_OK;
+}
+
+TEventListenerId CCustomEngineListener::GetListenerId() const
+{
+	return static_cast<TEventListenerId>(TDE2_TYPE_ID(CCustomEngineListener));
+}
+

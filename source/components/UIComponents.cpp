@@ -15,9 +15,15 @@ namespace Game
 	struct TMainMenuPanelArchiveKeys
 	{
 		static const std::string mPlayButtonEntityIdKey;
+		static const std::string mSettingsButtonEntityIdKey;
+		static const std::string mCreditsButtonEntityIdKey;
+		static const std::string mQuitButtonEntityIdKey;
 	};
 
 	const std::string TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey = "play_button_entity_id";
+	const std::string TMainMenuPanelArchiveKeys::mSettingsButtonEntityIdKey = "settings_button_entity_id";
+	const std::string TMainMenuPanelArchiveKeys::mCreditsButtonEntityIdKey = "credits_button_entity_id";
+	const std::string TMainMenuPanelArchiveKeys::mQuitButtonEntityIdKey = "quit_button_entity_id";
 
 
 	CMainMenuPanel::CMainMenuPanel() :
@@ -33,6 +39,9 @@ namespace Game
 		}
 
 		mPlayButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
+		mSettingsButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TMainMenuPanelArchiveKeys::mSettingsButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
+		mCreditsButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TMainMenuPanelArchiveKeys::mCreditsButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
+		mQuitButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TMainMenuPanelArchiveKeys::mQuitButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
 
 		return RC_OK;
 	}
@@ -49,6 +58,9 @@ namespace Game
 			pWriter->SetUInt32("type_id", static_cast<U32>(CMainMenuPanel::GetTypeId()));
 			
 			pWriter->SetUInt32(TMainMenuPanelArchiveKeys::mPlayButtonEntityIdKey, static_cast<U32>(mPlayButtonEntityId));
+			pWriter->SetUInt32(TMainMenuPanelArchiveKeys::mSettingsButtonEntityIdKey, static_cast<U32>(mSettingsButtonEntityId));
+			pWriter->SetUInt32(TMainMenuPanelArchiveKeys::mCreditsButtonEntityIdKey, static_cast<U32>(mCreditsButtonEntityId));
+			pWriter->SetUInt32(TMainMenuPanelArchiveKeys::mQuitButtonEntityIdKey, static_cast<U32>(mQuitButtonEntityId));
 		}
 		pWriter->EndGroup();
 
@@ -57,11 +69,10 @@ namespace Game
 
 	E_RESULT_CODE CMainMenuPanel::PostLoad(CEntityManager* pEntityManager, const TEntitiesMapper& entitiesIdentifiersRemapper)
 	{
-		auto it = entitiesIdentifiersRemapper.find(mPlayButtonEntityId);
-		if (it != entitiesIdentifiersRemapper.cend())
-		{
-			mPlayButtonEntityId = it->second;
-		}
+		mPlayButtonEntityId = entitiesIdentifiersRemapper.Resolve(mPlayButtonEntityId);
+		mSettingsButtonEntityId = entitiesIdentifiersRemapper.Resolve(mSettingsButtonEntityId);
+		mCreditsButtonEntityId = entitiesIdentifiersRemapper.Resolve(mCreditsButtonEntityId);
+		mQuitButtonEntityId = entitiesIdentifiersRemapper.Resolve(mQuitButtonEntityId);
 
 		return CBaseComponent::PostLoad(pEntityManager, entitiesIdentifiersRemapper);
 	}
@@ -71,6 +82,9 @@ namespace Game
 		if (CMainMenuPanel* pObject = dynamic_cast<CMainMenuPanel*>(pDestObject))
 		{
 			pObject->mPlayButtonEntityId = mPlayButtonEntityId;
+			pObject->mSettingsButtonEntityId = mSettingsButtonEntityId;
+			pObject->mCreditsButtonEntityId = mCreditsButtonEntityId;
+			pObject->mQuitButtonEntityId = mQuitButtonEntityId;
 
 			return RC_OK;
 		}
@@ -97,6 +111,48 @@ namespace Game
 					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld), 
 					Wrench::StringUtils::GetEmptyStr(), 
 					component.mPlayButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
+
+			/// settings button entity id
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Settings Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld),
+					Wrench::StringUtils::GetEmptyStr(),
+					component.mSettingsButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
+
+			/// Credits button entity id
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Credits Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld),
+					Wrench::StringUtils::GetEmptyStr(),
+					component.mCreditsButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
+
+			/// Quit button entity id
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Quit Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld),
+					Wrench::StringUtils::GetEmptyStr(),
+					component.mQuitButtonEntityId);
 
 				imguiContext.EndHorizontal();
 			}

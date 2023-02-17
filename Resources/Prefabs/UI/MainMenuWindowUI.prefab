@@ -3,7 +3,7 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 21
+              - child_id: 18
               - child_id: 17
             owner_id: 16
             parent_id: 4294967295
@@ -30,6 +30,10 @@ entities:
               x: 0.000000
             type_id: 2172495824
         - component: 
+            credits_button_entity_id: 27
+            play_button_entity_id: 21
+            quit_button_entity_id: 30
+            settings_button_entity_id: 24
             type_id: 3544801618
         - component: 
             height: 768
@@ -44,12 +48,15 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 18
+              - child_id: 19
+              - child_id: 22
+              - child_id: 25
+              - child_id: 28
             owner_id: 17
             parent_id: 16
             position: 
-              x: 462.000000
-              y: 86.000000
+              x: 395.000000
+              y: 69.000000
             rotation: 
               w: 1.000000
             scale: 
@@ -62,126 +69,59 @@ entities:
               x: 0.500000
               y: 0.500000
             max_offset: 
-              x: 150.000000
-              y: "-47.000000"
+              x: 342.000000
+              y: "-37.000000"
             min_anchor: 
               x: 0.500000
             min_offset: 
-              x: "-50.000000"
-              y: 86.000000
+              x: "-117.000000"
+              y: 69.000000
             pivot: 
               x: 0.000000
             type_id: 2172495824
+        - component: 
+            align_type: LEFT
+            cell_size: 
+              x: 200.000000
+              y: 50.000000
+            spacing: 
+              x: 10.000000
+              y: 10.000000
+            type_id: 4085334425
       id: 17
       name: Buttons_Root
-  - entity: 
-      components: 
-        - component: 
-            Children: 
-              - child_id: 20
-              - child_id: 19
-            owner_id: 18
-            parent_id: 17
-            position: 
-              x: 442.000000
-              y: 371.000000
-            rotation: 
-              w: 1.000000
-            scale: 
-              x: 1.000000
-              y: 1.000000
-              z: 1.000000
-            type_id: 3864726948
-        - component: 
-            max_anchor: 
-              x: 1.000000
-              y: 1.000000
-            max_offset: 
-              x: "-32.000000"
-              y: 10.000000
-            min_anchor: 
-              x: 0.000000
-            min_offset: 
-              x: "-20.000000"
-              y: 285.000000
-            pivot: 
-              x: 0.000000
-            type_id: 2172495824
-      id: 18
-      name: Button
-  - entity: 
-      components: 
-        - component: 
-            owner_id: 19
-            parent_id: 18
-            position: 
-              x: 442.000000
-              y: 371.000000
-            rotation: 
-              w: 1.000000
-            scale: 
-              x: 1.000000
-              y: 1.000000
-              z: 1.000000
-            type_id: 3864726948
-        - component: 
-            max_anchor: 
-              x: 1.000000
-              y: 1.000000
-            max_offset: 
-              x: 0.000000
-            min_anchor: 
-              x: 0.000000
-            min_offset: 
-              x: 0.000000
-            pivot: 
-              x: 0.000000
-            type_id: 2172495824
-        - component: 
-            align_type: CENTER
-            font: OpenSans.font
-            overflow_policy_type: NO_BREAK
-            text: New Text
-            type_id: 2847853640
+  - link: 
+      id: 28
+      parent_id: 17
+      position: 
+        x: 395.000000
+        y: 225.500000
+      prefab_id: SimpleButton
+  - link: 
+      id: 25
+      parent_id: 17
+      position: 
+        x: 395.000000
+        y: 285.500000
+      prefab_id: SimpleButton
+  - link: 
+      id: 22
+      parent_id: 17
+      position: 
+        x: 395.000000
+        y: 345.500000
+      prefab_id: SimpleButton
+  - link: 
       id: 19
-      name: Label
+      parent_id: 17
+      position: 
+        x: 395.000000
+        y: 405.500000
+      prefab_id: SimpleButton
   - entity: 
       components: 
         - component: 
-            owner_id: 20
-            parent_id: 18
-            position: 
-              x: 442.000000
-              y: 371.000000
-            rotation: 
-              w: 1.000000
-            scale: 
-              x: 1.000000
-              y: 1.000000
-              z: 1.000000
-            type_id: 3864726948
-        - component: 
-            ignore_input: 0
-            type_id: 751163885
-        - component: 
-            max_anchor: 
-              x: 1.000000
-              y: 1.000000
-            max_offset: 
-              x: 0.000000
-            min_anchor: 
-              x: 0.000000
-            min_offset: 
-              x: 0.000000
-            pivot: 
-              x: 0.000000
-            type_id: 2172495824
-      id: 20
-      name: Button
-  - entity: 
-      components: 
-        - component: 
-            owner_id: 21
+            owner_id: 18
             parent_id: 16
             position: 
               x: 520.000000
@@ -216,5 +156,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Arkanoid
             type_id: 2847853640
-      id: 21
+      id: 18
       name: Title_Label

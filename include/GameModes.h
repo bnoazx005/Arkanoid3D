@@ -230,6 +230,7 @@ namespace Game
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMainMenuGameMode)
 		private:
+			bool mIsActive = false;
 	};
 
 

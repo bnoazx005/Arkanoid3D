@@ -264,8 +264,14 @@ namespace Game
 	{
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
 
+		if (mIsActive)
+		{
+			return;
+		}
+
 		/// \todo Replace hardcoded value later
 		SpawnModeWindow("MainMenuWindowUI"); /// \note Spawn a MainMenu window's prefab		
+		mIsActive = true;
 	}
 
 	void CMainMenuGameMode::OnExit()
@@ -274,6 +280,7 @@ namespace Game
 
 		/// \note Remove the MainMenu window
 		RemoveModeWindow();
+		mIsActive = false;
 	}
 
 	void CMainMenuGameMode::Update(F32 dt)

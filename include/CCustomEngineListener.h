@@ -4,7 +4,7 @@
 #include <TDEngine2.h>
 
 
-class CCustomEngineListener: public TDEngine2::IEngineListener
+class CCustomEngineListener: public TDEngine2::IEngineListener, public TDEngine2::IEventHandler
 {
 	public:
 		CCustomEngineListener() = default;
@@ -41,6 +41,24 @@ class CCustomEngineListener: public TDEngine2::IEngineListener
 		*/
 
 		void SetEngineInstance(TDEngine2::IEngineCore* pEngineCore) override;
+
+		/*!
+			\brief The method receives a given event and processes it
+
+			\param[in] pEvent A pointer to event data
+
+			\return RC_OK if everything went ok, or some other code, which describes an error
+		*/
+
+		TDE2_API TDEngine2::E_RESULT_CODE OnEvent(const TDEngine2::TBaseEvent* pEvent) override;
+
+		/*!
+			\brief The method returns an identifier of a listener
+
+			\return The method returns an identifier of a listener
+		*/
+
+		TDE2_API TDEngine2::TEventListenerId GetListenerId() const override;
 	protected:
 		TDEngine2::IEngineCore*                             mpEngineCoreInstance;
 

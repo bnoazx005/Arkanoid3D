@@ -54,7 +54,7 @@ namespace Game
 				\param[in] entitiesIdentifiersRemapper A structure that maps saved identifier to current runtime equivalent
 			*/
 
-			TDE2_API TDEngine2::E_RESULT_CODE PostLoad(TDEngine2::CEntityManager* pEntityManager, const TDEngine2::CBaseComponent::TEntitiesMapper& entitiesIdentifiersRemapper) override;
+			TDE2_API TDEngine2::E_RESULT_CODE PostLoad(TDEngine2::CEntityManager* pEntityManager, const TDEngine2::TEntitiesMapper& entitiesIdentifiersRemapper) override;
 
 			/*!
 				\brief The method creates a new deep copy of the instance and returns a smart pointer to it.
@@ -72,6 +72,9 @@ namespace Game
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMainMenuPanel)
 		public:
 			TDEngine2::TEntityId mPlayButtonEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::TEntityId mSettingsButtonEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::TEntityId mCreditsButtonEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::TEntityId mQuitButtonEntityId = TDEngine2::TEntityId::Invalid;
 	};
 
 
