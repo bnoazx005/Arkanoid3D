@@ -1,5 +1,6 @@
 #include "../../include/systems/UI/CMainMenuLogicSystem.h"
 #include "../../include/Components.h"
+#include "../../include/Utilities.h"
 
 
 using namespace TDEngine2;
@@ -41,15 +42,33 @@ namespace Game
 
 	static void ProcessMainMenuInput(IWorld* pWorld, CMainMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
 	{
-		if (CEntity* pQuitButtonEntity = pWorld->FindEntity(pMenuPanel->mQuitButtonEntityId))
+		/// \note Start button
+		ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId, [pEventManager]
 		{
-			CInputReceiver* pQuitButton = pQuitButtonEntity->GetComponent<CInputReceiver>();
-			if (!pQuitButton->mCurrState && pQuitButton->mPrevState) /// \note Process logic on release of the button
-			{
-				TExitGameEvent exitGameEvent;
-				pEventManager->Notify(&exitGameEvent);
-			}
-		}
+			TLoadGameLevelEvent loadGameLevelEvent;
+			loadGameLevelEvent.mLevelIndex = 1;
+
+			pEventManager->Notify(&loadGameLevelEvent);
+		});
+
+		/// \note Settings button
+		ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId, []
+		{
+			LOG_MESSAGE("OPEN SETTINGS");
+		});
+
+		/// \note Credits button
+		ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId, []
+		{
+			LOG_MESSAGE("SHOW CREDITS");
+		});
+
+		/// \note Quit button
+		ProcessButtonOnClick(pWorld, pMenuPanel->mQuitButtonEntityId, [pEventManager]
+		{
+			TExitGameEvent exitGameEvent;
+			pEventManager->Notify(&exitGameEvent);
+		});
 	}
 
 

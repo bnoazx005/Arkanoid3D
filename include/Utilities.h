@@ -56,3 +56,33 @@ namespace Game
 
 	TDE2_API TDEngine2::E_RESULT_CODE RegisterGameResourceTypes(TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager, TDEngine2::TPtr<TDEngine2::IFileSystem> pFileSystem);
 }
+
+
+namespace TDEngine2
+{
+	template <typename T>
+	void ProcessButtonOnClick(TDEngine2::IWorld* pWorld, TDEngine2::TEntityId buttonEntityId, T&& callback)
+	{
+		TDEngine2::CEntity* pButtonEntity = pWorld->FindEntity(buttonEntityId);
+		if (!pButtonEntity)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		TDEngine2::CInputReceiver* pButton = pButtonEntity->GetComponent<TDEngine2::CInputReceiver>();
+		if (!pButton)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		if (pButton->mCurrState || !pButton->mPrevState)
+		{
+			return;
+		}
+
+		/// \note Process logic on release of the button
+		callback();
+	}
+}

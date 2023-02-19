@@ -57,6 +57,7 @@ namespace Game
 
 		// UI components
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateMainMenuPanelFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreatePauseMenuPanelFactory(result)));
 
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
@@ -77,6 +78,7 @@ namespace Game
 		result = result | pEditorsManager->RegisterComponentInspector(CMultipleBallsBonus::GetTypeId(), CMultipleBallsBonus::DrawInspectorGUI);
 
 		result = result | pEditorsManager->RegisterComponentInspector(CMainMenuPanel::GetTypeId(), CMainMenuPanel::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CPauseMenuPanel::GetTypeId(), CPauseMenuPanel::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif

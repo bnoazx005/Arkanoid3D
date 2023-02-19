@@ -99,6 +99,21 @@ namespace TDEngine2
 
 
 	/*!
+		struct TLoadGameLevelEvent
+	*/
+
+	typedef struct TLoadGameLevelEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TLoadGameLevelEvent() = default;
+
+		TDE2_REGISTER_TYPE(TLoadGameLevelEvent)
+		REGISTER_EVENT_TYPE(TLoadGameLevelEvent)
+
+		USIZE mLevelIndex = 0;
+	} TLoadGameLevelEvent, * TLoadGameLevelEventPtr;
+
+
+	/*!
 		struct TExitGameEvent
 	*/
 

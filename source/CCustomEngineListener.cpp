@@ -14,6 +14,7 @@
 #include "../include/systems/CGameUIUpdateSystem.h"
 #include "../include/systems/CPaddlePositionerSystem.h"
 #include "../include/systems/UI/CMainMenuLogicSystem.h"
+#include "../include/systems/UI/CPauseMenuLogicSystem.h"
 #include "../include/components/CGameInfo.h"
 #include "../include/editor/CLevelsEditorWindow.h"
 #include <TDEngine2.h>
@@ -58,6 +59,7 @@ namespace Game
 
 		/// UI systems
 		pWorld->RegisterSystem(Game::CreateMainMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
+		pWorld->RegisterSystem(Game::CreatePauseMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
 
 		return result;
 	}
@@ -70,6 +72,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 
 	auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
 	pEventManager->Subscribe(TExitGameEvent::GetTypeId(), this);
+	pEventManager->Subscribe(TLoadGameLevelEvent::GetTypeId(), this);
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(
@@ -190,6 +193,25 @@ E_RESULT_CODE CCustomEngineListener::OnEvent(const TBaseEvent* pEvent)
 	if (auto pExitGameEvent = dynamic_cast<const TExitGameEvent*>(pEvent))
 	{
 		return mpEngineCoreInstance->Quit();
+	}
+
+	if (auto pLoadGameLevelEvent = dynamic_cast<const TLoadGameLevelEvent*>(pEvent))
+	{
+		auto pGameModesManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>();
+		auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
+
+		E_RESULT_CODE result = RC_OK;
+		result = result | pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModesManager.Get(), 
+			{
+				mpInputContext,
+				mpSceneManager,
+				pEventManager
+			}, result)));
+
+		TDE2_ASSERT(RC_OK == result);
+
+		LoadNextGameLevel(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager);
+		return RC_OK;
 	}
 
 	return RC_OK;

@@ -50,6 +50,7 @@ set(HEADERS
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CGameUIUpdateSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/CPaddlePositionerSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/UI/CMainMenuLogicSystem.h"
+	"${CMAKE_CURRENT_SOURCE_DIR}/include/systems/UI/CPauseMenuLogicSystem.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/editor/CLevelsEditorWindow.h"
 	"${CMAKE_CURRENT_SOURCE_DIR}/include/CCustomEngineListener.h")
 
@@ -79,6 +80,7 @@ set(SOURCES
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CGameUIUpdateSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/CPaddlePositionerSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/UI/CMainMenuLogicSystem.cpp"
+	"${CMAKE_CURRENT_SOURCE_DIR}/source/systems/UI/CPauseMenuLogicSystem.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/source/editor/CLevelsEditorWindow.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
