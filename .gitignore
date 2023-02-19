@@ -42,3 +42,5 @@ TDEngine2/include/utils/Config.h
 *.fbx
 
 *.cfg
+
+ArkanoidGame.*
