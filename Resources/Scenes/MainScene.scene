@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 1
+            owner_id: 181
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -17,12 +17,12 @@ entities:
             type_id: 114296622
         - component: 
             type_id: 4238380769
-      id: 1
+      id: 181
       name: SunLight
   - entity: 
       components: 
         - component: 
-            owner_id: 2
+            owner_id: 182
             parent_id: 4294967295
             position: 
               y: 5.000000
@@ -43,12 +43,12 @@ entities:
             type_id: 3622064475
         - component: 
             type_id: 2508644627
-      id: 2
+      id: 182
       name: PlayerCamera
   - entity: 
       components: 
         - component: 
-            owner_id: 3
+            owner_id: 183
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -68,7 +68,7 @@ entities:
             mesh: Cube
             sub_mesh_id: 
             type_id: 780504096
-      id: 3
+      id: 183
       name: Skybox
 name: MainScene.scene
 scene_properties: 

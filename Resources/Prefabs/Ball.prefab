@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 10
+            owner_id: 2110
             parent_id: 4294967295
             position: 
               z: 1.300000
@@ -29,5 +29,5 @@ entities:
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 1841622609
-      id: 10
+      id: 2110
       name: Ball

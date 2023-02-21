@@ -3,9 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 34
-              - child_id: 35
-            owner_id: 33
+              - child_id: 3434
+              - child_id: 3435
+            owner_id: 3433
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -41,17 +41,17 @@ entities:
             play_button_entity_id: 38
             settings_button_entity_id: 41
             type_id: 900547755
-      id: 33
+      id: 3433
       name: PauseWindow_Root
   - entity: 
       components: 
         - component: 
             Children: 
-              - child_id: 36
-              - child_id: 39
-              - child_id: 42
-            owner_id: 35
-            parent_id: 33
+              - child_id: 3436
+              - child_id: 3439
+              - child_id: 3442
+            owner_id: 3435
+            parent_id: 3433
             position: 
               x: 395.000000
               y: 69.000000
@@ -86,25 +86,25 @@ entities:
               x: 10.000000
               y: 10.000000
             type_id: 4085334425
-      id: 35
+      id: 3435
       name: Buttons_Root
   - link: 
-      id: 42
-      parent_id: 35
+      id: 3442
+      parent_id: 3435
       position: 
         x: 395.000000
         y: 285.500000
       prefab_id: SimpleButton
   - link: 
-      id: 39
-      parent_id: 35
+      id: 3439
+      parent_id: 3435
       position: 
         x: 395.000000
         y: 345.500000
       prefab_id: SimpleButton
   - link: 
-      id: 36
-      parent_id: 35
+      id: 3436
+      parent_id: 3435
       position: 
         x: 395.000000
         y: 405.500000
@@ -112,8 +112,8 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 34
-            parent_id: 33
+            owner_id: 3434
+            parent_id: 3433
             position: 
               x: 520.000000
               y: 363.000000
@@ -147,5 +147,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Pause
             type_id: 2847853640
-      id: 34
+      id: 3434
       name: Pause_Label

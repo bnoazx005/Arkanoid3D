@@ -6,7 +6,7 @@ entities:
             spawn_probability: 0.500000
             type_id: 2836612915
         - component: 
-            owner_id: 11
+            owner_id: 2411
             parent_id: 4294967295
             position: 
               y: 0.265626
@@ -38,5 +38,5 @@ entities:
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 1841622609
-      id: 11
+      id: 2411
       name: Brick

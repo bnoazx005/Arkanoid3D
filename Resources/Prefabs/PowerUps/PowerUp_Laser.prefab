@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 14
+            owner_id: 2814
             parent_id: 4294967295
             position: 
               y: 0.260646
@@ -35,5 +35,5 @@ entities:
             type_id: 1023355219
         - component: 
             type_id: 3088638662
-      id: 14
+      id: 2814
       name: PowerUp

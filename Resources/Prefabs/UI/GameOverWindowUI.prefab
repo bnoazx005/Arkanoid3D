@@ -3,8 +3,8 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 42
-            owner_id: 41
+              - child_id: 3642
+            owner_id: 3641
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -35,13 +35,13 @@ entities:
             width: 1024
         - component: 
             type_id: 1930024581
-      id: 41
+      id: 3641
       name: DefeatWindow_Root
   - entity: 
       components: 
         - component: 
-            owner_id: 42
-            parent_id: 41
+            owner_id: 3642
+            parent_id: 3641
             position: 
               x: 520.000000
               y: 363.000000
@@ -75,5 +75,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Game Over
             type_id: 2847853640
-      id: 42
+      id: 3642
       name: Defeat_Label

@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 33
+            owner_id: 1933
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -18,10 +18,10 @@ entities:
             mesh: Plane
             sub_mesh_id: 
             type_id: 780504096
-      id: 33
+      id: 1933
       name: Floor
   - link: 
-      id: 34
+      id: 1934
       position: 
         y: 0.265626
         z: 0.584660

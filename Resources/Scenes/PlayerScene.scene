@@ -6,8 +6,8 @@ entities:
             type_id: 3941469362
         - component: 
             Children: 
-              - child_id: 9
-            owner_id: 8
+              - child_id: 209
+            owner_id: 208
             parent_id: 4294967295
             position: 
               y: 0.265626
@@ -40,13 +40,13 @@ entities:
             type_id: 1841622609
         - component: 
             type_id: 1023355219
-      id: 8
+      id: 208
       name: Paddle
   - entity: 
       components: 
         - component: 
-            owner_id: 9
-            parent_id: 8
+            owner_id: 209
+            parent_id: 208
             position: 
               z: 1.3
             rotation: 
@@ -74,7 +74,7 @@ entities:
             mass: 1.000000
             type: COT_KINEMATIC
             type_id: 1841622609
-      id: 9
+      id: 209
       name: Ball
   - link:
       prefab_id: GameUI

@@ -4,7 +4,7 @@ entities:
         - component: 
             type_id: 946291833
         - component: 
-            owner_id: 16
+            owner_id: 2316
             parent_id: 4294967295
             position: 
               x: "0.0"
@@ -32,5 +32,5 @@ entities:
         - component: 
             mass: "-5.000000"
             type_id: 3467057449
-      id: 16
+      id: 2316
       name: Projectile

@@ -3,9 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 51
-              - child_id: 50
-            owner_id: 49
+              - child_id: 3751
+              - child_id: 3750
+            owner_id: 3749
             parent_id: 4294967295
             position: 
               x: 442.000000
@@ -34,13 +34,13 @@ entities:
             type_id: 2172495824
         - component: 
             type_id: 1930024581
-      id: 49
+      id: 3749
       name: Button
   - entity: 
       components: 
         - component: 
-            owner_id: 50
-            parent_id: 49
+            owner_id: 3750
+            parent_id: 3749
             position: 
               x: 447.000000
               y: 256.000000
@@ -74,7 +74,7 @@ entities:
             overflow_policy_type: NO_BREAK
             text: New Text
             type_id: 2847853640
-      id: 50
+      id: 3750
       name: Label
   - entity: 
       components: 
@@ -87,8 +87,8 @@ entities:
             sprite_id: DefaultResources/Textures/DefaultUIWhite_Sprite.png
             type_id: 2844726091
         - component: 
-            owner_id: 51
-            parent_id: 49
+            owner_id: 3751
+            parent_id: 3749
             position: 
               x: 442.000000
               y: 371.000000
@@ -115,5 +115,5 @@ entities:
             pivot: 
               x: 0.000000
             type_id: 2172495824
-      id: 51
+      id: 3751
       name: Background

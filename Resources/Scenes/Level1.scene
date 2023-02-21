@@ -2,7 +2,7 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 25
+            owner_id: 1525
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -18,12 +18,12 @@ entities:
             mesh: Plane
             sub_mesh_id: 
             type_id: 780504096
-      id: 25
+      id: 1525
       name: Floor
   - entity: 
       components: 
         - component: 
-            owner_id: 26
+            owner_id: 1526
             parent_id: 4294967295
             position: 
               z: "-4.513174"
@@ -36,12 +36,12 @@ entities:
             type_id: 3864726948
         - component: 
             type_id: 3544622881
-      id: 26
+      id: 1526
       name: PaddlePositioner
   - entity: 
       components: 
         - component: 
-            owner_id: 27
+            owner_id: 1527
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -60,23 +60,23 @@ entities:
             vertical_constraints: 
               x: "-5.000000"
               y: 4.000000
-      id: 27
+      id: 1527
       name: LevelBoundaries
   - link: 
-      id: 28
+      id: 1528
       position: 
         y: 0.265626
         z: 0.584660
       prefab_id: SimpleBrick
   - link: 
-      id: 29
+      id: 1529
       position: 
         x: 1.739770
         y: 0.265626
         z: 0.584660
       prefab_id: SimpleBrick
   - link: 
-      id: 30
+      id: 1530
       position: 
         x: "-1.609408"
         y: 0.265626
