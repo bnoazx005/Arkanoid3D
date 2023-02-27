@@ -24,6 +24,10 @@ namespace TDEngine2
 
 	struct TEntitiesMapper;
 
+
+	TDE2_DECLARE_SCOPED_PTR(IWorld)
+
+
 	/*!
 		class CEntity
 
@@ -275,6 +279,61 @@ namespace TDEngine2
 
 		TEntityId mRemovedEntityId;
 	} TOnEntityRemovedEvent, *TOnEntityRemovedEventPtr;
+
+
+	/*!
+		\brief The type is used to store reference to some entity within a component. It allows to
+		access entities within nested prefabs. Simple TEntityId doesn't support resolving this case
+	*/
+
+	class CEntityRef: public ISerializable
+	{
+		public:
+			TDE2_API CEntityRef() = default;
+			TDE2_API CEntityRef(CEntityManager* pEntityManager, TEntityId entityRef);
+
+			/*!
+				\brief The method deserializes object's state from given reader
+
+				\param[in, out] pReader An input stream of data that contains information about the object
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API E_RESULT_CODE Load(IArchiveReader* pReader) override;
+
+			/*!
+				\brief The method serializes object's state into given stream
+
+				\param[in, out] pWriter An output stream of data that writes information about the object
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API E_RESULT_CODE Save(IArchiveWriter* pWriter) override;
+
+			TDE2_API E_RESULT_CODE SetEntityManager(CEntityManager* pEntityManager);
+
+			TDE2_API void Set(TEntityId ref);
+			TDE2_API TEntityId Get();
+
+#if TDE2_EDITORS_ENABLED
+			TDE2_API const std::vector<U32>& GetPath() const;
+#endif
+
+			TDE2_API bool IsResolved() const;
+		private:
+			CEntityManager* mpEntityManager;
+
+			TEntityId mEntityRef = TEntityId::Invalid;
+
+			std::string mRefStr;
+			std::vector<U32> mPathIdentifiers;
+	};
+
+
+	TDE2_API CEntityRef LoadEntityRef(IArchiveReader* pReader, const std::string& id);
+	TDE2_API E_RESULT_CODE SaveEntityRef(IArchiveWriter* pWriter, const std::string& id, CEntityRef& entityRef);
 
 
 	/*!
