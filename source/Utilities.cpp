@@ -75,10 +75,10 @@ namespace Game
 
 				if (pLevelSettingsEntity)
 				{
-					CLevelSettings* SettingsData = pLevelSettingsEntity->GetComponent<CLevelSettings>();
+					CLevelSettings* pSettingsData = pLevelSettingsEntity->GetComponent<CLevelSettings>();
 					
-					pGameInfo->mHorizontalConstraints = SettingsData->mHorizontalConstraints;
-					pGameInfo->mVerticalConstraints = SettingsData->mVerticalConstraints;
+					pGameInfo->mHorizontalConstraints = pSettingsData->mHorizontalConstraints;
+					pGameInfo->mVerticalConstraints = pSettingsData->mVerticalConstraints;
 				}
 				else
 				{
@@ -225,6 +225,26 @@ namespace Game
 		}
 
 		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, nullptr, findLevelResult.Get());
+	}
+
+	void LoadMainMenu(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager, 
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
+	{
+		E_RESULT_CODE result = RC_OK;
+		result = result | pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateMainMenuGameMode(pGameModesManager.Get(),
+			{
+				pInputContext,
+				pSceneManager,
+				pEventManager
+			}, result)));
+
+		TDE2_ASSERT(RC_OK == result);
+
+		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, pGameModesManager, 0);
 	}
 
 

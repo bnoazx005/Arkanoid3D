@@ -151,9 +151,9 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CPauseMenuPanel)
 		public:
-			TDEngine2::TEntityId mResumeButtonEntityId = TDEngine2::TEntityId::Invalid;
-			TDEngine2::TEntityId mRestartButtonEntityId = TDEngine2::TEntityId::Invalid;
-			TDEngine2::TEntityId mExitToMenuButtonEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::CEntityRef mResumeButtonEntityId;
+			TDEngine2::CEntityRef mRestartButtonEntityId;
+			TDEngine2::CEntityRef mExitToMenuButtonEntityId;
 	};
 
 

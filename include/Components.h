@@ -114,6 +114,19 @@ namespace TDEngine2
 
 
 	/*!
+		struct TLoadMainMenuEvent
+	*/
+
+	typedef struct TLoadMainMenuEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TLoadMainMenuEvent() = default;
+
+		TDE2_REGISTER_TYPE(TLoadMainMenuEvent)
+		REGISTER_EVENT_TYPE(TLoadMainMenuEvent)
+	} TLoadMainMenuEvent, *TLoadMainMenuEventPtr;
+
+
+	/*!
 		struct TExitGameEvent
 	*/
 
@@ -125,4 +138,32 @@ namespace TDEngine2
 		REGISTER_EVENT_TYPE(TExitGameEvent)
 
 	} TExitGameEvent, *TExitGameEventPtr;
+
+
+	/*!
+		struct TResumeToGameEvent
+	*/
+
+	typedef struct TResumeToGameEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TResumeToGameEvent() = default;
+
+		TDE2_REGISTER_TYPE(TResumeToGameEvent)
+		REGISTER_EVENT_TYPE(TResumeToGameEvent)
+
+	} TResumeToGameEvent, *TResumeToGameEventPtr;
+
+
+	/*!
+		struct TRestartLevelEvent
+	*/
+
+	typedef struct TRestartLevelEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TRestartLevelEvent() = default;
+
+		TDE2_REGISTER_TYPE(TRestartLevelEvent)
+		REGISTER_EVENT_TYPE(TRestartLevelEvent)
+
+	} TRestartLevelEvent, *TRestartLevelEventPtr;
 }

@@ -1,6 +1,7 @@
 #include "../include/GameModes.h"
 #include "../include/components/CGameInfo.h"
 #include "../include/Components.h"
+#include "../include/Utilities.h"
 
 
 using namespace TDEngine2;
@@ -73,6 +74,9 @@ namespace Game
 	{
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
 
+		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
+		TDE2_ASSERT(RC_OK == result);
+
 		/// \todo Replace hardcoded value later
 		SpawnModeWindow("PauseWindowUI"); /// \note Spawn a pause window's prefab		
 	}
@@ -80,6 +84,9 @@ namespace Game
 	void CPauseGameMode::OnExit()
 	{
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
+
+		E_RESULT_CODE result = mParams.mpEventManager->Unsubscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
+		TDE2_ASSERT(RC_OK == result);
 
 		/// \note Remove the pause window
 		RemoveModeWindow();
@@ -91,9 +98,19 @@ namespace Game
 
 		if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
 		{
-			mpOwner->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(mpOwner, mParams, result)));
-		}
-		
+			mpOwner->PopMode();
+		}		
+	}
+
+	E_RESULT_CODE CPauseGameMode::OnEvent(const TBaseEvent* pEvent)
+	{
+		mpOwner->PopMode();
+		return RC_OK;
+	}
+
+	TEventListenerId CPauseGameMode::GetListenerId() const
+	{
+		return static_cast<TEventListenerId>(TDE2_TYPE_ID(CPauseGameMode));
 	}
 
 
@@ -126,10 +143,15 @@ namespace Game
 		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TLivesChangedEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
 
+		result = mParams.mpEventManager->Subscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
+		TDE2_ASSERT(RC_OK == result);
+
 		/// \note Load player's paddle and main UI
 		/// \todo Replace hardcoded path
 		mParams.mpSceneManager->LoadSceneAsync("Resources/Scenes/PlayerScene.scene", [this](const TResult<TSceneId>& sceneId)
 		{
+			mPlayerSceneId = sceneId.Get();
+
 			auto&& pEventManager = mParams.mpEventManager;
 			auto pWorld = mParams.mpSceneManager->GetWorld();
 
@@ -158,6 +180,12 @@ namespace Game
 
 		E_RESULT_CODE result = mParams.mpEventManager->Unsubscribe(TDEngine2::TLivesChangedEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
+
+		result = mParams.mpEventManager->Unsubscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
+		TDE2_ASSERT(RC_OK == result);
+
+		result = mParams.mpSceneManager->UnloadScene(mPlayerSceneId);
+		TDE2_ASSERT(RC_OK == result);
 	}
 
 	void CCoreGameMode::Update(F32 dt)
@@ -166,23 +194,30 @@ namespace Game
 
 		if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
 		{
-			mpOwner->SwitchMode(TPtr<IGameMode>(CreatePauseGameMode(mpOwner, mParams, result)));
+			mpOwner->PushMode(TPtr<IGameMode>(CreatePauseGameMode(mpOwner, mParams, result)));
 		}
 	}
 	
 	E_RESULT_CODE CCoreGameMode::OnEvent(const TBaseEvent* pEvent)
 	{
-		const TLivesChangedEvent* pLivesChangedEvent = dynamic_cast<const TLivesChangedEvent*>(pEvent);
-		if (!pLivesChangedEvent)
+		if (const TLivesChangedEvent* pLivesChangedEvent = dynamic_cast<const TLivesChangedEvent*>(pEvent))
 		{
-			return RC_OK;
+			E_RESULT_CODE result = RC_OK;
+
+			if (pLivesChangedEvent->mPlayerLives <= 0)
+			{
+				mpOwner->SwitchMode(TPtr<IGameMode>(CreateLevelFinishedGameMode(mpOwner, mParams, result))); /// \todo Add defeat/victory flag passage
+			}
 		}
-
-		E_RESULT_CODE result = RC_OK;
-
-		if (pLivesChangedEvent->mPlayerLives <= 0)
+		
+		if (const TRestartLevelEvent* pRestartLevelEvent = dynamic_cast<const TRestartLevelEvent*>(pEvent))
 		{
-			mpOwner->SwitchMode(TPtr<IGameMode>(CreateLevelFinishedGameMode(mpOwner, mParams, result))); /// \todo Add defeat/victory flag passage
+			LoadGameLevel(
+				mParams.mpSceneManager, 
+				mParams.mpResourceManager, 
+				mParams.mpEventManager, 
+				MakeScopedFromRawPtr<IGameModesManager>(mpOwner), 
+				GetCurrLevelIndex(mParams.mpSceneManager, mParams.mpResourceManager).Get());
 		}
 
 		return RC_OK;

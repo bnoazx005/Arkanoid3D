@@ -43,22 +43,34 @@ namespace Game
 	static void ProcessPauseMenuInput(IWorld* pWorld, CPauseMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
 	{
 		/// \note Resume button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mResumeButtonEntityId, []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mResumeButtonEntityId.Get(), [pEventManager]
 		{
-			LOG_MESSAGE("RESUME GAME");
-		});
+			TResumeToGameEvent resumeToGameEvent;
+			pEventManager->Notify(&resumeToGameEvent);
+		}))
+		{
+			return;
+		}
 
 		/// \note Settings button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mRestartButtonEntityId, []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mRestartButtonEntityId.Get(), [pEventManager]
 		{
-			LOG_MESSAGE("RESTART GAME");
-		});
+			TRestartLevelEvent restartLevelEvent;
+			pEventManager->Notify(&restartLevelEvent);
+		}))
+		{
+			return;
+		}
 
 		/// \note Quit button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mExitToMenuButtonEntityId, [pEventManager]
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mExitToMenuButtonEntityId.Get(), [pEventManager]
 		{
-			LOG_MESSAGE("EXIT TO MENU");
-		});
+			TLoadMainMenuEvent goToMainMenuEvent;
+			pEventManager->Notify(&goToMainMenuEvent);
+		}))
+		{
+			return;
+		}
 	}
 
 

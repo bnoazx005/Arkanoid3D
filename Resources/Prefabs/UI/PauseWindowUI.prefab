@@ -3,9 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 3434
-              - child_id: 3435
-            owner_id: 3433
+              - child_id: 2046667019
+              - child_id: 2296484881
+            owner_id: 4111611753
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -37,11 +37,14 @@ entities:
         - component: 
             type_id: 1930024581
         - component: 
-            credits_button_entity_id: 44
-            play_button_entity_id: 38
-            settings_button_entity_id: 41
+            credits_button_entity_id: 
+              ref_path: 3442.3751
+            play_button_entity_id: 
+              ref_path: 3436.3751
+            settings_button_entity_id: 
+              ref_path: 3439.3751
             type_id: 900547755
-      id: 3433
+      id: 4111611753
       name: PauseWindow_Root
   - entity: 
       components: 
@@ -50,8 +53,8 @@ entities:
               - child_id: 3436
               - child_id: 3439
               - child_id: 3442
-            owner_id: 3435
-            parent_id: 3433
+            owner_id: 2296484881
+            parent_id: 4111611753
             position: 
               x: 395.000000
               y: 69.000000
@@ -86,25 +89,25 @@ entities:
               x: 10.000000
               y: 10.000000
             type_id: 4085334425
-      id: 3435
+      id: 2296484881
       name: Buttons_Root
   - link: 
       id: 3442
-      parent_id: 3435
+      parent_id: 2296484881
       position: 
         x: 395.000000
         y: 285.500000
       prefab_id: SimpleButton
   - link: 
       id: 3439
-      parent_id: 3435
+      parent_id: 2296484881
       position: 
         x: 395.000000
         y: 345.500000
       prefab_id: SimpleButton
   - link: 
       id: 3436
-      parent_id: 3435
+      parent_id: 2296484881
       position: 
         x: 395.000000
         y: 405.500000
@@ -112,8 +115,8 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 3434
-            parent_id: 3433
+            owner_id: 2046667019
+            parent_id: 4111611753
             position: 
               x: 520.000000
               y: 363.000000
@@ -147,5 +150,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Pause
             type_id: 2847853640
-      id: 3434
+      id: 2046667019
       name: Pause_Label

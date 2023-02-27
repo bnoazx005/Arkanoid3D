@@ -45,6 +45,13 @@ namespace Game
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
 		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager);
 
+	TDE2_API void LoadMainMenu(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext);
+
 	/*!
 		\brief Level's saving utility
 	*/
@@ -61,28 +68,30 @@ namespace Game
 namespace TDEngine2
 {
 	template <typename T>
-	void ProcessButtonOnClick(TDEngine2::IWorld* pWorld, TDEngine2::TEntityId buttonEntityId, T&& callback)
+	bool ProcessButtonOnClick(TDEngine2::IWorld* pWorld, TDEngine2::TEntityId buttonEntityId, T&& callback)
 	{
 		TDEngine2::CEntity* pButtonEntity = pWorld->FindEntity(buttonEntityId);
 		if (!pButtonEntity)
 		{
-			TDE2_ASSERT(false);
-			return;
+//			TDE2_ASSERT(false);
+			return false;
 		}
 
 		TDEngine2::CInputReceiver* pButton = pButtonEntity->GetComponent<TDEngine2::CInputReceiver>();
 		if (!pButton)
 		{
 			TDE2_ASSERT(false);
-			return;
+			return false;
 		}
 
 		if (pButton->mCurrState || !pButton->mPrevState)
 		{
-			return;
+			return false;
 		}
 
 		/// \note Process logic on release of the button
 		callback();
+
+		return true;
 	}
 }

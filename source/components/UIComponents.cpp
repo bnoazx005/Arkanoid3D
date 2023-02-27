@@ -228,9 +228,9 @@ namespace Game
 			return RC_FAIL;
 		}
 
-		mResumeButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
-		mRestartButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
-		mExitToMenuButtonEntityId = static_cast<TEntityId>(pReader->GetUInt32(TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey, static_cast<U32>(TEntityId::Invalid)));
+		mResumeButtonEntityId = LoadEntityRef(pReader, TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey);
+		mRestartButtonEntityId = LoadEntityRef(pReader, TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey);
+		mExitToMenuButtonEntityId = LoadEntityRef(pReader, TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey);
 		
 		return RC_OK;
 	}
@@ -246,9 +246,9 @@ namespace Game
 		{
 			pWriter->SetUInt32("type_id", static_cast<U32>(CPauseMenuPanel::GetTypeId()));
 
-			pWriter->SetUInt32(TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey, static_cast<U32>(mResumeButtonEntityId));
-			pWriter->SetUInt32(TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey, static_cast<U32>(mRestartButtonEntityId));
-			pWriter->SetUInt32(TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey, static_cast<U32>(mExitToMenuButtonEntityId));
+			SaveEntityRef(pWriter, TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey, mResumeButtonEntityId);
+			SaveEntityRef(pWriter, TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey, mRestartButtonEntityId);
+			SaveEntityRef(pWriter, TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey, mExitToMenuButtonEntityId);
 		}
 		pWriter->EndGroup();
 
@@ -257,9 +257,9 @@ namespace Game
 
 	E_RESULT_CODE CPauseMenuPanel::PostLoad(CEntityManager* pEntityManager, const TEntitiesMapper& entitiesIdentifiersRemapper)
 	{
-		mResumeButtonEntityId = entitiesIdentifiersRemapper.Resolve(mResumeButtonEntityId);
-		mRestartButtonEntityId = entitiesIdentifiersRemapper.Resolve(mRestartButtonEntityId);
-		mExitToMenuButtonEntityId = entitiesIdentifiersRemapper.Resolve(mExitToMenuButtonEntityId);
+		mResumeButtonEntityId.SetEntityManager(pEntityManager);
+		mRestartButtonEntityId.SetEntityManager(pEntityManager);
+		mExitToMenuButtonEntityId.SetEntityManager(pEntityManager);
 
 		return CBaseComponent::PostLoad(pEntityManager, entitiesIdentifiersRemapper);
 	}

@@ -43,32 +43,44 @@ namespace Game
 	static void ProcessMainMenuInput(IWorld* pWorld, CMainMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
 	{
 		/// \note Start button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId.Get(), [pEventManager]
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId.Get(), [pEventManager]
 		{
 			TLoadGameLevelEvent loadGameLevelEvent;
 			loadGameLevelEvent.mLevelIndex = 1;
 
 			pEventManager->Notify(&loadGameLevelEvent);
-		});
+		}))
+		{
+			return;
+		}
 
 		/// \note Settings button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), []
 		{
 			LOG_MESSAGE("OPEN SETTINGS");
-		});
+		}))
+		{
+			return;
+		}
 
 		/// \note Credits button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), []
 		{
 			LOG_MESSAGE("SHOW CREDITS");
-		});
+		}))
+		{
+			return;
+		}
 
 		/// \note Quit button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mQuitButtonEntityId.Get(), [pEventManager]
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mQuitButtonEntityId.Get(), [pEventManager]
 		{
 			TExitGameEvent exitGameEvent;
 			pEventManager->Notify(&exitGameEvent);
-		});
+		}))
+		{
+			return;
+		}
 	}
 
 

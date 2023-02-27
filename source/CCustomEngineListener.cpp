@@ -73,6 +73,7 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
 	pEventManager->Subscribe(TExitGameEvent::GetTypeId(), this);
 	pEventManager->Subscribe(TLoadGameLevelEvent::GetTypeId(), this);
+	pEventManager->Subscribe(TLoadMainMenuEvent::GetTypeId(), this);
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(
@@ -111,24 +112,12 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	}
 
 	/// \note The initial mode for the game is a main menu
-	if (auto pGameModeManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>())
-	{
-		E_RESULT_CODE result = RC_OK;
-		result = result | pGameModeManager->PushMode(TPtr<IGameMode>(CreateMainMenuGameMode(pGameModeManager.Get(), 
-			{
-				mpInputContext,
-				mpSceneManager,
-				mpEngineCoreInstance->GetSubsystem<IEventManager>()
-			}, result)));
-
-		TDE2_ASSERT(RC_OK == result);
-	}
-
-	LoadGameLevel(
-		mpEngineCoreInstance->GetSubsystem<ISceneManager>(),
-		mpEngineCoreInstance->GetSubsystem<IResourceManager>(), 
-		mpEngineCoreInstance->GetSubsystem<IEventManager>(),
-		mpEngineCoreInstance->GetSubsystem<IGameModesManager>(), 0);
+	LoadMainMenu(
+		mpSceneManager, 
+		mpResourceManager, 
+		mpEngineCoreInstance->GetSubsystem<IEventManager>(), 
+		mpEngineCoreInstance->GetSubsystem<IGameModesManager>(), 
+		mpInputContext);
 
 #if TDE2_EDITORS_ENABLED
 	E_RESULT_CODE result = RC_OK;
@@ -195,22 +184,29 @@ E_RESULT_CODE CCustomEngineListener::OnEvent(const TBaseEvent* pEvent)
 		return mpEngineCoreInstance->Quit();
 	}
 
+	auto pGameModesManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>();
+	auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
+
 	if (auto pLoadGameLevelEvent = dynamic_cast<const TLoadGameLevelEvent*>(pEvent))
 	{
-		auto pGameModesManager = mpEngineCoreInstance->GetSubsystem<IGameModesManager>();
-		auto pEventManager = mpEngineCoreInstance->GetSubsystem<IEventManager>();
-
 		E_RESULT_CODE result = RC_OK;
 		result = result | pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(pGameModesManager.Get(), 
 			{
 				mpInputContext,
 				mpSceneManager,
-				pEventManager
+				pEventManager,
+				mpResourceManager
 			}, result)));
 
 		TDE2_ASSERT(RC_OK == result);
 
 		LoadNextGameLevel(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager);
+		return RC_OK;
+	}
+
+	if (auto pLoadMainMenuEvent = dynamic_cast<const TLoadMainMenuEvent*>(pEvent))
+	{
+		LoadMainMenu(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager, mpInputContext);
 		return RC_OK;
 	}
 
