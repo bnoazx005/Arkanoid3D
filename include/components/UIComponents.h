@@ -71,10 +71,10 @@ namespace Game
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CMainMenuPanel)
 		public:
-			TDEngine2::TEntityId mPlayButtonEntityId = TDEngine2::TEntityId::Invalid;
-			TDEngine2::TEntityId mSettingsButtonEntityId = TDEngine2::TEntityId::Invalid;
-			TDEngine2::TEntityId mCreditsButtonEntityId = TDEngine2::TEntityId::Invalid;
-			TDEngine2::TEntityId mQuitButtonEntityId = TDEngine2::TEntityId::Invalid;
+			TDEngine2::CEntityRef mPlayButtonEntityId;
+			TDEngine2::CEntityRef mSettingsButtonEntityId;
+			TDEngine2::CEntityRef mCreditsButtonEntityId;
+			TDEngine2::CEntityRef mQuitButtonEntityId;
 	};
 
 

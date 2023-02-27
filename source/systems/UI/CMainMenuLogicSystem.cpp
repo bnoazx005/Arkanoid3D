@@ -43,7 +43,7 @@ namespace Game
 	static void ProcessMainMenuInput(IWorld* pWorld, CMainMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
 	{
 		/// \note Start button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId, [pEventManager]
+		ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId.Get(), [pEventManager]
 		{
 			TLoadGameLevelEvent loadGameLevelEvent;
 			loadGameLevelEvent.mLevelIndex = 1;
@@ -52,19 +52,19 @@ namespace Game
 		});
 
 		/// \note Settings button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId, []
+		ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), []
 		{
 			LOG_MESSAGE("OPEN SETTINGS");
 		});
 
 		/// \note Credits button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId, []
+		ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), []
 		{
 			LOG_MESSAGE("SHOW CREDITS");
 		});
 
 		/// \note Quit button
-		ProcessButtonOnClick(pWorld, pMenuPanel->mQuitButtonEntityId, [pEventManager]
+		ProcessButtonOnClick(pWorld, pMenuPanel->mQuitButtonEntityId.Get(), [pEventManager]
 		{
 			TExitGameEvent exitGameEvent;
 			pEventManager->Notify(&exitGameEvent);

@@ -3,9 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 3518
-              - child_id: 3517
-            owner_id: 3516
+              - child_id: 1519210125
+              - child_id: 584192901
+            owner_id: 3161176803
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -30,10 +30,14 @@ entities:
               x: 0.000000
             type_id: 2172495824
         - component: 
-            credits_button_entity_id: 27
-            play_button_entity_id: 21
-            quit_button_entity_id: 30
-            settings_button_entity_id: 24
+            credits_button_entity_id: 
+              ref_path: 3576739994.3751
+            play_button_entity_id: 
+              ref_path: 3954749755.3751
+            quit_button_entity_id: 
+              ref_path: 2321845155.3751
+            settings_button_entity_id: 
+              ref_path: 1131702134.3751
             type_id: 3544801618
         - component: 
             height: 768
@@ -42,18 +46,18 @@ entities:
             width: 1024
         - component: 
             type_id: 1930024581
-      id: 3516
+      id: 3161176803
       name: MainMenuWindow_Root
   - entity: 
       components: 
         - component: 
             Children: 
-              - child_id: 3519
-              - child_id: 3522
-              - child_id: 3525
-              - child_id: 3528
-            owner_id: 3517
-            parent_id: 3516
+              - child_id: 3954749755
+              - child_id: 1131702134
+              - child_id: 3576739994
+              - child_id: 2321845155
+            owner_id: 584192901
+            parent_id: 3161176803
             position: 
               x: 395.000000
               y: 69.000000
@@ -88,32 +92,32 @@ entities:
               x: 10.000000
               y: 10.000000
             type_id: 4085334425
-      id: 3517
+      id: 584192901
       name: Buttons_Root
   - link: 
-      id: 3528
-      parent_id: 3517
+      id: 2321845155
+      parent_id: 584192901
       position: 
         x: 395.000000
         y: 225.500000
       prefab_id: SimpleButton
   - link: 
-      id: 3525
-      parent_id: 3517
+      id: 3576739994
+      parent_id: 584192901
       position: 
         x: 395.000000
         y: 285.500000
       prefab_id: SimpleButton
   - link: 
-      id: 3522
-      parent_id: 3517
+      id: 1131702134
+      parent_id: 584192901
       position: 
         x: 395.000000
         y: 345.500000
       prefab_id: SimpleButton
   - link: 
-      id: 3519
-      parent_id: 3517
+      id: 3954749755
+      parent_id: 584192901
       position: 
         x: 395.000000
         y: 405.500000
@@ -121,8 +125,8 @@ entities:
   - entity: 
       components: 
         - component: 
-            owner_id: 3518
-            parent_id: 3516
+            owner_id: 1519210125
+            parent_id: 3161176803
             position: 
               x: 520.000000
               y: 363.000000
@@ -156,5 +160,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Arkanoid
             type_id: 2847853640
-      id: 3518
+      id: 1519210125
       name: Title_Label

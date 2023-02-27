@@ -270,7 +270,7 @@ namespace Game
 		}
 
 		/// \todo Replace hardcoded value later
-		SpawnModeWindow("MainMenuWindowUI"); /// \note Spawn a MainMenu window's prefab		
+		SpawnModeWindow("MainMenuWindowUI", true); /// \note Spawn a MainMenu window's prefab		
 		mIsActive = true;
 	}
 
