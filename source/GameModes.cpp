@@ -83,11 +83,15 @@ namespace Game
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
 
 		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
-		result = result | mParams.mpEventManager->Subscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
 
 		/// \todo Replace hardcoded value later
 		SpawnModeWindow("PauseWindowUI"); /// \note Spawn a pause window's prefab		
+
+		if (auto pWorld = mParams.mpSceneManager->GetWorld())
+		{
+			pWorld->SetTimeScaleFactor(0.0f);
+		}
 	}
 
 	void CPauseGameMode::OnExit()
@@ -95,8 +99,12 @@ namespace Game
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
 
 		E_RESULT_CODE result = mParams.mpEventManager->Unsubscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
-		result = result | mParams.mpEventManager->Unsubscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
+
+		if (auto pWorld = mParams.mpSceneManager->GetWorld())
+		{
+			pWorld->SetTimeScaleFactor(1.0f);
+		}
 
 		/// \note Remove the pause window
 		RemoveModeWindow();
@@ -222,6 +230,8 @@ namespace Game
 		
 		if (const TRestartLevelEvent* pRestartLevelEvent = dynamic_cast<const TRestartLevelEvent*>(pEvent))
 		{
+			mpOwner->PopMode(); // Remove pause game mode
+
 			LoadGameLevel(
 				mParams.mpSceneManager, 
 				mParams.mpResourceManager, 
