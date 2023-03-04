@@ -181,7 +181,7 @@ namespace Game
 		\brief The class represents a mode which implements two states 'Game over' and 'Victory'
 	*/
 
-	class CLevelFinishedGameMode : public CCommonGameMode
+	class CLevelFinishedGameMode : public CCommonGameMode, public TDEngine2::IEventHandler
 	{
 		public:
 			friend TDE2_API TDEngine2::IGameMode* CreateLevelFinishedGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
@@ -203,6 +203,24 @@ namespace Game
 			*/
 
 			TDE2_API void Update(TDEngine2::F32 dt) override;
+
+			/*!
+				\brief The method receives a given event and processes it
+
+				\param[in] pEvent A pointer to event data
+
+				\return RC_OK if everything went ok, or some other code, which describes an error
+			*/
+
+			TDE2_API TDEngine2::E_RESULT_CODE OnEvent(const TDEngine2::TBaseEvent* pEvent) override;
+
+			/*!
+				\brief The method returns an identifier of a listener
+
+				\return The method returns an identifier of a listener
+			*/
+
+			TDE2_API TDEngine2::TEventListenerId GetListenerId() const override;
 		private:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLevelFinishedGameMode)
 		private:

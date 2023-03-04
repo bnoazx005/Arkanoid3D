@@ -44,12 +44,20 @@ namespace Game
 
 	TDEngine2::E_RESULT_CODE CCommonGameMode::RemoveModeWindow()
 	{
+		if (TSceneId::Invalid == mWindowOwnerSceneId || TEntityId::Invalid == mWindowHierarchyRootEntityId)
+		{
+			return RC_OK;
+		}
+
 		if (auto sceneResult = mParams.mpSceneManager->GetScene(mWindowOwnerSceneId))
 		{
 			if (auto pScene = sceneResult.Get())
 			{
 				E_RESULT_CODE result = pScene->RemoveEntity(mWindowHierarchyRootEntityId);
 				TDE2_ASSERT(RC_OK == result);
+
+				mWindowHierarchyRootEntityId = TEntityId::Invalid;
+				mWindowOwnerSceneId = TSceneId::Invalid;
 
 				return result;
 			}
@@ -75,6 +83,7 @@ namespace Game
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
 
 		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
+		result = result | mParams.mpEventManager->Subscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
 
 		/// \todo Replace hardcoded value later
@@ -86,6 +95,7 @@ namespace Game
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
 
 		E_RESULT_CODE result = mParams.mpEventManager->Unsubscribe(TDEngine2::TResumeToGameEvent::GetTypeId(), this);
+		result = result | mParams.mpEventManager->Unsubscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
 		TDE2_ASSERT(RC_OK == result);
 
 		/// \note Remove the pause window
@@ -255,6 +265,8 @@ namespace Game
 	{
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
 
+		E_RESULT_CODE result = mParams.mpEventManager->Subscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
+
 		/// \todo Replace hardcoded value later
 		SpawnModeWindow("GameOverWindowUI"); /// \note Spawn a pause window's prefab
 	}
@@ -263,6 +275,9 @@ namespace Game
 	{
 		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
 
+		E_RESULT_CODE result = mParams.mpEventManager->Unsubscribe(TDEngine2::TRestartLevelEvent::GetTypeId(), this);
+		TDE2_ASSERT(RC_OK == result);
+
 		/// \note Remove the pause window
 		RemoveModeWindow();
 	}
@@ -270,6 +285,23 @@ namespace Game
 	void CLevelFinishedGameMode::Update(F32 dt)
 	{
 		E_RESULT_CODE result = RC_OK;
+	}
+
+	E_RESULT_CODE CLevelFinishedGameMode::OnEvent(const TBaseEvent* pEvent)
+	{
+		RemoveModeWindow();
+
+		TLoadGameLevelEvent loadGameLevelEvent;
+		loadGameLevelEvent.mLevelIndex = 1;
+
+		mParams.mpEventManager->Notify(&loadGameLevelEvent);
+		
+		return RC_OK;
+	}
+
+	TEventListenerId CLevelFinishedGameMode::GetListenerId() const
+	{
+		return static_cast<TEventListenerId>(TDE2_TYPE_ID(CLevelFinishedGameMode));
 	}
 
 

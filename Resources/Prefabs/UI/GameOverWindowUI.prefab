@@ -3,8 +3,9 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 3642
-            owner_id: 3641
+              - child_id: 953234056
+              - child_id: 223310532
+            owner_id: 2316092921
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -35,13 +36,77 @@ entities:
             width: 1024
         - component: 
             type_id: 1930024581
-      id: 3641
+        - component: 
+            credits_button_entity_id: 
+              ref_path: 2941531499.3751
+            settings_button_entity_id: 
+              ref_path: 3444913123.3751
+            type_id: 900547755
+      id: 2316092921
       name: DefeatWindow_Root
   - entity: 
       components: 
         - component: 
-            owner_id: 3642
-            parent_id: 3641
+            Children: 
+              - child_id: 3444913123
+              - child_id: 2941531499
+            owner_id: 223310532
+            parent_id: 2316092921
+            position: 
+              x: 395.000000
+              y: 69.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            max_anchor: 
+              x: 0.500000
+              y: 0.500000
+            max_offset: 
+              x: 342.000000
+              y: "-37.000000"
+            min_anchor: 
+              x: 0.500000
+            min_offset: 
+              x: "-117.000000"
+              y: 69.000000
+            pivot: 
+              x: 0.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT
+            cell_size: 
+              x: 200.000000
+              y: 50.000000
+            spacing: 
+              x: 10.000000
+              y: 10.000000
+            type_id: 4085334425
+      id: 223310532
+      name: Buttons_Root
+  - link: 
+      id: 2941531499
+      parent_id: 223310532
+      position: 
+        x: 395.000000
+        y: 345.500000
+      prefab_id: SimpleButton
+  - link: 
+      id: 3444913123
+      parent_id: 223310532
+      position: 
+        x: 395.000000
+        y: 405.500000
+      prefab_id: SimpleButton
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 953234056
+            parent_id: 2316092921
             position: 
               x: 520.000000
               y: 363.000000
@@ -75,5 +140,5 @@ entities:
             overflow_policy_type: NO_BREAK
             text: Game Over
             type_id: 2847853640
-      id: 3642
+      id: 953234056
       name: Defeat_Label
