@@ -234,7 +234,8 @@ namespace Game
 		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager, 
 		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
 	{
-		E_RESULT_CODE result = RC_OK;
+		E_RESULT_CODE result = pGameModesManager->PopMode();
+
 		result = result | pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateMainMenuGameMode(pGameModesManager.Get(),
 			{
 				pInputContext,
