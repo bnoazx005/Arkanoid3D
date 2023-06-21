@@ -187,6 +187,11 @@
 #include "graphics/UI/CLabelComponent.h"
 #include "graphics/UI/C9SliceImageComponent.h"
 #include "graphics/UI/GroupLayoutComponents.h"
+#include "graphics/UI/CToggleComponent.h"
+#include "graphics/UI/CUISliderComponent.h"
+#include "graphics/UI/CInputFieldComponent.h"
+#include "graphics/UI/CScrollableUIAreaComponent.h"
+#include "graphics/UI/CDropDownComponent.h"
 
 /// audio
 #include "audio/IAudioSource.h"
@@ -264,6 +269,7 @@
 #include "scene/components/AudioComponents.h"
 #include "scene/components/CLODStrategyComponent.h"
 #include "scene/components/CObjIdComponent.h"
+#include "scene/components/CPrefabLinkInfoComponent.h"
 #include "scene/ISceneManager.h"
 #include "scene/CSceneManager.h"
 #include "scene/IScene.h"
@@ -272,6 +278,7 @@
 #include "scene/IPrefabsManifest.h"
 #include "scene/CPrefabsRegistry.h"
 #include "scene/CPrefabsManifest.h"
+#include "scene/CPrefabChangesList.h"
 
 ///platform
 #include "platform/win32/CWin32WindowSystem.h"

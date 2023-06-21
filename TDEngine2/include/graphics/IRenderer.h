@@ -52,13 +52,13 @@ namespace TDEngine2
 		\brief The enumeration contains flags that are used to define subgroups within a group which is formed by E_RENDER_QUEUE_GROUP 
 	*/
 
-	ENUM_META()
+	ENUM_META(SECTION=graphics)
 	enum class E_GEOMETRY_SUBGROUP_TAGS: U32
 	{
 		BASE              = 0x0,
 		SKYBOX            = 0x1000,
 		SELECTION_OUTLINE = 0xFFFFFFF0,
-		IMAGE_EFFECTS     = 0xFFFF0000,
+		IMAGE_EFFECTS     = 0x0000FFFF,
 	};
 
 

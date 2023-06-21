@@ -10,6 +10,7 @@
 #include "../../ecs/CBaseComponent.h"
 #include "../../math/TVector2.h"
 #include "../../math/TRect.h"
+#include "../../utils/Color.h"
 
 
 namespace TDEngine2
@@ -84,6 +85,10 @@ namespace TDEngine2
 
 			TDE2_API void SetFontDataVersionId(U32 value);
 
+			TDE2_API void SetTextHeight(U32 height);
+
+			TDE2_API void SetColor(const TColor32F& color);
+
 			TDE2_API void ResetDirtyFlag();
 
 			TDE2_API const std::string& GetText() const;
@@ -98,8 +103,13 @@ namespace TDEngine2
 
 			TDE2_API U32 GetFontDataVersionId() const;
 
+			TDE2_API const TColor32F& GetColor() const;
+
+			TDE2_API U32 GetTextHeight() const;
+
 			TDE2_API bool IsDirty() const;
 
+			TDE2_REGISTER_COMPONENT_PROPERTIES
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLabel)
 
@@ -115,6 +125,9 @@ namespace TDEngine2
 			TResourceId mFontResourceHandle;
 
 			U32         mFontDataVersionId = 0;
+			U32         mTextHeight = 12;
+
+			TColor32F   mFontVertexColor = TColorUtils::mWhite;
 	};
 
 

@@ -8,6 +8,14 @@
 
 
 #include "CBaseSystem.h"
+#include "IWorld.h"
+#include "../graphics/UI/CToggleComponent.h"
+#include "../graphics/UI/CUISliderComponent.h"
+#include "../graphics/UI/CLayoutElementComponent.h"
+#include "../graphics/UI/CInputReceiverComponent.h"
+#include "../graphics/UI/CInputFieldComponent.h"
+#include "../graphics/UI/CScrollableUIAreaComponent.h"
+#include "../graphics/UI/CDropDownComponent.h"
 #include <vector>
 
 
@@ -15,6 +23,7 @@ namespace TDEngine2
 {
 	class IGraphicsContext;
 	class IResourceManager;
+	class ISceneManager;
 	class CUIElementMeshData;
 	class CLayoutElement;
 	class CTransform;
@@ -35,7 +44,7 @@ namespace TDEngine2
 		\return A pointer to CUIElementsProcessSystem's implementation
 	*/
 
-	TDE2_API ISystem* CreateUIElementsProcessSystem(IGraphicsContext* pGraphicsContext, IResourceManager* pResourceManager, E_RESULT_CODE& result);
+	TDE2_API ISystem* CreateUIElementsProcessSystem(IGraphicsContext* pGraphicsContext, IResourceManager* pResourceManager, ISceneManager* pSceneManager, E_RESULT_CODE& result);
 
 
 	/*!
@@ -47,7 +56,7 @@ namespace TDEngine2
 	class CUIElementsProcessSystem : public CBaseSystem
 	{
 		public:
-			friend TDE2_API ISystem* CreateUIElementsProcessSystem(IGraphicsContext*, IResourceManager*, E_RESULT_CODE&);
+			friend TDE2_API ISystem* CreateUIElementsProcessSystem(IGraphicsContext*, IResourceManager*, ISceneManager*, E_RESULT_CODE&);
 		public:
 			template <typename TComponentType>
 			struct TUIRenderableElementsContext
@@ -79,6 +88,12 @@ namespace TDEngine2
 				std::vector<USIZE>           mChildToParentTable;
 				std::vector<TEntityId>       mEntities;
 			};
+
+			typedef TComponentsQueryLocalSlice<CToggle, CInputReceiver>                           TTogglesContext;
+			typedef TComponentsQueryLocalSlice<CUISlider, CLayoutElement, CInputReceiver>         TSlidersContext;
+			typedef TComponentsQueryLocalSlice<CInputField, CLayoutElement, CInputReceiver>       TInputFieldsContext;
+			typedef TComponentsQueryLocalSlice<CScrollableUIArea, CLayoutElement, CInputReceiver> TScrollableAreasContext;
+			typedef TComponentsQueryLocalSlice<CDropDown, CLayoutElement, CInputReceiver>         TDropDownElementsContext;
 		public:
 			TDE2_SYSTEM(CUIElementsProcessSystem);
 
@@ -91,7 +106,7 @@ namespace TDEngine2
 				\return RC_OK if everything went ok, or some other code, which describes an error
 			*/
 
-			TDE2_API E_RESULT_CODE Init(IGraphicsContext* pGraphicsContext, IResourceManager* pResourceManager);
+			TDE2_API E_RESULT_CODE Init(IGraphicsContext* pGraphicsContext, IResourceManager* pResourceManager, ISceneManager* pSceneManager);
 
 			/*!
 				\brief The method inject components array into a system
@@ -117,6 +132,11 @@ namespace TDEngine2
 			TLayoutElementsContext                     mLayoutElementsContext;
 			TCanvasesContext                           mCanvasesContext;
 			TGridGroupsContext                         mGridGroupLayoutsContext;
+			TTogglesContext                            mTogglesContext;
+			TSlidersContext                            mSlidersContext;
+			TInputFieldsContext                        mInputFieldsContext;
+			TScrollableAreasContext                    mScrollAreasContext;
+			TDropDownElementsContext                   mDropDownElementsContext;
 
 			TUIRenderableElementsContext<CImage>       mImagesContext;
 			TUIRenderableElementsContext<C9SliceImage> mSlicedImagesContext;
@@ -125,5 +145,7 @@ namespace TDEngine2
 			IGraphicsContext*                          mpGraphicsContext;
 
 			IResourceManager*                          mpResourceManager;
+			
+			ISceneManager*                             mpSceneManager;
 	};
 }

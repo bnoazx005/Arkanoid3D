@@ -32,6 +32,15 @@ namespace TDEngine2
 	enum class TMaterialInstanceId : U32;
 
 
+	enum class E_UI_MATERIAL_TYPE : U8
+	{
+		DEFAULT = 0,
+		MASK_EMITTER,
+		MASK_USER,
+		COUNT
+	};
+
+
 	TDE2_DECLARE_SCOPED_PTR(IResourceManager)
 	TDE2_DECLARE_SCOPED_PTR(IGraphicsLayersInfo)
 
@@ -60,14 +69,21 @@ namespace TDEngine2
 		public:
 			friend TDE2_API ISystem* CreateUIElementsRenderSystem(IRenderer*, IGraphicsObjectManager*, E_RESULT_CODE&);
 		public:
-			typedef std::unordered_map<TResourceId, TMaterialInstanceId> TMaterialsMap;
+			typedef std::unordered_map<U64, TMaterialInstanceId> TMaterialsMap;
 
 			struct TSystemContext
 			{
 				std::vector<CTransform*>         mpTransforms;
 				std::vector<CLayoutElement*>     mpLayoutElements;
 				std::vector<CUIElementMeshData*> mpUIMeshData;
+				std::vector<U32>                 mPriorities; 
+
+#if TDE2_EDITORS_ENABLED
+				std::vector<std::string> mEntitiesIdentifiers;
+#endif
 			};
+
+			typedef std::array<TResourceId, static_cast<USIZE>(E_UI_MATERIAL_TYPE::COUNT)> TMaterialsArray;
 		public:
 			TDE2_SYSTEM(CUIElementsRenderSystem);
 
@@ -119,8 +135,8 @@ namespace TDEngine2
 			IVertexDeclaration*             mpDefaultUIVertexDecl;
 			IVertexDeclaration*             mpDefaultFontVertexDecl;
 
-			TResourceId                     mDefaultUIMaterialId;
-			TResourceId                     mDefaultFontMaterialId;
+			TMaterialsArray                 mDefaultUIMaterialId;
+			TMaterialsArray                 mDefaultFontMaterialId;
 			
 			CScopedPtr<IGraphicsLayersInfo> mpGraphicsLayers;
 

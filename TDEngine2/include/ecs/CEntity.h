@@ -14,6 +14,7 @@
 #include "../core/Serialization.h"
 #include "CEntityManager.h"
 #include <string>
+#include <functional>
 
 
 namespace TDEngine2
@@ -322,6 +323,8 @@ namespace TDEngine2
 #endif
 
 			TDE2_API bool IsResolved() const;
+
+			TDE2_API bool operator== (const CEntityRef& ref) const;
 		private:
 			CEntityManager* mpEntityManager;
 
@@ -351,4 +354,12 @@ namespace TDEngine2
 
 		TDE2_API TEntityId Resolve(TEntityId input) const;
 	};
+
+
+#if TDE2_EDITORS_ENABLED
+
+	TDE2_API E_RESULT_CODE TraverseEntityHierarchy(CEntityManager* pEntityManager, TEntityId rootEntityId, const std::function<bool(TPtr<CEntity>)>& functor);
+	TDE2_API std::string GetEntityPath(CEntityManager* pEntityManager, TEntityId entityId);
+
+#endif
 }

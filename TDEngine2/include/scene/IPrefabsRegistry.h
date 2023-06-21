@@ -27,6 +27,7 @@ namespace TDEngine2
 	class IArchiveReader;
 	class IArchiveWriter;
 	class CEntityManager;
+	class CPrefabChangesList;
 
 
 	TDE2_DECLARE_SCOPED_PTR(IFileSystem)
@@ -34,6 +35,7 @@ namespace TDEngine2
 	TDE2_DECLARE_SCOPED_PTR(IWorld)
 	TDE2_DECLARE_SCOPED_PTR(CEntityManager)
 	TDE2_DECLARE_SCOPED_PTR(CEntity)
+	TDE2_DECLARE_SCOPED_PTR(CPrefabChangesList)
 
 
 	/*!
@@ -69,11 +71,14 @@ namespace TDEngine2
 					std::string mPrefabId;
 				};
 
+				CEntityManager*              mpEntityOwner = nullptr;
 
 				TEntityId                    mRootEntityId = TEntityId::Invalid;
 				std::vector<TEntityId>       mRelatedEntities;
 
 				std::vector<TPrefabLinkInfo> mNestedPrefabsLinks;
+
+				TPtr<CPrefabChangesList>     mpChanges = nullptr;
 			};
 		public:
 			/*!
@@ -100,6 +105,7 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual CEntity* Spawn(const std::string& id, CEntity* pParent = nullptr, const TEntityCallback& prefabEntityVisitor = nullptr, TEntityId prefabLinkUUID = TEntityId::Invalid) = 0;
+			TDE2_API virtual CEntity* Spawn(CEntity* pObject, CEntity* pParent = nullptr, const TEntityCallback& prefabEntityVisitor = nullptr) = 0;
 
 #if TDE2_EDITORS_ENABLED
 			/*!
@@ -127,9 +133,16 @@ namespace TDEngine2
 				\brief The method loads prefab's data from the given archive reader. The method is allowed only in editors builds
 			*/
 
-			TDE2_API virtual TPrefabInfoEntity LoadPrefabHierarchy(IArchiveReader* pReader, CEntityManager* pEntityManager, 
+			TDE2_API virtual TPrefabInfoEntity LoadPrefabHierarchy(IArchiveReader* pReader, IWorld* pWorld, CEntityManager* pEntityManager,
 				const TEntityFactoryFunctor& entityCustomFactory = nullptr,
 				const TPrefabFactoryFunctor& prefabCustomFactory = nullptr) = 0;
+
+			/*!
+				\brief The method tries to extract information about prefab with given identifier and returns it. If there is no
+				one that satisfies to that condition nullptr is returned
+			*/
+
+			TDE2_API virtual const TPrefabInfoEntity* GetPrefabInfo(const std::string& prefabId) const = 0;
 
 			/*!
 				\brief The method returns an array of prefabs identifier that were declared in already loaded prefabs manifest 

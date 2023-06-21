@@ -14,6 +14,7 @@
 #include "../math/TVector2.h"
 #include "../math/TVector3.h"
 #include "../utils/CU8String.h"
+#include <functional>
 
 
 namespace TDEngine2
@@ -25,8 +26,6 @@ namespace TDEngine2
 	TDE2_DECLARE_SCOPED_PTR(IWindowSystem)
 	TDE2_DECLARE_SCOPED_PTR(IGamepad)
 
-
-#if TDE2_EDITORS_ENABLED
 
 	/*!
 		struct TOnCharInputEvent
@@ -45,7 +44,6 @@ namespace TDEngine2
 		U32 mCharCode = 0x0;
 	} TOnCharInputEvent, *TOnCharInputEventPtr;
 
-#endif
 
 
 	/*!
@@ -106,6 +104,7 @@ namespace TDEngine2
 	TDE2_API TUtf8CodePoint KeyCodeToUTF8Char(const E_KEYCODES& keyCode);
 
 	TDE2_API bool IsAlphaNumericKeyCode(const E_KEYCODES& keyCode);
+	TDE2_API void ForEachAlphaNumericKeyCode(const std::function<bool(E_KEYCODES)>& action);
 
 
 	/*!
@@ -219,9 +218,7 @@ namespace TDEngine2
 
 			TDE2_API virtual bool IsMouseButtonUnpressed(U8 button) = 0;
 
-#if TDE2_EDITORS_ENABLED
 			TDE2_API virtual void SetOnCharInputCallback(const TOnCharActionCallback& onEventAction) = 0;
-#endif
 
 			/*!
 				\brief The method returns a position of a cursor

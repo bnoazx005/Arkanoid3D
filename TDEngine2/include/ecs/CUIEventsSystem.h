@@ -87,6 +87,8 @@ namespace TDEngine2
 
 			IInputContext* mpInputContext; 
 			IDesktopInputContext* mpDesktopInputContext;
+
+			std::string mInputBuffer;
 	};
 
 

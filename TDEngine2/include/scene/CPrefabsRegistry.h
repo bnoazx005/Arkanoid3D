@@ -69,6 +69,7 @@ namespace TDEngine2
 			TDE2_API E_RESULT_CODE Init(IResourceManager* pResourceManager, IFileSystem* pFileSystem, IWorld* pWorld, IEventManager* pEventManager) override;
 
 			TDE2_API CEntity* Spawn(const std::string& id, CEntity* pParent = nullptr, const TEntityCallback & prefabEntityVisitor = nullptr, TEntityId prefabLinkUUID = TEntityId::Invalid) override;
+			TDE2_API CEntity* Spawn(CEntity* pObject, CEntity* pParent = nullptr, const TEntityCallback& prefabEntityVisitor = nullptr) override;
 
 #if TDE2_EDITORS_ENABLED
 			/*!
@@ -97,7 +98,7 @@ namespace TDEngine2
 				not be used in user's runtime code
 			*/
 
-			TDE2_API TPrefabInfoEntity LoadPrefabHierarchy(IArchiveReader* pReader, CEntityManager* pEntityManager, 
+			TDE2_API TPrefabInfoEntity LoadPrefabHierarchy(IArchiveReader* pReader, IWorld* pWorld, CEntityManager* pEntityManager, 
 				const TEntityFactoryFunctor& entityCustomFactory = nullptr,
 				const TPrefabFactoryFunctor& prefabCustomFactory = nullptr) override;
 
@@ -110,6 +111,13 @@ namespace TDEngine2
 			*/
 
 			TDE2_API E_RESULT_CODE OnEvent(const TBaseEvent* pEvent) override;
+
+			/*!
+				\brief The method tries to extract information about prefab with given identifier and returns it. If there is no
+				one that satisfies to that condition nullptr is returned
+			*/
+
+			TDE2_API const TPrefabInfoEntity* GetPrefabInfo(const std::string& prefabId) const override;
 
 			/*!
 				\brief The method returns an identifier of a listener

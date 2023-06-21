@@ -116,6 +116,8 @@ namespace TDEngine2
 
 			TDE2_API E_RESULT_CODE SetTextureAtlasHandle(TResourceId atlasHandle) override;
 
+			TDE2_API E_RESULT_CODE SetFontHeight(F32 height) override;
+
 			/*!
 				\brief The method generates 2D mesh for a given text based on font's settings
 
@@ -140,8 +142,16 @@ namespace TDEngine2
 			*/
 
 			TDE2_API U32 GetDataVersionNumber() const override;
+			
+			TDE2_API F32 GetFontHeight() const override;
 
 			TDE2_API static TVector2 GetPositionFromAlignType(E_FONT_ALIGN_POLICY type);
+
+			/*!
+			\brief The method returns a length of a text based on specified parameters
+		*/
+
+			TDE2_API F32 GetTextLength(const TTextMeshBuildParams& params, const std::string& text, USIZE pos, USIZE count) const override;
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CFont)
 
@@ -152,6 +162,8 @@ namespace TDEngine2
 			//std::unordered_map<U32, TTextVertices> mGeneratedMeshesTable;
 
 			TGlyphsMap mGlyphsMap;
+
+			F32        mFontHeight;
 	};
 
 

@@ -17,7 +17,7 @@ namespace TDEngine2
 	enum class TResourceId : U32;
 
 
-	ENUM_META()
+	ENUM_META(SECTION=ui)
 	enum class E_UI_ELEMENT_ALIGNMENT_TYPE : U8
 	{
 		LEFT,
@@ -130,6 +130,13 @@ namespace TDEngine2
 			TDE2_API TEntityId GetOwnerCanvasId() const;
 
 			TDE2_API bool IsDirty() const;
+
+			/*!
+				\return The method returns type name (lowercase is preffered)
+			*/
+
+			TDE2_API const std::string& GetTypeName() const override;
+
 		protected:
 			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CLayoutElement)
 		protected:
@@ -163,4 +170,7 @@ namespace TDEngine2
 
 
 	TDE2_DECLARE_COMPONENT_FACTORY(LayoutElement, TLayoutElementParameters);
+
+
+	TDE2_DECLARE_FLAG_COMPONENT(UIMaskComponent)
 }

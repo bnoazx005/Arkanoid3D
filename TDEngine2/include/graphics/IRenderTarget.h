@@ -21,6 +21,19 @@ namespace TDEngine2
 	class ITexture2D;
 
 
+	struct TRenderTargetParameters : public TTexture2DParameters
+	{
+		enum class E_TARGET_TYPE : U8
+		{
+			CUBEMAP,
+			TEXTURE2D_ARRAY,
+			TEXTURE2D
+		} mType = E_TARGET_TYPE::TEXTURE2D;
+
+		U32 mArraySize = 1;
+	};
+
+
 	/*!
 		interface IRenderTarget
 
@@ -47,7 +60,7 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual E_RESULT_CODE Init(IResourceManager* pResourceManager, IGraphicsContext* pGraphicsContext, const std::string& name, 
-												const TTexture2DParameters& params) = 0;
+												const TRenderTargetParameters& params) = 0;
 
 			/*!
 				\brief The method copies existing data of the render target into given texture object
