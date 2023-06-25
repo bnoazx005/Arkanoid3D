@@ -1,3 +1,32 @@
+changes: 
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 2321845155.3750
+      value: 
+        type_id: 902153563
+        value: "Quit"
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 3954749755.3750
+      value: 
+        type_id: 902153563
+        value: "New Game"
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 3576739994.3750
+      value: 
+        type_id: 902153563
+        value: "Credits"
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 1131702134.3750
+      value: 
+        type_id: 902153563
+        value: "Settings"
 entities: 
   - entity: 
       components: 
