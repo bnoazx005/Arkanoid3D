@@ -211,9 +211,9 @@ namespace Game
 		static const std::string mExitToMenuButtonEntityIdKey;
 	};
 
-	const std::string TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey = "play_button_entity_id";
-	const std::string TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey = "settings_button_entity_id";
-	const std::string TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey = "credits_button_entity_id";
+	const std::string TPauseMenuPanelArchiveKeys::mResumeButtonEntityIdKey = "resume_button_entity_id";
+	const std::string TPauseMenuPanelArchiveKeys::mRestartButtonEntityIdKey = "restart_button_entity_id";
+	const std::string TPauseMenuPanelArchiveKeys::mExitToMenuButtonEntityIdKey = "exit2menu_button_entity_id";
 
 
 	CPauseMenuPanel::CPauseMenuPanel() :

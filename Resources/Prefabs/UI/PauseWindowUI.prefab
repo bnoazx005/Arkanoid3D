@@ -1,3 +1,25 @@
+changes: 
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 3442.3750
+      value: 
+        type_id: 902153563
+        value: "Exit to menu"
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 3436.3750
+      value: 
+        type_id: 902153563
+        value: "Resume"
+  - element: 
+      property_binding: label.text
+      target_id: 
+        ref_path: 3439.3750
+      value: 
+        type_id: 902153563
+        value: "Restart"
 entities: 
   - entity: 
       components: 
@@ -37,11 +59,11 @@ entities:
         - component: 
             type_id: 1930024581
         - component: 
-            credits_button_entity_id: 
+            resume_button_entity_id: 
               ref_path: 3442.3751
-            play_button_entity_id: 
+            restart_button_entity_id: 
               ref_path: 3436.3751
-            settings_button_entity_id: 
+            exit2menu_button_entity_id: 
               ref_path: 3439.3751
             type_id: 900547755
       id: 4111611753
