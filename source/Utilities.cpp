@@ -67,7 +67,7 @@ namespace Game
 				const TSceneId prevLoadedSceneId = pGameInfo->mCurrLoadedGameId;
 				pGameInfo->mCurrLoadedGameId = sceneId.Get();
 
-				if (TSceneId::Invalid != prevLoadedSceneId)
+				if (TSceneId::Invalid != prevLoadedSceneId && prevLoadedSceneId != pGameInfo->mCurrLoadedGameId)
 				{
 					E_RESULT_CODE result = pSceneManager->UnloadScene(prevLoadedSceneId); /// \note Unload the previously loaded level
 					TDE2_ASSERT(RC_OK == result);
@@ -246,6 +246,76 @@ namespace Game
 		TDE2_ASSERT(RC_OK == result);
 
 		LoadGameLevel(pSceneManager, pResourceManager, pEventManager, pGameModesManager, 0);
+	}
+
+
+	void ReloadCurrGameLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
+		TDEngine2::USIZE levelIndex)
+	{
+		TPtr<IWorld> pWorld = pSceneManager->GetWorld();
+
+		const TResourceId gameLevelsCollectionHandle = pResourceManager->Load<CGameLevelsCollection>(GameLevelsCollectionPath);
+		if (TResourceId::Invalid == gameLevelsCollectionHandle)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		auto pLevelsCollection = pResourceManager->GetResource<CGameLevelsCollection>(gameLevelsCollectionHandle);
+		if (!pLevelsCollection)
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		auto findLevelResult = pLevelsCollection->GetLevelPathByIndex(levelIndex);
+		if (findLevelResult.HasError())
+		{
+			TDE2_ASSERT(false);
+			return;
+		}
+
+		/// \note Enable loading screen 
+		if (pGameModesManager)
+		{
+			E_RESULT_CODE result = pGameModesManager->PushMode(TPtr<IGameMode>(CreateLoadingGameMode(pGameModesManager.Get(),
+				{
+					nullptr,
+					pSceneManager,
+					pEventManager
+				}, result)));
+
+			TDE2_ASSERT(RC_OK == result);
+		}
+
+		if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
+		{
+			E_RESULT_CODE result = pSceneManager->UnloadScene(pGameInfo->mCurrLoadedGameId); /// \note Unload the previously loaded level
+			TDE2_ASSERT(RC_OK == result);
+		}
+
+		/// \note Load a new one
+		pSceneManager->LoadSceneAsync(findLevelResult.Get(), [pSceneManager, pWorld, pEventManager, pGameModesManager](const TResult<TSceneId>& sceneId)
+		{
+			if (CGameInfo* pGameInfo = pWorld->FindEntity(pWorld->FindEntityWithUniqueComponent<CGameInfo>())->GetComponent<CGameInfo>())
+			{
+				pGameInfo->mCurrLoadedGameId = sceneId.Get();
+			}
+
+			TGameLevelLoadedEvent gameLevelLoadedEvent;
+			pEventManager->Notify(&gameLevelLoadedEvent);
+
+			/// \note Disable the loading screen 
+			if (pGameModesManager)
+			{
+				E_RESULT_CODE result = pGameModesManager->PopMode();
+				TDE2_ASSERT(RC_OK == result);
+			}
+		});
 	}
 
 

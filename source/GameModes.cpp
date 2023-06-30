@@ -232,7 +232,7 @@ namespace Game
 		{
 			mpOwner->PopMode(); // Remove pause game mode
 
-			LoadGameLevel(
+			ReloadCurrGameLevel(
 				mParams.mpSceneManager, 
 				mParams.mpResourceManager, 
 				mParams.mpEventManager, 

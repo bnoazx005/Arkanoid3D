@@ -52,6 +52,13 @@ namespace Game
 		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
 		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext);
 
+	TDE2_API void ReloadCurrGameLevel(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
+		TDEngine2::USIZE levelIndex);
+
 	/*!
 		\brief Level's saving utility
 	*/
