@@ -3,11 +3,11 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 13
-              - child_id: 12
-              - child_id: 11
-              - child_id: 10
-            owner_id: 9
+              - child_id: 777271688
+              - child_id: 1444655714
+              - child_id: 1159414994
+              - child_id: 2737973609
+            owner_id: 1739271165
             parent_id: 4294967295
             position: 
               x: 0.000000
@@ -34,20 +34,19 @@ entities:
         - component: 
             height: 768
             inherit_camera_sizes: 0
+            priority: 0
             type_id: 3433087876
             width: 1024
-        - component: 
-            type_id: 1930024581
-      id: 9
+      id: 1739271165
       name: GameUI_Root
   - entity: 
       components: 
         - component: 
-            owner_id: 10
-            parent_id: 9
+            owner_id: 2737973609
+            parent_id: 1739271165
             position: 
-              x: 130.000000
-              y: 513.000000
+              x: 225.000000
+              y: 718.000000
             rotation: 
               w: 1.000000
             scale: 
@@ -59,35 +58,41 @@ entities:
             max_anchor: 
               y: 1.000000
             max_offset: 
-              x: 100.000000
-              y: 100.000000
+              x: 150.000000
+              y: 30.000000
             min_anchor: 
               y: 1.000000
             min_offset: 
-              x: 80.000000
-              y: "-305.000000"
+              x: 150.000000
+              y: "-65.000000"
             pivot: 
               x: 0.500000
               y: 0.500000
             type_id: 2172495824
         - component: 
             align_type: CENTER
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
             font: OpenSans.font
             overflow_policy_type: NO_BREAK
             text: 0
+            text_height: 48
             type_id: 2847853640
         - component: 
             type_id: 3613622628
-      id: 10
+      id: 2737973609
       name: ScoreValue_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 11
-            parent_id: 9
+            owner_id: 1159414994
+            parent_id: 1739271165
             position: 
               x: 924.000000
-              y: 461.000000
+              y: 718.000000
             rotation: 
               w: 1.000000
             scale: 
@@ -100,35 +105,41 @@ entities:
               x: 1.000000
               y: 1.000000
             max_offset: 
-              x: 100.000000
-              y: 100.000000
+              x: 150.000000
+              y: 30.000000
             min_anchor: 
               x: 1.000000
               y: 1.000000
             min_offset: 
               x: "-100.000000"
-              y: "-307.000000"
+              y: "-50.000000"
             pivot: 
               x: 0.000000
             type_id: 2172495824
         - component: 
             align_type: CENTER
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
             font: OpenSans.font
             overflow_policy_type: NO_BREAK
             text: 3
+            text_height: 48
             type_id: 2847853640
         - component: 
             type_id: 600057003
-      id: 11
+      id: 1159414994
       name: LivesValue_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 12
-            parent_id: 9
+            owner_id: 1444655714
+            parent_id: 1739271165
             position: 
-              x: 889.000000
-              y: 461.000000
+              x: 924.000000
+              y: 718.000000
             rotation: 
               w: 1.000000
             scale: 
@@ -141,33 +152,38 @@ entities:
               x: 1.000000
               y: 1.000000
             max_offset: 
-              x: 100.000000
-              y: 100.000000
+              y: 30.000000
             min_anchor: 
               x: 1.000000
               y: 1.000000
             min_offset: 
-              x: "-135.000000"
-              y: "-307.000000"
+              x: "-100.000000"
+              y: "-50.000000"
             pivot: 
               x: 0.000000
             type_id: 2172495824
         - component: 
             align_type: CENTER
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
             font: OpenSans.font
             overflow_policy_type: NO_BREAK
             text: "Lives: "
+            text_height: 48
             type_id: 2847853640
-      id: 12
+      id: 1444655714
       name: Lives_Label
   - entity: 
       components: 
         - component: 
-            owner_id: 13
-            parent_id: 9
+            owner_id: 777271688
+            parent_id: 1739271165
             position: 
-              x: 70.000000
-              y: 513.000000
+              x: 50.000000
+              y: 718.000000
             rotation: 
               w: 1.000000
             scale: 
@@ -180,21 +196,26 @@ entities:
               y: 1.000000
             max_offset: 
               x: 100.000000
-              y: 100.000000
+              y: 30.000000
             min_anchor: 
               y: 1.000000
             min_offset: 
-              x: 20.000000
-              y: "-305.000000"
+              y: "-65.000000"
             pivot: 
               x: 0.500000
               y: 0.500000
             type_id: 2172495824
         - component: 
             align_type: CENTER
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
             font: OpenSans.font
             overflow_policy_type: NO_BREAK
             text: "Score: "
+            text_height: 48
             type_id: 2847853640
-      id: 13
+      id: 777271688
       name: Score_Label
