@@ -1,0 +1,9 @@
+meta: 
+  "resource-type": "editor-settings"
+  "version-tag": 1
+
+level_editor_settings:
+  is_grid_snap_enabled: 0
+  is_guidelines_snap_enabled: 0
+  guidelines_display_threshold: 20.0
+  snap_distance: 5.0

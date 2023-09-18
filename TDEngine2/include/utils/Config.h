@@ -58,7 +58,7 @@ namespace TDEngine2
 
 	#define TDE2_MAJOR_VERSON  0
 	#define TDE2_MINOR_VERSION 6
-	#define TDE2_PATCH_VERSION 19
+	#define TDE2_PATCH_VERSION 20
 
 	constexpr unsigned int EngineVersion = (TDE2_MAJOR_VERSON << 16) | (TDE2_MINOR_VERSION << 8) | TDE2_PATCH_VERSION;
 
