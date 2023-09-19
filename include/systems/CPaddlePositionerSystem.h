@@ -77,5 +77,6 @@ namespace Game
 			TDEngine2::TComponentsQueryLocalSlice<Game::CPaddle, TDEngine2::CTransform> mPaddlesContext;
 			TDEngine2::TComponentsQueryLocalSlice<Game::CPlayerPositioner, TDEngine2::CTransform> mPositionersContext;
 			TDEngine2::IWorld* mpWorld = nullptr;
+			bool mIsDirty = false;
 	};
 }

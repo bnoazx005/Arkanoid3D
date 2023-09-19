@@ -40,16 +40,19 @@ namespace Game
 
 	void CPaddlePositionerSystem::Update(IWorld* pWorld, F32 dt)
 	{
-	}
+		if (!mIsDirty)
+		{
+			return;
+		}
 
-	E_RESULT_CODE CPaddlePositionerSystem::OnEvent(const TBaseEvent* pEvent)
-	{
+		mIsDirty = false;
+
 		auto& transforms = std::get<std::vector<CTransform*>>(mPaddlesContext.mComponentsSlice);
 		auto& positionerTransform = std::get<std::vector<CTransform*>>(mPositionersContext.mComponentsSlice);
 
 		if (positionerTransform.empty())
 		{
-			return RC_OK;
+			return;
 		}
 
 		const TVector3 paddlePosition = positionerTransform.front()->GetPosition();
@@ -58,6 +61,11 @@ namespace Game
 		{
 			transforms[i]->SetPosition(paddlePosition);
 		}
+	}
+
+	E_RESULT_CODE CPaddlePositionerSystem::OnEvent(const TBaseEvent* pEvent)
+	{
+		mIsDirty = true;
 
 		return RC_OK;
 	}
