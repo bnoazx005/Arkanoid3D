@@ -386,6 +386,120 @@ namespace Game
 
 
 	/*!
+		\brief CSettingsMenuGameMode's definition
+	*/
+
+	CSettingsMenuGameMode::CSettingsMenuGameMode() :
+		CCommonGameMode("SettingsMenuMode")
+	{
+	}
+
+	void CSettingsMenuGameMode::OnEnter()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
+
+		if (mIsActive)
+		{
+			return;
+		}
+
+		/// \todo Replace hardcoded value later
+		SpawnModeWindow("SettingsMenuWindowUI", true); /// \note Spawn a SettingsMenu window's prefab		
+		mIsActive = true;
+	}
+
+	void CSettingsMenuGameMode::OnExit()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
+
+		/// \note Remove the SettingsMenu window
+		RemoveModeWindow();
+		mIsActive = false;
+	}
+
+	void CSettingsMenuGameMode::Update(F32 dt)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		/*if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
+		{
+			mpOwner->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(mpOwner, mParams, result)));
+		}*/
+
+	}
+
+
+	TDE2_API IGameMode* CreateSettingsMenuGameMode(IGameModesManager* pOwner, const TStateInitParams& params, E_RESULT_CODE& result)
+	{
+		if (auto pMode = CREATE_IMPL(CSettingsMenuGameMode, CSettingsMenuGameMode, result, pOwner))
+		{
+			pMode->mParams = params;
+
+			return dynamic_cast<IGameMode*>(pMode);
+		}
+
+		return nullptr;
+	}
+
+
+	/*!
+		\brief CCreditsMenuGameMode's definition
+	*/
+
+	CCreditsMenuGameMode::CCreditsMenuGameMode() :
+		CCommonGameMode("CreditsMenuMode")
+	{
+	}
+
+	void CCreditsMenuGameMode::OnEnter()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnEnter, mode: \"{0}\"", mName));
+
+		if (mIsActive)
+		{
+			return;
+		}
+
+		/// \todo Replace hardcoded value later
+		SpawnModeWindow("CreditsMenuWindowUI", true); /// \note Spawn a CreditsMenu window's prefab		
+		mIsActive = true;
+	}
+
+	void CCreditsMenuGameMode::OnExit()
+	{
+		LOG_MESSAGE(Wrench::StringUtils::Format("[BaseGameMode] Invoke OnExit, mode: \"{0}\"", mName));
+
+		/// \note Remove the CreditsMenu window
+		RemoveModeWindow();
+		mIsActive = false;
+	}
+
+	void CCreditsMenuGameMode::Update(F32 dt)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		/*if (mParams.mpInputContext->IsKeyPressed(E_KEYCODES::KC_ESCAPE)) /// \todo Replace with keybindings implementation
+		{
+			mpOwner->SwitchMode(TPtr<IGameMode>(CreateCoreGameMode(mpOwner, mParams, result)));
+		}*/
+
+	}
+
+
+	TDE2_API IGameMode* CreateCreditsMenuGameMode(IGameModesManager* pOwner, const TStateInitParams& params, E_RESULT_CODE& result)
+	{
+		if (auto pMode = CREATE_IMPL(CCreditsMenuGameMode, CCreditsMenuGameMode, result, pOwner))
+		{
+			pMode->mParams = params;
+
+			return dynamic_cast<IGameMode*>(pMode);
+		}
+
+		return nullptr;
+	}
+
+
+	/*!
 		\brief CLoadingGameMode's definition
 	*/
 

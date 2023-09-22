@@ -127,6 +127,32 @@ namespace TDEngine2
 
 
 	/*!
+		struct TLoadSettingsMenuEvent
+	*/
+
+	typedef struct TLoadSettingsMenuEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TLoadSettingsMenuEvent() = default;
+
+		TDE2_REGISTER_TYPE(TLoadSettingsMenuEvent)
+		REGISTER_EVENT_TYPE(TLoadSettingsMenuEvent)
+	} TLoadSettingsMenuEvent, *TLoadSettingsMenuEventPtr;
+
+
+	/*!
+		struct TLoadCreditsMenuEvent
+	*/
+
+	typedef struct TLoadCreditsMenuEvent : TDEngine2::TBaseEvent
+	{
+		virtual ~TLoadCreditsMenuEvent() = default;
+
+		TDE2_REGISTER_TYPE(TLoadCreditsMenuEvent)
+		REGISTER_EVENT_TYPE(TLoadCreditsMenuEvent)
+	} TLoadCreditsMenuEvent, *TLoadCreditsMenuEventPtr;
+
+
+	/*!
 		struct TExitGameEvent
 	*/
 

@@ -271,6 +271,98 @@ namespace Game
 			bool mIsActive = false;
 	};
 
+	
+	/*!
+		\brief A factory function for creation objects of CBaseGameMode's type.
+
+		\param[out] result Contains RC_OK if everything went ok, or some other code, which describes an error
+
+		\return A pointer to CBaseGameMode's implementation
+	*/
+
+	TDE2_API TDEngine2::IGameMode* CreateSettingsMenuGameMode(TDEngine2::IGameModesManager* pOwner, const TStateInitParams& params, TDEngine2::E_RESULT_CODE& result);
+
+
+	/*!
+		class CSettingsMenuGameMode
+
+		\brief The implementation of the options screen
+	*/
+
+	class CSettingsMenuGameMode : public CCommonGameMode
+	{
+		public:
+			friend TDE2_API TDEngine2::IGameMode* CreateSettingsMenuGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
+		public:
+			/*!
+				\brief The method is invoked when game modes manager activates the state
+			*/
+
+			TDE2_API void OnEnter() override;
+
+			/*!
+				\brief The method is invoked when a game modes manager is switcher to a new state from the current one
+			*/
+
+			TDE2_API void OnExit() override;
+
+			/*!
+				\brief The method is invoked at least once per frame when the current mode is active
+			*/
+
+			TDE2_API void Update(TDEngine2::F32 dt) override;
+		private:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CSettingsMenuGameMode)
+		private:
+			bool mIsActive = false;
+	};
+
+
+	/*!
+		\brief A factory function for creation objects of CBaseGameMode's type.
+
+		\param[out] result Contains RC_OK if everything went ok, or some other code, which describes an error
+
+		\return A pointer to CBaseGameMode's implementation
+	*/
+
+	TDE2_API TDEngine2::IGameMode* CreateCreditsMenuGameMode(TDEngine2::IGameModesManager* pOwner, const TStateInitParams& params, TDEngine2::E_RESULT_CODE& result);
+
+
+	/*!
+		class CCreditsMenuGameMode
+
+		\brief The implementation of game credits
+	*/
+
+	class CCreditsMenuGameMode : public CCommonGameMode
+	{
+		public:
+			friend TDE2_API TDEngine2::IGameMode* CreateCreditsMenuGameMode(TDEngine2::IGameModesManager*, const TStateInitParams&, TDEngine2::E_RESULT_CODE&);
+		public:
+			/*!
+				\brief The method is invoked when game modes manager activates the state
+			*/
+
+			TDE2_API void OnEnter() override;
+
+			/*!
+				\brief The method is invoked when a game modes manager is switcher to a new state from the current one
+			*/
+
+			TDE2_API void OnExit() override;
+
+			/*!
+				\brief The method is invoked at least once per frame when the current mode is active
+			*/
+
+			TDE2_API void Update(TDEngine2::F32 dt) override;
+		private:
+			DECLARE_INTERFACE_IMPL_PROTECTED_MEMBERS(CCreditsMenuGameMode)
+		private:
+			bool mIsActive = false;
+	};
+
 
 	/*!
 		\brief A factory function for creation objects of CBaseGameMode's type.

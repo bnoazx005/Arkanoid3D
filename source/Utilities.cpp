@@ -249,6 +249,46 @@ namespace Game
 	}
 
 
+	void LoadSettingsMenu(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
+	{
+		E_RESULT_CODE result = RC_OK;
+		
+		result = pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateSettingsMenuGameMode(pGameModesManager.Get(),
+			{
+				pInputContext,
+				pSceneManager,
+				pEventManager
+			}, result)));
+
+		TDE2_ASSERT(RC_OK == result);
+	}
+
+
+	void LoadCreditsMenu(
+		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
+		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,
+		TDEngine2::TPtr<TDEngine2::IEventManager> pEventManager,
+		TDEngine2::TPtr<TDEngine2::IGameModesManager> pGameModesManager,
+		TDEngine2::TPtr<TDEngine2::IDesktopInputContext> pInputContext)
+	{
+		E_RESULT_CODE result = RC_OK;
+
+		result = pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateCreditsMenuGameMode(pGameModesManager.Get(),
+			{
+				pInputContext,
+				pSceneManager,
+				pEventManager
+			}, result)));
+
+		TDE2_ASSERT(RC_OK == result);
+	}
+
+
 	void ReloadCurrGameLevel(
 		TDEngine2::TPtr<TDEngine2::ISceneManager> pSceneManager,
 		TDEngine2::TPtr<TDEngine2::IResourceManager> pResourceManager,

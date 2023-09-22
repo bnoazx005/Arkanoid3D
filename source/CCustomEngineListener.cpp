@@ -74,6 +74,8 @@ E_RESULT_CODE CCustomEngineListener::OnStart()
 	pEventManager->Subscribe(TExitGameEvent::GetTypeId(), this);
 	pEventManager->Subscribe(TLoadGameLevelEvent::GetTypeId(), this);
 	pEventManager->Subscribe(TLoadMainMenuEvent::GetTypeId(), this);
+	pEventManager->Subscribe(TLoadSettingsMenuEvent::GetTypeId(), this);
+	pEventManager->Subscribe(TLoadCreditsMenuEvent::GetTypeId(), this);
 
 	Game::RegisterGameComponents(mpWorld, mpEngineCoreInstance->GetSubsystem<IEditorsManager>());
 	Game::RegisterGameSystems(
@@ -207,6 +209,18 @@ E_RESULT_CODE CCustomEngineListener::OnEvent(const TBaseEvent* pEvent)
 	if (auto pLoadMainMenuEvent = dynamic_cast<const TLoadMainMenuEvent*>(pEvent))
 	{
 		LoadMainMenu(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager, mpInputContext);
+		return RC_OK;
+	}
+
+	if (auto pLoadSettingsMenuEvent = dynamic_cast<const TLoadSettingsMenuEvent*>(pEvent))
+	{
+		LoadSettingsMenu(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager, mpInputContext);
+		return RC_OK;
+	}
+
+	if (auto pLoadCreditsMenuEvent = dynamic_cast<const TLoadCreditsMenuEvent*>(pEvent))
+	{
+		LoadCreditsMenu(mpSceneManager, mpResourceManager, pEventManager, pGameModesManager, mpInputContext);
 		return RC_OK;
 	}
 

@@ -55,18 +55,20 @@ namespace Game
 		}
 
 		/// \note Settings button
-		if (ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), [pEventManager]
 		{
-			LOG_MESSAGE("OPEN SETTINGS");
+			TLoadSettingsMenuEvent loadSettingsMenuEvent;
+			pEventManager->Notify(&loadSettingsMenuEvent);
 		}))
 		{
 			return;
 		}
 
 		/// \note Credits button
-		if (ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), []
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), [pEventManager]
 		{
-			LOG_MESSAGE("SHOW CREDITS");
+			TLoadCreditsMenuEvent loadCreditsMenuEvent;
+			pEventManager->Notify(&loadCreditsMenuEvent);
 		}))
 		{
 			return;
