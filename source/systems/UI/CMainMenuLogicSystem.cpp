@@ -40,7 +40,7 @@ namespace Game
 	}
 
 
-	static void ProcessMainMenuInput(IWorld* pWorld, CMainMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
+	static void ProcessMainMenuInput(ISystem* pOwnerSystem, IWorld* pWorld, CMainMenuPanel* pMenuPanel, TPtr<IEventManager> pEventManager)
 	{
 		/// \note Start button
 		if (ProcessButtonOnClick(pWorld, pMenuPanel->mPlayButtonEntityId.Get(), [pEventManager]
@@ -55,20 +55,26 @@ namespace Game
 		}
 
 		/// \note Settings button
-		if (ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), [pEventManager]
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mSettingsButtonEntityId.Get(), [pOwnerSystem, pEventManager]
 		{
-			TLoadSettingsMenuEvent loadSettingsMenuEvent;
-			pEventManager->Notify(&loadSettingsMenuEvent);
+			pOwnerSystem->AddDefferedCommand([pEventManager]
+			{
+				TLoadSettingsMenuEvent loadSettingsMenuEvent;
+				pEventManager->Notify(&loadSettingsMenuEvent);
+			});
 		}))
 		{
 			return;
 		}
 
 		/// \note Credits button
-		if (ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), [pEventManager]
+		if (ProcessButtonOnClick(pWorld, pMenuPanel->mCreditsButtonEntityId.Get(), [pOwnerSystem, pEventManager]
 		{
-			TLoadCreditsMenuEvent loadCreditsMenuEvent;
-			pEventManager->Notify(&loadCreditsMenuEvent);
+			pOwnerSystem->AddDefferedCommand([pEventManager]
+			{
+				TLoadCreditsMenuEvent loadCreditsMenuEvent;
+				pEventManager->Notify(&loadCreditsMenuEvent);
+			});
 		}))
 		{
 			return;
@@ -92,7 +98,7 @@ namespace Game
 
 		for (USIZE i = 0; i < mSystemContext.mComponentsCount; i++)
 		{
-			ProcessMainMenuInput(pWorld, panels[i], mpEventManager);
+			ProcessMainMenuInput(this, pWorld, panels[i], mpEventManager);
 		}
 	}
 

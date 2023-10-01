@@ -258,7 +258,7 @@ namespace Game
 	{
 		E_RESULT_CODE result = RC_OK;
 		
-		result = pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateSettingsMenuGameMode(pGameModesManager.Get(),
+		result = pGameModesManager->PushMode(TPtr<IGameMode>(CreateSettingsMenuGameMode(pGameModesManager.Get(),
 			{
 				pInputContext,
 				pSceneManager,
@@ -278,7 +278,7 @@ namespace Game
 	{
 		E_RESULT_CODE result = RC_OK;
 
-		result = pGameModesManager->SwitchMode(TPtr<IGameMode>(CreateCreditsMenuGameMode(pGameModesManager.Get(),
+		result = pGameModesManager->PushMode(TPtr<IGameMode>(CreateCreditsMenuGameMode(pGameModesManager.Get(),
 			{
 				pInputContext,
 				pSceneManager,

@@ -15,6 +15,8 @@
 #include "../include/systems/CPaddlePositionerSystem.h"
 #include "../include/systems/UI/CMainMenuLogicSystem.h"
 #include "../include/systems/UI/CPauseMenuLogicSystem.h"
+#include "../include/systems/UI/COptionsMenuLogicSystem.h"
+#include "../include/systems/UI/CCreditsMenuLogicSystem.h"
 #include "../include/components/CGameInfo.h"
 #include "../include/editor/CLevelsEditorWindow.h"
 #include <TDEngine2.h>
@@ -60,6 +62,8 @@ namespace Game
 		/// UI systems
 		pWorld->RegisterSystem(Game::CreateMainMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
 		pWorld->RegisterSystem(Game::CreatePauseMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
+		pWorld->RegisterSystem(Game::CreateOptionsMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
+		pWorld->RegisterSystem(Game::CreateCreditsMenuLogicSystem({ pGameModesManager, pEventManager, pSceneManager }, result));
 
 		return result;
 	}
