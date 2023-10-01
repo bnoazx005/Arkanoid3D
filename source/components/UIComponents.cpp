@@ -370,4 +370,266 @@ namespace Game
 	{
 		return CREATE_IMPL(IComponentFactory, CPauseMenuPanelFactory, result);
 	}
+
+
+	/*!
+		COptionsMenuPanel's definition
+	*/
+
+	struct TOptionsMenuPanelArchiveKeys
+	{
+		static const std::string mBackButtonEntityIdKey;
+	};
+
+	const std::string TOptionsMenuPanelArchiveKeys::mBackButtonEntityIdKey = "back_button_entity_id";
+
+
+	COptionsMenuPanel::COptionsMenuPanel() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE COptionsMenuPanel::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mBackButtonEntityId = LoadEntityRef(pReader, TOptionsMenuPanelArchiveKeys::mBackButtonEntityIdKey);
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE COptionsMenuPanel::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(COptionsMenuPanel::GetTypeId()));
+
+			SaveEntityRef(pWriter, TOptionsMenuPanelArchiveKeys::mBackButtonEntityIdKey, mBackButtonEntityId);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE COptionsMenuPanel::PostLoad(CEntityManager* pEntityManager, const TEntitiesMapper& entitiesIdentifiersRemapper)
+	{
+		mBackButtonEntityId.SetEntityManager(pEntityManager);
+
+		return CBaseComponent::PostLoad(pEntityManager, entitiesIdentifiersRemapper);
+	}
+
+	E_RESULT_CODE COptionsMenuPanel::Clone(IComponent*& pDestObject) const
+	{
+		if (COptionsMenuPanel* pObject = dynamic_cast<COptionsMenuPanel*>(pDestObject))
+		{
+			pObject->mBackButtonEntityId = mBackButtonEntityId;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void COptionsMenuPanel::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("OptionsMenuPanel", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			COptionsMenuPanel& component = dynamic_cast<COptionsMenuPanel&>(editorContext.mComponent);
+
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Back Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld),
+					Wrench::StringUtils::GetEmptyStr(),
+					component.mBackButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateOptionsMenuPanel(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, COptionsMenuPanel, result);
+	}
+
+
+	/*!
+		\brief COptionsMenuPanelFactory's definition
+	*/
+
+	COptionsMenuPanelFactory::COptionsMenuPanelFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* COptionsMenuPanelFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateOptionsMenuPanel(result);
+	}
+
+	E_RESULT_CODE COptionsMenuPanelFactory::SetupComponent(COptionsMenuPanel* pComponent, const TOptionsMenuPanelParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateOptionsMenuPanelFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, COptionsMenuPanelFactory, result);
+	}
+
+
+	/*!
+		CCreditsMenuPanel's definition
+	*/
+
+	struct TCreditsMenuPanelArchiveKeys
+	{
+		static const std::string mBackButtonEntityIdKey;
+	};
+
+	const std::string TCreditsMenuPanelArchiveKeys::mBackButtonEntityIdKey = "back_button_entity_id";
+
+
+	CCreditsMenuPanel::CCreditsMenuPanel() :
+		CBaseComponent()
+	{
+	}
+
+	E_RESULT_CODE CCreditsMenuPanel::Load(IArchiveReader* pReader)
+	{
+		if (!pReader)
+		{
+			return RC_FAIL;
+		}
+
+		mBackButtonEntityId = LoadEntityRef(pReader, TCreditsMenuPanelArchiveKeys::mBackButtonEntityIdKey);
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CCreditsMenuPanel::Save(IArchiveWriter* pWriter)
+	{
+		if (!pWriter)
+		{
+			return RC_FAIL;
+		}
+
+		pWriter->BeginGroup("component");
+		{
+			pWriter->SetUInt32("type_id", static_cast<U32>(CCreditsMenuPanel::GetTypeId()));
+
+			SaveEntityRef(pWriter, TCreditsMenuPanelArchiveKeys::mBackButtonEntityIdKey, mBackButtonEntityId);
+		}
+		pWriter->EndGroup();
+
+		return RC_OK;
+	}
+
+	E_RESULT_CODE CCreditsMenuPanel::PostLoad(CEntityManager* pEntityManager, const TEntitiesMapper& entitiesIdentifiersRemapper)
+	{
+		mBackButtonEntityId.SetEntityManager(pEntityManager);
+
+		return CBaseComponent::PostLoad(pEntityManager, entitiesIdentifiersRemapper);
+	}
+
+	E_RESULT_CODE CCreditsMenuPanel::Clone(IComponent*& pDestObject) const
+	{
+		if (CCreditsMenuPanel* pObject = dynamic_cast<CCreditsMenuPanel*>(pDestObject))
+		{
+			pObject->mBackButtonEntityId = mBackButtonEntityId;
+
+			return RC_OK;
+		}
+
+		return RC_FAIL;
+	}
+
+#if TDE2_EDITORS_ENABLED
+
+	void CCreditsMenuPanel::DrawInspectorGUI(const TEditorContext& context)
+	{
+		CDefaultInspectorsRegistry::DrawInspectorHeader("CreditsMenuPanel", context, [](const TEditorContext& editorContext)
+		{
+			IImGUIContext& imguiContext = editorContext.mImGUIContext;
+			CCreditsMenuPanel& component = dynamic_cast<CCreditsMenuPanel&>(editorContext.mComponent);
+
+			{
+				imguiContext.BeginHorizontal();
+				imguiContext.Label("Back Button EntityId: ");
+
+				CImGUIExtensions::EntityRefField(
+					MakeScopedFromRawPtr<IImGUIContext>(&imguiContext),
+					MakeScopedFromRawPtr<IWorld>(&editorContext.mWorld),
+					Wrench::StringUtils::GetEmptyStr(),
+					component.mBackButtonEntityId);
+
+				imguiContext.EndHorizontal();
+			}
+		});
+	}
+
+#endif
+
+
+	IComponent* CreateCreditsMenuPanel(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponent, CCreditsMenuPanel, result);
+	}
+
+
+	/*!
+		\brief CCreditsMenuPanelFactory's definition
+	*/
+
+	CCreditsMenuPanelFactory::CCreditsMenuPanelFactory() :
+		CBaseComponentFactory()
+	{
+	}
+
+	IComponent* CCreditsMenuPanelFactory::CreateDefault() const
+	{
+		E_RESULT_CODE result = RC_OK;
+		return CreateCreditsMenuPanel(result);
+	}
+
+	E_RESULT_CODE CCreditsMenuPanelFactory::SetupComponent(CCreditsMenuPanel* pComponent, const TCreditsMenuPanelParameters& params) const
+	{
+		if (!pComponent)
+		{
+			return RC_INVALID_ARGS;
+		}
+
+		return RC_OK;
+	}
+
+
+	IComponentFactory* CreateCreditsMenuPanelFactory(E_RESULT_CODE& result)
+	{
+		return CREATE_IMPL(IComponentFactory, CCreditsMenuPanelFactory, result);
+	}
 }

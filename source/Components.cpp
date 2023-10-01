@@ -38,8 +38,6 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGameInfoFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateDamageableFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateGravitableFactory(result)));
-		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateProjectileFactory(result)));
-		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreatePlayerPositionerFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLevelSettingsFactory(result)));
 
 		/// bonuses
@@ -52,12 +50,11 @@ namespace Game
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLaserBonusFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateMultipleBallsBonusFactory(result)));
 		
-		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateLivesLabelFactory(result)));
-		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateScoreLabelFactory(result)));
-
 		// UI components
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateMainMenuPanelFactory(result)));
 		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreatePauseMenuPanelFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateOptionsMenuPanelFactory(result)));
+		result = result | pWorld->RegisterComponentFactory(TDEngine2::TPtr<TDEngine2::IComponentFactory>(CreateCreditsMenuPanelFactory(result)));
 
 #if TDE2_EDITORS_ENABLED
 		result = result | pEditorsManager->RegisterComponentInspector(CPaddle::GetTypeId(), CPaddle::DrawInspectorGUI);
@@ -79,6 +76,8 @@ namespace Game
 
 		result = result | pEditorsManager->RegisterComponentInspector(CMainMenuPanel::GetTypeId(), CMainMenuPanel::DrawInspectorGUI);
 		result = result | pEditorsManager->RegisterComponentInspector(CPauseMenuPanel::GetTypeId(), CPauseMenuPanel::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(COptionsMenuPanel::GetTypeId(), COptionsMenuPanel::DrawInspectorGUI);
+		result = result | pEditorsManager->RegisterComponentInspector(CCreditsMenuPanel::GetTypeId(), CCreditsMenuPanel::DrawInspectorGUI);
 
 		/// \todo Register inspectors for the components here
 #endif
