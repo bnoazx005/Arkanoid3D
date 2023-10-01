@@ -20,7 +20,7 @@ namespace TDEngine2
 
 
 	TDE2_DECLARE_SCOPED_PTR(IJobManager)
-
+	TDE2_DECLARE_SCOPED_PTR(ISystem)
 
 	/*!
 		interface ISystemManager
@@ -159,6 +159,8 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual TSystemId FindSystem(TypeId systemTypeId) = 0;
+
+			TDE2_API virtual TPtr<ISystem> GetSystem(TSystemId handle) = 0;
 
 			/*!
 				\brief The method allows to iterate over all registered systems including deactivated ones

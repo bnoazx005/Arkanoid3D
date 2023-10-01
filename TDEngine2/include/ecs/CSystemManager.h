@@ -23,7 +23,7 @@ namespace TDEngine2
 	class IWorld;
 	class ISystem;
 
-	
+		
 	/*!
 		\brief A factory function for creation objects of CSystemManager's type.
 
@@ -193,6 +193,8 @@ namespace TDEngine2
 			*/
 
 			TDE2_API TSystemId FindSystem(TypeId systemTypeId) override;
+
+			TDE2_API TPtr<ISystem> GetSystem(TSystemId handle) override;
 
 			TDE2_API void ForEachSystem(const std::function<void(TSystemId, const ISystem* const)> action = nullptr) const override;
 

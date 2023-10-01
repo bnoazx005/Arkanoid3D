@@ -82,6 +82,10 @@ namespace TDEngine2
 
 			TDE2_API E_RESULT_CODE SetTitle(const std::string& title) override;
 
+			TDE2_API E_RESULT_CODE SetScreenResolution(U32 width, U32 height) override;
+
+			TDE2_API E_RESULT_CODE SetIsFullscreenEnabled(bool state, bool borderlessMode = true) override;
+
 			/*!
 				\brief The method pass all the needed data into the immediate GUI context
 
@@ -177,6 +181,12 @@ namespace TDEngine2
 			*/
 
 			TDE2_API TRectU32 GetClientRect() const override;
+
+			/*!
+				\return The method returns an array of all screen resolutions that current active monitor supports
+			*/
+
+			TDE2_API std::vector<TScreenResolutionInfo> GetAvailableScreenResolutions() const override;
 
 #if TDE2_EDITORS_ENABLED
 			/*!

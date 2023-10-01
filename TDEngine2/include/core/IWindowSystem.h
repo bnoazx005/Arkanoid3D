@@ -130,6 +130,10 @@ namespace TDEngine2
 
 			TDE2_API virtual E_RESULT_CODE SetTitle(const std::string& title) = 0;
 
+			TDE2_API virtual E_RESULT_CODE SetScreenResolution(U32 width, U32 height) = 0;
+
+			TDE2_API virtual E_RESULT_CODE SetIsFullscreenEnabled(bool state, bool borderlessMode = true) = 0;
+
 			/*!
 				\brief The method returns an object that contains internal handlers that are used by the system.
 
@@ -217,6 +221,12 @@ namespace TDEngine2
 			*/
 
 			TDE2_API virtual E_RESULT_CODE ConfigureImGUIContext(IImGUIContextVisitor* pVisitor) const = 0;
+
+			/*!
+				\return The method returns an array of all screen resolutions that current active monitor supports
+			*/
+
+			TDE2_API virtual std::vector<TScreenResolutionInfo> GetAvailableScreenResolutions() const = 0;
 
 #if TDE2_EDITORS_ENABLED
 			/*!

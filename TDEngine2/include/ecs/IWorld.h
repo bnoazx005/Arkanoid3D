@@ -38,6 +38,7 @@ namespace TDEngine2
 	TDE2_DECLARE_SCOPED_PTR(IJobManager)
 	TDE2_DECLARE_SCOPED_PTR(IRaycastContext)
 	TDE2_DECLARE_SCOPED_PTR(IComponentFactory)
+	TDE2_DECLARE_SCOPED_PTR(ISystem)
 
 
 	/*!
@@ -451,6 +452,8 @@ namespace TDEngine2
 			TDE2_API virtual CEntityManager* GetEntityManager() const = 0;
 
 			TDE2_API virtual F32 GetTimeScaleFactor() const = 0;
+
+			TDE2_API virtual TPtr<ISystem> GetSystem(TSystemId handle) = 0;
 
 #if TDE2_EDITORS_ENABLED
 			TDE2_API virtual const std::vector<TComponentTypeInfo>& GetRegisteredComponentsIdentifiers() const = 0;
