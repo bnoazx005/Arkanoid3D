@@ -3,9 +3,10 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 1526750966
+              - child_id: 1364425004
               - child_id: 2135612789
-            owner_id: 2130775831
+              - child_id: 1463129365
+            owner_id: 1326427386
             parent_id: 4294967295
             pivot: 
               x: 0.000000
@@ -38,26 +39,77 @@ entities:
         - component: 
             height: 768
             inherit_camera_sizes: 1
-            priority: 0
+            priority: 1
             type_id: 3433087876
             width: 1024
         - component: 
             back_button_entity_id: 
               ref_path: 2135612789
             type_id: 1120874361
-      id: 2130775831
+      id: 1326427386
       name: SettingsMenu_Root
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 1463129365
+            parent_id: 1326427386
+            pivot: 
+              x: 150.000000
+              y: 100.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 150.000000
+              y: 100.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 150.000000
+              y: 100.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: DefaultResources/Textures/DefaultUIWhite_Sprite.png
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 1463129365
+      name: Background
   - link: 
       id: 2135612789
-      parent_id: 2130775831
+      parent_id: 1326427386
       position: 
         x: 0.000000
       prefab_id: BackButton
   - entity: 
       components: 
         - component: 
-            owner_id: 1526750966
-            parent_id: 2130775831
+            owner_id: 1364425004
+            parent_id: 1326427386
             pivot: 
               x: 462.000000
               y: 668.000000
@@ -99,5 +151,5 @@ entities:
             text: Settings
             text_height: 48
             type_id: 2847853640
-      id: 1526750966
+      id: 1364425004
       name: Title

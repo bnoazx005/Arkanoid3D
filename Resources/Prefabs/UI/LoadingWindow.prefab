@@ -31,7 +31,8 @@ entities:
             type_id: 2172495824
         - component: 
             height: 768
-            inherit_camera_sizes: 0
+            inherit_camera_sizes: 1
+            priority: 1
             type_id: 3433087876
             width: 1024
         - component: 
