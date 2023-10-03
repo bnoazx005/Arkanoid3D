@@ -45,6 +45,8 @@ collection:
     prefab_id: SettingsMenuWindowUI
   - path: ProjectResources/Prefabs/UI/BackButton.prefab
     prefab_id: BackButton
+  - path: ProjectResources/Prefabs/UI/CreditsLabel.prefab
+    prefab_id: CreditsLabel
 meta: 
   resource_type: prefabs_manifest
   version_tag: 1

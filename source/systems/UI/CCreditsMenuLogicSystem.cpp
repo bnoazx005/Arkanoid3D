@@ -24,7 +24,7 @@ namespace Game
 		{
 			return RC_INVALID_ARGS;
 		}
-
+		
 		mpGameModesManager = params.mpGameModesManager;
 		mpEventManager = params.mpEventManager;
 		mpSceneManager = params.mpSceneManager;
