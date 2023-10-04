@@ -3,10 +3,10 @@ entities:
       components: 
         - component: 
             Children: 
-              - child_id: 1364425004
+              - child_id: 3506267980
+              - child_id: 475289455
               - child_id: 2135612789
-              - child_id: 1463129365
-            owner_id: 1326427386
+            owner_id: 355823221
             parent_id: 4294967295
             pivot: 
               x: 0.000000
@@ -46,13 +46,21 @@ entities:
             back_button_entity_id: 
               ref_path: 2135612789
             type_id: 1120874361
-      id: 1326427386
+      id: 355823221
       name: SettingsMenu_Root
+  - link: 
+      id: 2135612789
+      parent_id: 355823221
+      position: 
+        x: 0.000000
+      prefab_id: BackButton
   - entity: 
       components: 
         - component: 
-            owner_id: 1463129365
-            parent_id: 1326427386
+            Children: 
+              - child_id: 1582955535
+            owner_id: 475289455
+            parent_id: 355823221
             pivot: 
               x: 150.000000
               y: 100.000000
@@ -65,6 +73,10 @@ entities:
               y: 1.000000
               z: 1.000000
             type_id: 3864726948
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
         - component: 
             angle: 0.000000
             max_anchor: 
@@ -97,19 +109,1537 @@ entities:
             sprite_id: DefaultResources/Textures/DefaultUIWhite_Sprite.png
             top_slice: 0.750000
             type_id: 3937045844
-      id: 1463129365
+      id: 475289455
       name: Background
-  - link: 
-      id: 2135612789
-      parent_id: 1326427386
-      position: 
-        x: 0.000000
-      prefab_id: BackButton
   - entity: 
       components: 
         - component: 
-            owner_id: 1364425004
-            parent_id: 1326427386
+            Children: 
+              - child_id: 3236045722
+              - child_id: 4287328769
+              - child_id: 1454574253
+              - child_id: 336685455
+            owner_id: 1582955535
+            parent_id: 475289455
+            pivot: 
+              x: 250.000000
+              y: 100.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 100.000000
+              y: 100.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 100.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT
+            cell_size: 
+              x: 500.000000
+              y: 50.000000
+            spacing: 
+              x: 10.000000
+              y: 30.000000
+            type_id: 4085334425
+      id: 1582955535
+      name: Settings_Root
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 1721718850
+              - child_id: 2827713676
+            owner_id: 336685455
+            parent_id: 1582955535
+            pivot: 
+              x: 250.000000
+              y: 278.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 500.000000
+              y: 50.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-290.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+      id: 336685455
+      name: SoundFX_Setting
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 3928813022
+            owner_id: 2827713676
+            parent_id: 336685455
+            pivot: 
+              x: 360.000000
+              y: 288.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 240.000000
+              y: 20.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 110.000000
+              y: 10.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            marker_entity_ref: 3928813022
+            max_value: 1.000000
+            min_value: 0.000000
+            type_id: 2640243945
+            value: 0.500000
+      id: 2827713676
+      name: Slider
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3928813022
+            parent_id: 2827713676
+            pivot: 
+              x: 360.000000
+              y: 288.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 19.000000
+              y: 19.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 3928813022
+      name: Marker
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 3001820782
+            owner_id: 1721718850
+            parent_id: 336685455
+            pivot: 
+              x: 250.000000
+              y: 278.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 35.000000
+              y: 35.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            marker_entity_ref: 3001820782
+            state: 1
+            type_id: 4114724906
+      id: 1721718850
+      name: Toggle
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3001820782
+            parent_id: 1721718850
+            pivot: 
+              x: 255.000000
+              y: 283.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 5.000000
+              y: 5.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 5.000000
+              y: 5.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 3001820782
+      name: Marker
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 2186820275
+              - child_id: 2302292176
+            owner_id: 1454574253
+            parent_id: 1582955535
+            pivot: 
+              x: 250.000000
+              y: 358.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 500.000000
+              y: 50.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-210.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+      id: 1454574253
+      name: Music_Setting
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 1107519155
+            owner_id: 2302292176
+            parent_id: 1454574253
+            pivot: 
+              x: 360.000000
+              y: 368.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 240.000000
+              y: 20.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 110.000000
+              y: 10.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            marker_entity_ref: 1107519155
+            max_value: 1.000000
+            min_value: 0.000000
+            type_id: 2640243945
+            value: 0.500000
+      id: 2302292176
+      name: Slider
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 1107519155
+            parent_id: 2302292176
+            pivot: 
+              x: 360.000000
+              y: 368.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 19.000000
+              y: 19.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 1107519155
+      name: Marker
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 3302785990
+            owner_id: 2186820275
+            parent_id: 1454574253
+            pivot: 
+              x: 250.000000
+              y: 358.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 35.000000
+              y: 35.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            marker_entity_ref: 3302785990
+            state: 1
+            type_id: 4114724906
+      id: 2186820275
+      name: Toggle
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3302785990
+            parent_id: 2186820275
+            pivot: 
+              x: 255.000000
+              y: 363.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 5.000000
+              y: 5.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 5.000000
+              y: 5.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 3302785990
+      name: Marker
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 474440902
+              - child_id: 903491542
+            owner_id: 4287328769
+            parent_id: 1582955535
+            pivot: 
+              x: 250.000000
+              y: 438.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 500.000000
+              y: 50.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-130.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+      id: 4287328769
+      name: Language_Setting
+  - entity: 
+      components: 
+        - component: 
+            content_entity_ref: 4183289727
+            item_prefab_ref: 3256457235
+            label_entity_ref: 3154670519
+            popup_root_entity_ref: 2134821436
+            selected_item: 0
+            type_id: 2191015829
+        - component: 
+            Children: 
+              - child_id: 3256457235
+              - child_id: 2134821436
+              - child_id: 3154670519
+            owner_id: 903491542
+            parent_id: 4287328769
+            pivot: 
+              x: 350.000000
+              y: 448.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 250.000000
+              y: 32.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 100.000000
+              y: 10.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 903491542
+      name: Language_DropDown
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3154670519
+            parent_id: 903491542
+            pivot: 
+              x: 350.000000
+              y: 448.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text_height: 24
+            type_id: 2847853640
+      id: 3154670519
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 4124106048
+            owner_id: 2134821436
+            parent_id: 903491542
+            pivot: 
+              x: 250.000000
+              y: 318.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+            max_offset: 
+              y: 10.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              y: "-120.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            type_id: 2601797433
+      id: 2134821436
+      name: Content
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 4183289727
+            owner_id: 4124106048
+            parent_id: 2134821436
+            pivot: 
+              x: 0.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 1
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            content_entity_ref: 4183289727
+            enabled: 1
+            is_horizontal: 1
+            is_vertical: 1
+            normalized_scroll_pos: 
+              x: 0.000000
+            scroll_speed: 25.000000
+            type_id: 2892758178
+        - component: 
+            type_id: 3516518085
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              r: 0.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 4124106048
+      name: ScrollArea
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 4183289727
+            parent_id: 4124106048
+            pivot: 
+              y: "-300.000000"
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 256.000000
+              y: 300.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-300.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_TOP
+            cell_size: 
+              x: 256.000000
+              y: 32.000000
+            spacing: 
+              x: 10.000000
+              y: 10.000000
+            type_id: 4085334425
+      id: 4183289727
+      name: Content
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3256457235
+            parent_id: 903491542
+            pivot: 
+              x: 0.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            type_id: 2601797433
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text_height: 24
+            type_id: 2847853640
+      id: 3256457235
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 474440902
+            parent_id: 4287328769
+            pivot: 
+              x: 250.000000
+              y: 438.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 100.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: Language
+            text_height: 24
+            type_id: 2847853640
+      id: 474440902
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 3820571528
+              - child_id: 893490920
+              - child_id: 879321100
+              - child_id: 2689461910
+            owner_id: 3236045722
+            parent_id: 1582955535
+            pivot: 
+              x: 250.000000
+              y: 518.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 500.000000
+              y: 50.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-50.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+      id: 3236045722
+      name: ScreenResolution_Setting
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 2303698207
+            owner_id: 2689461910
+            parent_id: 3236045722
+            pivot: 
+              x: 700.000000
+              y: 523.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+            max_offset: 
+              x: 40.000000
+              y: 40.000000
+            min_anchor: 
+              x: 1.000000
+            min_offset: 
+              x: "-50.000000"
+              y: 5.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+              b: 1.000000
+              g: 1.000000
+              r: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            marker_entity_ref: 2303698207
+            state: 1
+            type_id: 4114724906
+      id: 2689461910
+      name: FullScreen_Toggle
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 2303698207
+            parent_id: 2689461910
+            pivot: 
+              x: 705.000000
+              y: 528.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 5.000000
+              y: 5.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 5.000000
+              y: 5.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 1.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 2303698207
+      name: Marker
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 879321100
+            parent_id: 3236045722
+            pivot: 
+              x: 600.000000
+              y: 518.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 100.000000
+            min_anchor: 
+              x: 1.000000
+            min_offset: 
+              x: "-150.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: Fullscreen
+            text_height: 24
+            type_id: 2847853640
+      id: 879321100
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 893490920
+            parent_id: 3236045722
+            pivot: 
+              x: 250.000000
+              y: 518.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 100.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text: Resolution
+            text_height: 24
+            type_id: 2847853640
+      id: 893490920
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            content_entity_ref: 2718784140
+            item_prefab_ref: 1765091954
+            label_entity_ref: 868722041
+            popup_root_entity_ref: 3117647611
+            selected_item: 0
+            type_id: 2191015829
+        - component: 
+            Children: 
+              - child_id: 1765091954
+              - child_id: 3117647611
+              - child_id: 868722041
+            owner_id: 3820571528
+            parent_id: 3236045722
+            pivot: 
+              x: 350.000000
+              y: 528.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 0.000000
+            max_offset: 
+              x: 250.000000
+              y: 32.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 100.000000
+              y: 10.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+      id: 3820571528
+      name: ScreenResolution_DropDown
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 868722041
+            parent_id: 3820571528
+            pivot: 
+              x: 350.000000
+              y: 528.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text_height: 24
+            type_id: 2847853640
+      id: 868722041
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 2642682459
+            owner_id: 3117647611
+            parent_id: 3820571528
+            pivot: 
+              x: 379.000000
+              y: 410.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+            max_offset: 
+              y: 10.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              y: "-120.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              a: 0.350000
+              b: 0.350000
+              g: 0.350000
+              r: 0.350000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            type_id: 2601797433
+      id: 3117647611
+      name: Content
+  - entity: 
+      components: 
+        - component: 
+            Children: 
+              - child_id: 2718784140
+            owner_id: 2642682459
+            parent_id: 3117647611
+            pivot: 
+              x: 379.000000
+              y: 410.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            bypass_enabled: 1
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            content_entity_ref: 2718784140
+            enabled: 1
+            is_horizontal: 1
+            is_vertical: 1
+            normalized_scroll_pos: 
+              x: 0.000000
+            scroll_speed: 25.000000
+            type_id: 2892758178
+        - component: 
+            type_id: 3516518085
+        - component: 
+            bottom_slice: 0.250000
+            color: 
+              r: 0.000000
+            left_slice: 0.250000
+            margin: 0.100000
+            right_slice: 0.750000
+            sprite_id: ProjectResources/Textures/DefaultSprite.tga
+            top_slice: 0.750000
+            type_id: 3937045844
+        - component: 
+            type_id: 35696710
+      id: 2642682459
+      name: ScrollArea
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 2718784140
+            parent_id: 2642682459
+            pivot: 
+              x: 379.000000
+              y: 220.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              y: 1.000000
+            max_offset: 
+              x: 256.000000
+              y: 300.000000
+            min_anchor: 
+              y: 1.000000
+            min_offset: 
+              y: "-300.000000"
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            align_type: LEFT_TOP
+            cell_size: 
+              x: 256.000000
+              y: 32.000000
+            spacing: 
+              x: 10.000000
+              y: 10.000000
+            type_id: 4085334425
+        - component: 
+            type_id: 35696710
+      id: 2718784140
+      name: Content
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 1765091954
+            parent_id: 3820571528
+            pivot: 
+              x: 0.000000
+            position: 
+              x: 0.000000
+            rotation: 
+              w: 1.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+              z: 1.000000
+            type_id: 3864726948
+        - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
+            angle: 0.000000
+            max_anchor: 
+              x: 1.000000
+              y: 1.000000
+            max_offset: 
+              x: 0.000000
+            min_anchor: 
+              x: 0.000000
+            min_offset: 
+              x: 0.000000
+            pivot: 
+              x: 0.000000
+            scale: 
+              x: 1.000000
+              y: 1.000000
+            type_id: 2172495824
+        - component: 
+            type_id: 2601797433
+        - component: 
+            align_type: LEFT_CENTER
+            color: 
+              a: 1.000000
+            font: OpenSans.font
+            overflow_policy_type: NO_BREAK
+            text_height: 24
+            type_id: 2847853640
+      id: 1765091954
+      name: Text
+  - entity: 
+      components: 
+        - component: 
+            owner_id: 3506267980
+            parent_id: 355823221
             pivot: 
               x: 462.000000
               y: 668.000000
@@ -151,5 +1681,5 @@ entities:
             text: Settings
             text_height: 48
             type_id: 2847853640
-      id: 1364425004
+      id: 3506267980
       name: Title
