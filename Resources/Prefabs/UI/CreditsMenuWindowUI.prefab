@@ -240,6 +240,10 @@ entities:
               z: 1.000000
             type_id: 3864726948
         - component: 
+            bypass_enabled: 0
+            ignore_input: 0
+            type_id: 751163885
+        - component: 
             angle: 0.000000
             max_anchor: 
               x: 1.000000
